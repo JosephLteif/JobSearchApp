@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import Connection.ConnectionManager;
+import Helpers.ConnectionManager;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -122,7 +122,7 @@ public class loginFrm extends javax.swing.JFrame {
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
                 String pass = new String(this.passwordField.getPassword());
-        if ((this.usernameField.getText().equals("admin") && pass.equals("admin")) || con.login(this.usernameField.getText(), pass)) {
+        if ((this.usernameField.getText().equals("admin") && pass.equals("admin"))/* || con.login(this.usernameField.getText(), pass)*/) {
             new appHome(this.usernameField.getText()).setVisible(true);
             this.dispose();
         } else {
