@@ -107,14 +107,14 @@ public class FileChooser extends javax.swing.JFrame {
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         // TODO add your handling code here:
-        Image I;
-        try {
-            I = resizeImage(ImageIO.read(jFileChooser1.getSelectedFile()), 144, 144);
-            appHome.ImageLabel.setIcon(new ImageIcon(I));
-            ConnectionManager.InsertImage(appHome.username, jFileChooser1.getSelectedFile().getAbsolutePath());
-        } catch (IOException ex) {
-            Logger.getLogger(FileChooser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        Image I;
+//        try {
+//            I = resizeImage(ImageIO.read(jFileChooser1.getSelectedFile()), 144, 144);
+//            appHome.ImageLabel.setIcon(new ImageIcon(I));
+//            ConnectionManager.InsertImage(appHome.username, jFileChooser1.getSelectedFile().getAbsolutePath());
+//        } catch (IOException ex) {
+//            Logger.getLogger(FileChooser.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
     /**
