@@ -5,14 +5,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MySQLConnectionManager {
-    private static final String connectionString = "jdbc:mysql://localhost:3306/jobsearchapp?user=root";
+    private static final String ConnectionManager= "jdbc:mysql://localhost:3306/jobsearchapp?user=root&password=toor";
     private static Connection connection = null;
     public static int numberOfOpenedConnections = 0;
 
     public static Connection getConnection(){
         try {
             if(connection == null || connection.isClosed())
-                connection = DriverManager.getConnection(connectionString);
+                connection = DriverManager.getConnection(ConnectionManager);
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }

@@ -5,15 +5,24 @@
  */
 package Forms;
 
+import DTO.User;
+import Repositories.RepoUser;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import utilities.Regex;
+import utilities.SendEmail;
+
 /**
  *
  * @author joelt
  */
 public class signUpFrm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form signUp
-     */
+    int gender=1;
+    SendEmail sendmail=new SendEmail();
+    
+   
+     RepoUser repoUser=new RepoUser();
     public signUpFrm() {
         initComponents();
     }
@@ -27,10 +36,25 @@ public class signUpFrm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtFname = new javax.swing.JTextField();
+        txtLname = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtPass = new javax.swing.JPasswordField();
+        jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txtCpass = new javax.swing.JPasswordField();
+        ComboGender = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -44,17 +68,172 @@ public class signUpFrm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Sign Up");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 60));
+        jButton2.setText("X");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, -1, -1));
 
-        jLabel2.setText("Coming soon!");
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 70));
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
+        jLabel3.setText("First name");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 90, 30));
+
+        jLabel4.setText("Last name");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
+
+        jLabel5.setText("Email");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+
+        jLabel6.setText("Password");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
+
+        txtFname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFnameActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtFname, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 160, -1));
+
+        txtLname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLnameActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtLname, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 160, -1));
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 160, -1));
+        jPanel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 160, -1));
+
+        jLabel7.setText("Gender");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+
+        jButton1.setText("Sign up");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, -1, -1));
+
+        jLabel8.setText("Confirm Password");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
+        jPanel1.add(txtCpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 160, -1));
+
+        ComboGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Female", "Male" }));
+        ComboGender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboGenderActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ComboGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtFnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFnameActionPerformed
+
+    private void txtLnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLnameActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String fn=this.txtFname.getText();
+        String ln=this.txtLname.getText();
+        String email=this.txtEmail.getText();
+        String pass=this.txtPass.getText();
+        String cpass=this.txtCpass.getText();     
+        if (ComboGender.getSelectedItem().equals("Male")){
+            gender=2;
+        }
+       
+        String ems="";
+        
+           
+         
+               
+           
+           Component frame = null;
+//           if (gender==0){    
+//               JOptionPane.showMessageDialog(frame, "Gender not selected!",
+//               "Sign up failed", JOptionPane.ERROR_MESSAGE); 
+//               
+//           }
+         if (fn.equals("")||ln.equals("")||email.equals("")||pass.equals("")||cpass.equals("")){
+           if (fn.equals("")){    
+               ems=ems+ "You must enter your first name.\n";
+               
+           }
+           
+           if (ln.equals("")){
+               ems=ems+"You must enter your last name";
+               
+           
+               
+           }
+           if (email.equals("")){
+              ems=ems+ "You must enter a valid email";
+             
+           }
+           if (pass.equals("")){
+               
+              ems=ems+"You must enter a password!";
+               
+           }
+           else if (!Regex.isValidPassword(pass)){
+                   
+                   ems=ems+"Invalid password!";
+               
+               }
+        
+           if (cpass.equals("")){
+               ems=ems+"You must confirm your password!";  
+           }
+            else if (!pass.equals(cpass)){
+              ems=ems+"Passwords don't match!";
+              
+           }
+            
+           JOptionPane.showMessageDialog(frame, ems,
+               "Sign up failed", JOptionPane.ERROR_MESSAGE);
+           }
+         
+      else{   
+         try{
+           
+          User newUser=new User(fn,ln,email,pass,gender);
+           if(repoUser.create(newUser)){
+               
+           String sub="Sign up successful!";
+           String body="Dear "+newUser.getFname()+" "+newUser.getLname()+",\n We'd like to welcome you in our app!Hoping that you'll find your dream job through our app!\n "
+                   + "For any complaints, you can reach us on this email.";
+           String[] mails=new String[1];
+           mails[0]=newUser.getEmail();
+           sendmail.sendFromGmail(mails,sub,body);
+             
+           }
+          }catch(Exception e){   
+               e.printStackTrace();
+           };
+           }
+         this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void ComboGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboGenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboGenderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -93,9 +272,24 @@ public class signUpFrm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ComboGender;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JPasswordField txtCpass;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFname;
+    private javax.swing.JTextField txtLname;
+    private javax.swing.JPasswordField txtPass;
     // End of variables declaration//GEN-END:variables
 }
