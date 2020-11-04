@@ -109,6 +109,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         EditButton = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         Title = new javax.swing.JLabel();
+        profilePicture = new javax.swing.JLabel();
         SearchPanel = new javax.swing.JTabbedPane();
         SearchUsers = new javax.swing.JPanel();
         SearchBar = new javax.swing.JTextField();
@@ -366,7 +367,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLabel11.setBackground(new java.awt.Color(0, 0, 0));
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Upload image");
-        ProfilePanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 94, -1, -1));
+        ProfilePanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
         jLabel6.setBackground(new java.awt.Color(0, 0, 0));
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -395,6 +396,12 @@ public class AppHomeForm extends javax.swing.JFrame {
         Title.setForeground(new java.awt.Color(0, 0, 0));
         Title.setText("Title");
         ProfilePanel.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 88, 350, 60));
+
+        profilePicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/e01d8c8ac8d02856d9ca18a0_rw_1920_1.jpg"))); // NOI18N
+        profilePicture.setMaximumSize(new java.awt.Dimension(100, 100));
+        profilePicture.setMinimumSize(new java.awt.Dimension(100, 100));
+        profilePicture.setPreferredSize(new java.awt.Dimension(100, 100));
+        ProfilePanel.add(profilePicture, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, -1));
 
         SearchPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -828,6 +835,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     public static javax.swing.JTextField jTextField9;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JPanel profileOption;
+    private javax.swing.JLabel profilePicture;
     private javax.swing.JPanel searchOption;
     // End of variables declaration//GEN-END:variables
 }
