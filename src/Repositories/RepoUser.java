@@ -12,16 +12,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import Helpers.MySQLConnectionManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Lama
  */
 public class RepoUser {
    
-Connection con=null;
-Statement stmt=null;
-ResultSet rs=null;
-PreparedStatement ps=null;
+private static Connection con=null;
+private static Statement stmt=null;
+private static ResultSet rs=null;
+private static PreparedStatement ps=null;
    
    
 
@@ -50,5 +52,20 @@ public RepoUser(){
              System.out.println(ex);
              }
      return false;
-    }        
+    }
+    
+    public static boolean login(User u){
+    try {
+        ps = con.prepareStatement("Select firstName, password from user;");
+        rs = ps.executeQuery();
+        while(rs.next()){
+            if(rs.getString(1).equals(u.getFname()) && rs.getString(2).equals(u.getPassword())){
+                return true;
+            }
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(RepoUser.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return false;
+    }
 }

@@ -8,6 +8,9 @@ package Forms;
 import DTO.User;
 import Repositories.RepoUser;
 import java.awt.Component;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 import utilities.Regex;
 import utilities.SendEmail;
@@ -16,14 +19,15 @@ import utilities.SendEmail;
  *
  * @author joelt
  */
-public class signUpFrm extends javax.swing.JFrame {
+public class SignUpForm extends javax.swing.JFrame {
 
-    int gender=1;
-    SendEmail sendmail=new SendEmail();
-    
-   
-     RepoUser repoUser=new RepoUser();
-    public signUpFrm() {
+
+    int gender = 1;
+    SendEmail sendmail = new SendEmail();
+
+    RepoUser repoUser = new RepoUser();
+
+    public SignUpForm() {
         initComponents();
     }
 
@@ -146,89 +150,85 @@ public class signUpFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLnameActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String fn=this.txtFname.getText();
-        String ln=this.txtLname.getText();
-        String email=this.txtEmail.getText();
-        String pass=this.txtPass.getText();
-        String cpass=this.txtCpass.getText();     
-        if (ComboGender.getSelectedItem().equals("Male")){
-            gender=2;
+        String fn = this.txtFname.getText();
+        String ln = this.txtLname.getText();
+        String email = this.txtEmail.getText();
+        String pass = this.txtPass.getText();
+        String cpass = this.txtCpass.getText();
+        if (ComboGender.getSelectedItem().equals("Male")) {
+            gender = 2;
         }
-       
-        String ems="";
-        
-           
-         
-               
-           
-           Component frame = null;
+
+        String ems = "";
+
+        Component frame = null;
 //           if (gender==0){    
 //               JOptionPane.showMessageDialog(frame, "Gender not selected!",
 //               "Sign up failed", JOptionPane.ERROR_MESSAGE); 
 //               
 //           }
-         if (fn.equals("")||ln.equals("")||email.equals("")||pass.equals("")||cpass.equals("")){
-           if (fn.equals("")){    
-               ems=ems+ "You must enter your first name.\n";
-               
-           }
-           
-           if (ln.equals("")){
-               ems=ems+"You must enter your last name";
-               
-           
-               
-           }
-           if (email.equals("")){
-              ems=ems+ "You must enter a valid email";
-             
-           }
-           if (pass.equals("")){
-               
-              ems=ems+"You must enter a password!";
-               
-           }
-           else if (!Regex.isValidPassword(pass)){
-                   
-                   ems=ems+"Invalid password!";
-               
-               }
-        
-           if (cpass.equals("")){
-               ems=ems+"You must confirm your password!";  
-           }
-            else if (!pass.equals(cpass)){
-              ems=ems+"Passwords don't match!";
-              
-           }
-            
-           JOptionPane.showMessageDialog(frame, ems,
-               "Sign up failed", JOptionPane.ERROR_MESSAGE);
-           }
-         
-      else{   
-         try{
-           
-          User newUser=new User(fn,ln,email,pass,gender);
-           if(repoUser.create(newUser)){
-               
-           String sub="Sign up successful!";
-           String body="Dear "+newUser.getFname()+" "+newUser.getLname()+",\n We'd like to welcome you in our app!Hoping that you'll find your dream job through our app!\n "
-                   + "For any complaints, you can reach us on this email.";
-           String[] mails=new String[1];
-           mails[0]=newUser.getEmail();
-           sendmail.sendFromGmail(mails,sub,body);
-             
-           }
-          }catch(Exception e){   
-               e.printStackTrace();
-           };
-           }
-         this.dispose();
+        if (fn.equals("") || ln.equals("") || email.equals("") || pass.equals("") || cpass.equals("")) {
+            if (fn.equals("")) {
+                ems = ems + "You must enter your first name.\n";
+
+            }
+
+            if (ln.equals("")) {
+                ems = ems + "You must enter your last name";
+
+            }
+            if (email.equals("")) {
+                ems = ems + "You must enter a valid email";
+
+            }
+            if (pass.equals("")) {
+
+                ems = ems + "You must enter a password!";
+
+            } else if (!Regex.isValidPassword(pass)) {
+
+                ems = ems + "Invalid password!";
+
+            }
+
+            if (cpass.equals("")) {
+                ems = ems + "You must confirm your password!";
+            } else if (!pass.equals(cpass)) {
+                ems = ems + "Passwords don't match!";
+
+            }
+
+            JOptionPane.showMessageDialog(frame, ems,
+                    "Sign up failed", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                                User newUser = new User(fn, ln, email, pass, gender);
+                if (repoUser.create(newUser)) {
+                    Thread T1 = new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            String sub = "Sign up successful!";
+                            String body = "Dear " + newUser.getFname() + " " + newUser.getLname() + ",\n We'd like to welcome you in our app!Hoping that you'll find your dream job through our app!\n "
+                                    + "For any complaints, you can reach us on this email.";
+                            String[] mails = new String[1];
+                            mails[0] = newUser.getEmail();
+                            sendmail.sendFromGmail(mails, sub, body);
+                        } catch (MessagingException ex) {
+                            Logger.getLogger(SignUpForm.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+                    T1.start();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            };
+        }
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ComboGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboGenderActionPerformed
@@ -252,21 +252,23 @@ public class signUpFrm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(signUpFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(signUpFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(signUpFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(signUpFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new signUpFrm().setVisible(true);
+                new SignUpForm().setVisible(true);
             }
         });
     }

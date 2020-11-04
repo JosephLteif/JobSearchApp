@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import Forms.loginFrm;
+import Forms.LoginForm;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -24,7 +24,7 @@ public class JobSearchApp {
         try {
             UIManager.setLookAndFeel(
                     UIManager.getCrossPlatformLookAndFeelClassName());
-            new loginFrm().setVisible(true);
+            new LoginForm().setVisible(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(JobSearchApp.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {

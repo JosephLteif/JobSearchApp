@@ -15,14 +15,14 @@ import javax.swing.JOptionPane;
  *
  * @author joelt
  */
-public class loginFrm extends javax.swing.JFrame {
+public class LoginForm extends javax.swing.JFrame {
     
         MySQLConnectionManager con;
 
     /**
      * Creates new form loginFrm
      */
-    public loginFrm() {
+    public LoginForm() {
                 initComponents();
         con = new MySQLConnectionManager();
         Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\joelt\\Documents\\NetBeansProjects\\JavaApplication1\\src\\javaapplication1\\AppLogo.png");
@@ -123,7 +123,7 @@ public class loginFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
                 String pass = new String(this.passwordField.getPassword());
         if ((this.usernameField.getText().equals("admin") && pass.equals("admin"))/* || con.login(this.usernameField.getText(), pass)*/) {
-            new appHomeFrm(this.usernameField.getText()).setVisible(true);
+            new AppHomeForm(this.usernameField.getText()).setVisible(true);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Username or password incorrect");
@@ -132,7 +132,7 @@ public class loginFrm extends javax.swing.JFrame {
 
     private void signUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpActionPerformed
         // TODO add your handling code here:
-        new signUpFrm().setVisible(true);
+        new SignUpForm().setVisible(true);
     }//GEN-LAST:event_signUpActionPerformed
 
     /**
@@ -152,20 +152,23 @@ public class loginFrm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(loginFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(loginFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(loginFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(loginFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new loginFrm().setVisible(true);
+                new LoginForm().setVisible(true);
             }
         });
     }
