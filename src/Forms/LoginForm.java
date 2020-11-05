@@ -8,9 +8,8 @@ package Forms;
 import DTO.User;
 import Helpers.MySQLConnectionManager;
 import Repositories.RepoUser;
-import java.awt.Image;
-import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import utilities.AES;
 
 
 /**
@@ -27,8 +26,6 @@ public class LoginForm extends javax.swing.JFrame{
     public LoginForm() {
         initComponents();
         con = new MySQLConnectionManager();
-//        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\joelt\\Documents\\NetBeansProjects\\JavaApplication1\\src\\javaapplication1\\AppLogo.png");
-//        this.setIconImage(icon);
         title.requestFocus(true);
     }
 
@@ -68,6 +65,8 @@ public class LoginForm extends javax.swing.JFrame{
         jPanel2.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 52));
+
+        usernameField.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(usernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 240, 30));
 
         jLabel2.setText("Email");
@@ -95,6 +94,8 @@ public class LoginForm extends javax.swing.JFrame{
             }
         });
         jPanel1.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 200, -1));
+
+        passwordField.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 240, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/JobifyLogo.png"))); // NOI18N
@@ -124,7 +125,7 @@ public class LoginForm extends javax.swing.JFrame{
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
                 String pass = new String(this.passwordField.getPassword());
-        if ((this.usernameField.getText().equals("admin") && pass.equals("admin")) || RepoUser.login(new User(this.usernameField.getText(),null,null,pass,0))) {
+        if ((this.usernameField.getText().equals("admin") && pass.equals("admin")) || new RepoUser().login(new User(this.usernameField.getText(),null,null,AES.encrypt(pass),0))) {
             new AppHomeForm(this.usernameField.getText()).setVisible(true);
             this.dispose();
         } else {
@@ -138,7 +139,6 @@ public class LoginForm extends javax.swing.JFrame{
     }//GEN-LAST:event_signUpActionPerformed
 
     /**
-     * @param args the command line arguments
      */
     public static void loginFrm() {
         /* Set the Nimbus look and feel */
@@ -168,10 +168,8 @@ public class LoginForm extends javax.swing.JFrame{
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LoginForm().setVisible(true);
         });
     }
 

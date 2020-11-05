@@ -18,17 +18,14 @@ public class Regex {
     public static boolean isValidPassword(String password) {
 
         // Regex to check valid password. 
-        String regex = "^(?=.*[0-9])"
-                + "(?=.*[a-z])(?=.*[A-Z])"
-                + "(?=.*[@#$%^&+=])"
-                + "(?=\\S+$).{8,20}$";
+        String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
 
         // Compile the ReGex 
         Pattern p = Pattern.compile(regex);
 
         // If the password is empty 
         // return false 
-        if (password == null) {
+        if (password.equals("")) {
             return false;
         }
 
@@ -53,7 +50,7 @@ public class Regex {
 
         // If the username is empty 
         // return false 
-        if (name == null) {
+        if (name.equals("")) {
             return false;
         }
 
@@ -63,6 +60,54 @@ public class Regex {
         Matcher m = p.matcher(name);
 
         // Return if the username 
+        // matched the ReGex 
+        return m.matches();
+    }
+
+    public static boolean isValidEmail(String email) {
+
+        // Regex to check valid email. 
+        String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+
+        // Compile the ReGex 
+        Pattern p = Pattern.compile(regex);
+
+        // If the email is empty 
+        // return false 
+        if (email.equals("")) {
+            return false;
+        }
+
+        // Pattern class contains matcher() method 
+        // to find matching between given email 
+        // and regular expression. 
+        Matcher m = p.matcher(email);
+
+        // Return if the email 
+        // matched the ReGex 
+        return m.matches();
+    }
+
+    public static boolean isValidName(String name) {
+
+        // Regex to check valid name. 
+        String regex = "\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+";
+
+        // Compile the ReGex 
+        Pattern p = Pattern.compile(regex);
+
+        // If the name is empty 
+        // return false 
+        if (name.equals("")) {
+            return false;
+        }
+
+        // Pattern class contains matcher() method 
+        // to find matching between given name 
+        // and regular expression. 
+        Matcher m = p.matcher(name);
+
+        // Return if the name 
         // matched the ReGex 
         return m.matches();
     }

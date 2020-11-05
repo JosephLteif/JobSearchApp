@@ -5,6 +5,8 @@
  */
 package DTO;
 
+import java.io.InputStream;
+
 /**
  *
  * @author Lama
@@ -23,6 +25,17 @@ public class User {
     int jobseekerdID;
     boolean isRecruiter;
     String university;
+    InputStream PP;
+
+    public InputStream getPP() {
+        return PP;
+    }
+
+    public void setPP(InputStream PP) {
+        this.PP = PP;
+    }
+    
+    
 
     public User() {
     }

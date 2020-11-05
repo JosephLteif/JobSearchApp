@@ -8,12 +8,14 @@ package Forms;
 import DTO.User;
 import Repositories.RepoUser;
 import java.awt.Component;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
+import utilities.AES;
 import utilities.Regex;
-import utilities.SendEmail;
+import utilities.EmailClass;
 
 /**
  *
@@ -21,11 +23,8 @@ import utilities.SendEmail;
  */
 public class SignUpForm extends javax.swing.JFrame {
 
-
     int gender = 1;
-    SendEmail sendmail = new SendEmail();
-
-    RepoUser repoUser = new RepoUser();
+    EmailClass sendmail = new EmailClass();
 
     public SignUpForm() {
         initComponents();
@@ -44,7 +43,7 @@ public class SignUpForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        X = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -74,13 +73,15 @@ public class SignUpForm extends javax.swing.JFrame {
         jLabel1.setText("Sign Up");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
 
-        jButton2.setText("X");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        X.setBackground(new java.awt.Color(51, 153, 255));
+        X.setForeground(new java.awt.Color(255, 255, 255));
+        X.setText("X");
+        X.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                XActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, -1, -1));
+        jPanel2.add(X, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 70));
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, -1));
@@ -97,25 +98,23 @@ public class SignUpForm extends javax.swing.JFrame {
         jLabel6.setText("Password");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
 
-        txtFname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFnameActionPerformed(evt);
-            }
-        });
+        txtFname.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtFname, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 160, -1));
 
-        txtLname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLnameActionPerformed(evt);
-            }
-        });
+        txtLname.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtLname, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 160, -1));
+
+        txtEmail.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 160, -1));
+
+        txtPass.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 160, -1));
 
         jLabel7.setText("Gender");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
+        jButton1.setBackground(new java.awt.Color(51, 102, 255));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Sign up");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,14 +125,11 @@ public class SignUpForm extends javax.swing.JFrame {
 
         jLabel8.setText("Confirm Password");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
+
+        txtCpass.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtCpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 160, -1));
 
         ComboGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Female", "Male" }));
-        ComboGender.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboGenderActionPerformed(evt);
-            }
-        });
         jPanel1.add(ComboGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 490));
@@ -141,24 +137,16 @@ public class SignUpForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFnameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFnameActionPerformed
-
-    private void txtLnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLnameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLnameActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void XActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_XActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String fn = this.txtFname.getText();
         String ln = this.txtLname.getText();
         String email = this.txtEmail.getText();
-        String pass = this.txtPass.getText();
-        String cpass = this.txtCpass.getText();
+        String pass = Arrays.toString(this.txtPass.getPassword());
+        String cpass = new String(this.txtCpass.getPassword());
         if (ComboGender.getSelectedItem().equals("Male")) {
             gender = 2;
         }
@@ -166,50 +154,26 @@ public class SignUpForm extends javax.swing.JFrame {
         String ems = "";
 
         Component frame = null;
-//           if (gender==0){    
-//               JOptionPane.showMessageDialog(frame, "Gender not selected!",
-//               "Sign up failed", JOptionPane.ERROR_MESSAGE); 
-//               
-//           }
-        if (fn.equals("") || ln.equals("") || email.equals("") || pass.equals("") || cpass.equals("")) {
-            if (fn.equals("")) {
-                ems = ems + "You must enter your first name.\n";
 
-            }
-
-            if (ln.equals("")) {
-                ems = ems + "You must enter your last name";
-
-            }
-            if (email.equals("")) {
-                ems = ems + "You must enter a valid email";
-
-            }
-            if (pass.equals("")) {
-
-                ems = ems + "You must enter a password!";
-
+        if (!Regex.isValidName(fn) || !Regex.isValidName(ln) || !Regex.isValidEmail(email) || !Regex.isValidPassword(pass) || !cpass.equals(pass)) {
+            if (!Regex.isValidName(fn)) {
+                ems = ems + "Invalid first name.\n";
+            } else if (!Regex.isValidName(ln)) {
+                ems = ems + "Invalid last name";
+            } else if (!Regex.isValidEmail(email)) {
+                ems = ems + "Invalid email address";
             } else if (!Regex.isValidPassword(pass)) {
-
                 ems = ems + "Invalid password!";
-
-            }
-
-            if (cpass.equals("")) {
-                ems = ems + "You must confirm your password!";
-            } else if (!pass.equals(cpass)) {
+            } else if (!cpass.equals(pass)) {
                 ems = ems + "Passwords don't match!";
-
             }
-
             JOptionPane.showMessageDialog(frame, ems,
                     "Sign up failed", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
-                                User newUser = new User(fn, ln, email, pass, gender);
-                if (repoUser.create(newUser)) {
-                    Thread T1 = new Thread(new Runnable() {
-                    public void run() {
+                User newUser = new User(fn, ln, email, new AES().encrypt(pass), gender);
+                if (new RepoUser().create(newUser)) {
+                    Thread T1 = new Thread(() -> {
                         try {
                             String sub = "Sign up successful!";
                             String body = "Dear " + newUser.getFname() + " " + newUser.getLname() + ",\n We'd like to welcome you in our app!Hoping that you'll find your dream job through our app!\n "
@@ -220,63 +184,30 @@ public class SignUpForm extends javax.swing.JFrame {
                         } catch (MessagingException ex) {
                             Logger.getLogger(SignUpForm.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    }
-                });
+                    });
                     T1.start();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-            };
+                System.out.println(e.getMessage());
+            }
         }
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void ComboGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboGenderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboGenderActionPerformed
-
     /**
-     * @param args the command line arguments
      */
     public static void signUp() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SignUpForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SignUpForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new SignUpForm().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboGender;
+    private javax.swing.JButton X;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -6,7 +6,6 @@
 package utilities;
 
 import java.util.Properties;
-import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -14,18 +13,21 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
 /**
  *
  * @author Lama
  */
-public class SendEmail {
-   
-    public SendEmail(){
-        
+public class EmailClass {
+
+    public EmailClass() {
+
     }
-    
-    public static String from ="thejobsearchapp@gmail.com";
-    protected static String pass="jobsearch123";
+
+    public static String from = "thejobsearchapp@gmail.com";
+    protected static String pass = "jobsearch123";
+
+    //Used to send emails to a specified email address
     public void sendFromGmail(String[] to, String subject, String body) throws MessagingException {
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
@@ -44,12 +46,12 @@ public class SendEmail {
             InternetAddress[] toAddress = new InternetAddress[to.length];
 
             // To get the array of addresses
-            for( int i = 0; i < to.length; i++ ) {
+            for (int i = 0; i < to.length; i++) {
                 toAddress[i] = new InternetAddress(to[i]);
             }
 
-            for( int i = 0; i < toAddress.length; i++) {
-                message.addRecipient(Message.RecipientType.TO, toAddress[i]);
+            for (InternetAddress toAddres : toAddress) {
+                message.addRecipient(Message.RecipientType.TO, toAddres);
             }
 
             message.setSubject(subject);
@@ -58,11 +60,9 @@ public class SendEmail {
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
-        }
-        catch (AddressException ae) {
-            ae.printStackTrace();
+        } catch (AddressException ae) {
+            System.out.println(ae.getMessage());
         }
     }
+
 }
-
-

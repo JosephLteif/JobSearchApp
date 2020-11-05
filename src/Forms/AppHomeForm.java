@@ -5,9 +5,10 @@
  */
 package Forms;
 
-import Helpers.MySQLConnectionManager;
 import java.awt.Color;
 import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 /**
  *
@@ -22,10 +23,14 @@ public class AppHomeForm extends javax.swing.JFrame {
      * Creates new form appHomeFrm
      */
     public AppHomeForm() {
+        this.oldColor = new Color(51, 102, 255);
+        this.backColor = new Color(51, 153, 255);
         initComponents();
     }
 
     public AppHomeForm(String username) {
+        this.oldColor = new Color(51, 102, 255);
+        this.backColor = new Color(51, 153, 255);
         setUndecorated(true);
         initComponents();
         this.username = username;
@@ -48,6 +53,12 @@ public class AppHomeForm extends javax.swing.JFrame {
         jTextField8.setVisible(false);
         jTextField9.setVisible(false);
     }
+
+    public static void setProfilePanel(ImageIcon I) {
+        profilePicture.setIcon(I);
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,7 +88,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         HomePanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        jTextArea1 = new javax.swing.JTextArea();
+        mainText = new javax.swing.JTextArea();
         ProfilePanel = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
@@ -163,6 +174,9 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Home");
         menuPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+
+        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         menuPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 101, 10));
 
         searchOption.setBackground(new java.awt.Color(51, 102, 255));
@@ -233,15 +247,18 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         jPanel1.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 204, 498));
 
-        X.setBackground(new java.awt.Color(0, 0, 0));
+        X.setBackground(new java.awt.Color(255, 255, 255));
         X.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         X.setText("X");
         X.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                XMouseEntered(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 XMousePressed(evt);
             }
         });
-        jPanel1.add(X, new org.netbeans.lib.awtextra.AbsoluteConstraints(796, 0, -1, -1));
+        jPanel1.add(X, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
 
         HomePanel.setBackground(new java.awt.Color(255, 255, 255));
         HomePanel.setPreferredSize(new java.awt.Dimension(578, 504));
@@ -252,17 +269,21 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Home Page");
         HomePanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
+
+        jSeparator4.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
         HomePanel.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 198, 10));
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextArea1.setRows(5);
-        jTextArea1.setText("This application is used by companes and individuals to \neither apply for an open job opportunity or to offer the \nchance for JobSeekers to access to job opportunities based on \ntheir preferences and to make it easy for business leaders to hire \npeople based on their business needs.\n");
-        jTextArea1.setBorder(null);
-        jTextArea1.setFocusable(false);
-        HomePanel.add(jTextArea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+        mainText.setEditable(false);
+        mainText.setBackground(new java.awt.Color(255, 255, 255));
+        mainText.setColumns(20);
+        mainText.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        mainText.setForeground(new java.awt.Color(0, 0, 0));
+        mainText.setRows(5);
+        mainText.setText("This application is used by companes and individuals to \neither apply for an open job opportunity or to offer the \nchance for JobSeekers to access to job opportunities based on \ntheir preferences and to make it easy for business leaders to hire \npeople based on their business needs.\n");
+        mainText.setBorder(null);
+        mainText.setFocusable(false);
+        HomePanel.add(mainText, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
         ProfilePanel.setBackground(new java.awt.Color(255, 255, 255));
         ProfilePanel.setPreferredSize(new java.awt.Dimension(578, 504));
@@ -367,6 +388,11 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLabel11.setBackground(new java.awt.Color(0, 0, 0));
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Upload image");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
         ProfilePanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
         jLabel6.setBackground(new java.awt.Color(0, 0, 0));
@@ -398,9 +424,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         ProfilePanel.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 88, 350, 60));
 
         profilePicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/e01d8c8ac8d02856d9ca18a0_rw_1920_1.jpg"))); // NOI18N
-        profilePicture.setMaximumSize(new java.awt.Dimension(100, 100));
-        profilePicture.setMinimumSize(new java.awt.Dimension(100, 100));
-        profilePicture.setPreferredSize(new java.awt.Dimension(100, 100));
         ProfilePanel.add(profilePicture, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, -1));
 
         SearchPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -731,6 +754,15 @@ public class AppHomeForm extends javax.swing.JFrame {
         this.setLocation(x - xx, y - yy);
     }//GEN-LAST:event_menuPanelMouseDragged
 
+    private void XMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_XMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_XMouseEntered
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        // TODO add your handling code here:
+        new FileChooserForm(this.username).setVisible(true);
+    }//GEN-LAST:event_jLabel11MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -766,8 +798,8 @@ public class AppHomeForm extends javax.swing.JFrame {
 
     private Image I;
     static protected String username = new String();
-    private Color backColor = new Color(51, 153, 255);
-    private Color oldColor = new Color(51, 102, 255);
+    private final Color backColor;
+    private final Color oldColor;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton EditButton;
     private javax.swing.JPanel HomePanel;
@@ -820,7 +852,6 @@ public class AppHomeForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextArea jTextArea1;
     public static javax.swing.JTextField jTextField1;
     public static javax.swing.JTextField jTextField10;
     public static javax.swing.JTextField jTextField11;
@@ -833,9 +864,10 @@ public class AppHomeForm extends javax.swing.JFrame {
     public static javax.swing.JTextField jTextField7;
     public static javax.swing.JTextField jTextField8;
     public static javax.swing.JTextField jTextField9;
+    private javax.swing.JTextArea mainText;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JPanel profileOption;
-    private javax.swing.JLabel profilePicture;
+    private static javax.swing.JLabel profilePicture;
     private javax.swing.JPanel searchOption;
     // End of variables declaration//GEN-END:variables
 }
