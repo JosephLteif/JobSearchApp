@@ -8,7 +8,6 @@ package Forms;
 import DTO.User;
 import Repositories.RepoUser;
 import java.awt.Component;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
@@ -145,7 +144,7 @@ public class SignUpForm extends javax.swing.JFrame {
         String fn = this.txtFname.getText();
         String ln = this.txtLname.getText();
         String email = this.txtEmail.getText();
-        String pass = Arrays.toString(this.txtPass.getPassword());
+        String pass = new String(this.txtPass.getPassword());
         String cpass = new String(this.txtCpass.getPassword());
         if (ComboGender.getSelectedItem().equals("Male")) {
             gender = 2;
