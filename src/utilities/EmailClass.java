@@ -44,25 +44,25 @@ public class EmailClass {
             props.put("mail.smtp.password", pass);
             props.put("mail.smtp.port", "587");
             props.put("mail.smtp.auth", "true");
-            
+
             Session session = Session.getDefaultInstance(props);
             MimeMessage message = new MimeMessage(session);
-            
+
             try {
                 message.setFrom(new InternetAddress(from));
                 InternetAddress[] toAddress = new InternetAddress[to.length];
-                
+
                 // To get the array of addresses
                 for (int i = 0; i < to.length; i++) {
                     toAddress[i] = new InternetAddress(to[i]);
                 }
-                
+
                 for (InternetAddress toAddres : toAddress) {
                     message.addRecipient(Message.RecipientType.TO, toAddres);
                 }
-                
+
                 message.setSubject(subject);
-                message.setContent(content,"text/html");
+                message.setContent(content, "text/html");
                 Transport transport = session.getTransport("smtp");
                 transport.connect(host, from, pass);
                 transport.sendMessage(message, message.getAllRecipients());

@@ -57,8 +57,6 @@ public class AppHomeForm extends javax.swing.JFrame {
     public static void setProfilePanel(ImageIcon I) {
         profilePicture.setIcon(I);
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.

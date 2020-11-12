@@ -93,7 +93,7 @@ public class FileChooserForm extends javax.swing.JFrame {
                 User u = new User();
                 u.setPP(in);
                 u.setFname(this.username);
-                 AppHomeForm.setProfilePanel(new ImageIcon(I));
+                AppHomeForm.setProfilePanel(new ImageIcon(I));
                 new RepoUser().insertProfilePicture(u);
             } catch (IOException ex) {
                 Logger.getLogger(javax.swing.JFileChooser.class.getName()).log(Level.SEVERE, null, ex);

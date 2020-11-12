@@ -1,11 +1,12 @@
 package utilities;
 
-import java.io.UnsupportedEncodingException;
+import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import java.security.InvalidKeyException;
-import java.security.MessageDigest;
+import java.security.Key;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -16,48 +17,55 @@ public class AES {
 
     private static SecretKeySpec secretKey;
     private static byte[] key;
-    private static final String secretcode = "shhhh!!!";
+    private static final String ALGORITHM = "AES";
+    private static final byte[] secretcode = "tHeApAcHe6410111".getBytes();
 
     public AES() {
 
     }
+    
+            public static String getEncrypted(String plainText) {
 
-    private static void setKey(String myKey) {
-        MessageDigest sha = null;
-        try {
-            key = myKey.getBytes("UTF-8");
-            sha = MessageDigest.getInstance("SHA-1");
-            key = sha.digest(key);
-            key = Arrays.copyOf(key, 16);
-            secretKey = new SecretKeySpec(key, "AES");
-        } catch (NoSuchAlgorithmException e) {
-            System.out.println(e.getMessage());
-        } catch (UnsupportedEncodingException e) {
-           System.out.println(e.getMessage());
-        }
-    }
+            if (plainText == null) {
+                return null;
+            }
 
-    public static String encrypt(String strToEncrypt) {
-        try {
-            setKey(secretcode);
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-            return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
-        } catch (UnsupportedEncodingException | InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
-            System.out.println("Error while encrypting: " + e.toString());
-        }
-        return null;
-    }
+            Key salt = getSalt();
 
-    public static String decrypt(String strToDecrypt) {
-        try {
-            setKey(secretcode);
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
-            cipher.init(Cipher.DECRYPT_MODE, secretKey);
-            return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
-        } catch (InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
-            System.out.println("Error while decrypting: " + e.toString());
+            try {
+                Cipher cipher = Cipher.getInstance(ALGORITHM);
+                cipher.init(Cipher.ENCRYPT_MODE, salt);
+                byte[] encodedValue = cipher.doFinal(plainText.getBytes());
+                return Base64.encode(encodedValue);
+            } catch (InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
+                System.out.println(e.getMessage());
+            }
+
+            throw new IllegalArgumentException("Failed to encrypt data");
         }
-        return null;
-    }
+
+        public static String getDecrypted(String encodedText) {
+
+            if (encodedText == null) {
+                return null;
+            }
+
+            Key salt = getSalt();
+            try {
+                Cipher cipher = Cipher.getInstance(ALGORITHM);
+                cipher.init(Cipher.DECRYPT_MODE, salt);
+                byte[] decodedValue = Base64.decode(encodedText);
+                byte[] decValue = cipher.doFinal(decodedValue);
+                return new String(decValue);
+            } catch (InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
+                System.out.println(e.getMessage());
+            } catch (Base64DecodingException ex) {
+            Logger.getLogger(AES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            return null;
+        }
+
+        static Key getSalt() {
+            return new SecretKeySpec(secretcode, ALGORITHM);
+        }
 }

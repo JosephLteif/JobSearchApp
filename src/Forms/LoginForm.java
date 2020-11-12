@@ -6,26 +6,21 @@
 package Forms;
 
 import DTO.User;
-import Helpers.MySQLConnectionManager;
 import Repositories.RepoUser;
 import javax.swing.JOptionPane;
 import utilities.AES;
-
 
 /**
  *
  * @author joelt
  */
-public class LoginForm extends javax.swing.JFrame{
-    
-        MySQLConnectionManager con;
+public class LoginForm extends javax.swing.JFrame {
 
     /**
      * Creates new form loginFrm
      */
     public LoginForm() {
         initComponents();
-        con = new MySQLConnectionManager();
         title.requestFocus(true);
     }
 
@@ -124,8 +119,8 @@ public class LoginForm extends javax.swing.JFrame{
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
-                String pass = new String(this.passwordField.getPassword());
-        if ((this.usernameField.getText().equals("admin") && pass.equals("admin")) || new RepoUser().login(new User(this.usernameField.getText(),null,null,AES.encrypt(pass),0))) {
+        String pass = new String(this.passwordField.getPassword());
+        if ((this.usernameField.getText().equals("admin") && pass.equals("admin")) || new RepoUser().login(new User(this.usernameField.getText(), null, null, AES.getEncrypted(pass), 0))) {
             new AppHomeForm(this.usernameField.getText()).setVisible(true);
             this.dispose();
         } else {

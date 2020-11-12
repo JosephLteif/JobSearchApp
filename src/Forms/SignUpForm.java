@@ -170,7 +170,7 @@ public class SignUpForm extends javax.swing.JFrame {
                     "Sign up failed", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
-                User newUser = new User(fn, ln, email, new AES().encrypt(pass), gender);
+                User newUser = new User(fn, ln, email, new AES().getEncrypted(pass), gender);
                 if (new RepoUser().create(newUser)) {
                     Thread T1 = new Thread(() -> {
                         try {

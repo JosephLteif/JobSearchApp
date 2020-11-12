@@ -12,6 +12,7 @@ import java.io.InputStream;
  * @author Lama
  */
 public class User {
+
     int uid;
     String fname;
     String lname;
@@ -34,8 +35,6 @@ public class User {
     public void setPP(InputStream PP) {
         this.PP = PP;
     }
-    
-    
 
     public User() {
     }
@@ -47,7 +46,6 @@ public class User {
         this.password = password;
         this.gender = gender;
     }
-    
 
     public User(String fname, String lname, String dob, String email, String password, int gender) {
         this.fname = fname;
@@ -68,7 +66,6 @@ public class User {
         this.gender = gender;
     }
 
-    
     public int getUid() {
         return uid;
     }
@@ -172,7 +169,5 @@ public class User {
     public void setUniversity(String university) {
         this.university = university;
     }
-    
-    
- 
+
 }
