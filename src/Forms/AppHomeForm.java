@@ -175,7 +175,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLabel1.setText("Home");
         menuPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
-        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         menuPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 101, 10));
 
@@ -266,7 +265,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         HomePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Home Page");
         HomePanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
 
@@ -275,12 +273,10 @@ public class AppHomeForm extends javax.swing.JFrame {
         HomePanel.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 198, 10));
 
         mainText.setEditable(false);
-        mainText.setBackground(new java.awt.Color(255, 255, 255));
         mainText.setColumns(20);
         mainText.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        mainText.setForeground(new java.awt.Color(0, 0, 0));
         mainText.setRows(5);
-        mainText.setText("This application is used by companes and individuals to \neither apply for an open job opportunity or to offer the \nchance for JobSeekers to access to job opportunities based on \ntheir preferences and to make it easy for business leaders to hire \npeople based on their business needs.\n");
+        mainText.setText("\nThis application connects job seekers with \nemployers looking to hire. Companies can post job opportunities, \nand job seekers can apply to these jobs based on their preferences.\nThis platform helps business leaders to hire people based on their\nneeds, as it helps job seekers to catch their dream jobs.");
         mainText.setBorder(null);
         mainText.setFocusable(false);
         HomePanel.add(mainText, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
@@ -289,104 +285,79 @@ public class AppHomeForm extends javax.swing.JFrame {
         ProfilePanel.setPreferredSize(new java.awt.Dimension(578, 504));
         ProfilePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1.setEnabled(false);
         ProfilePanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 180, 233, -1));
 
-        jTextField2.setForeground(new java.awt.Color(0, 0, 0));
         jTextField2.setEnabled(false);
         ProfilePanel.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 206, 233, -1));
 
-        jTextField3.setForeground(new java.awt.Color(0, 0, 0));
         jTextField3.setEnabled(false);
         ProfilePanel.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 232, 233, -1));
 
-        jTextField6.setForeground(new java.awt.Color(0, 0, 0));
         jTextField6.setEnabled(false);
         ProfilePanel.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 258, 233, -1));
 
-        jTextField7.setForeground(new java.awt.Color(0, 0, 0));
         jTextField7.setEnabled(false);
         ProfilePanel.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 284, 233, -1));
 
-        jTextField8.setForeground(new java.awt.Color(0, 0, 0));
         jTextField8.setEnabled(false);
         ProfilePanel.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 310, 233, -1));
 
-        jTextField9.setForeground(new java.awt.Color(0, 0, 0));
         jTextField9.setEnabled(false);
         ProfilePanel.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 336, 233, -1));
 
-        jTextField10.setForeground(new java.awt.Color(0, 0, 0));
         jTextField10.setEnabled(false);
         ProfilePanel.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 362, 233, -1));
 
-        jTextField11.setForeground(new java.awt.Color(0, 0, 0));
         jTextField11.setEnabled(false);
         ProfilePanel.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 388, 233, -1));
 
-        jTextField12.setForeground(new java.awt.Color(0, 0, 0));
         jTextField12.setEnabled(false);
         ProfilePanel.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 414, 233, -1));
 
-        jTextField13.setForeground(new java.awt.Color(0, 0, 0));
         jTextField13.setEnabled(false);
         ProfilePanel.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 440, 233, -1));
 
-        jTextField14.setForeground(new java.awt.Color(0, 0, 0));
         jTextField14.setEnabled(false);
         ProfilePanel.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 466, 233, -1));
 
-        jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setText("Last Job");
         ProfilePanel.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 468, -1, -1));
 
-        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
         jLabel22.setText("Years of experience");
         ProfilePanel.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 442, -1, -1));
 
-        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
         jLabel23.setText("GPA");
         ProfilePanel.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 414, -1, -1));
 
-        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("Major");
         ProfilePanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 388, -1, -1));
 
-        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setText("Degree");
         ProfilePanel.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 362, -1, -1));
 
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("PhoneNumber");
         ProfilePanel.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 336, -1, -1));
 
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Email");
         ProfilePanel.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 310, -1, -1));
 
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("Country");
         ProfilePanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 284, -1, -1));
 
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Region");
         ProfilePanel.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 260, -1, -1));
 
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("City");
         ProfilePanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 236, -1, -1));
 
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("LastName");
         ProfilePanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 210, -1, -1));
 
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("FirstName");
         ProfilePanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 182, -1, -1));
 
         jLabel11.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Upload image");
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -397,13 +368,11 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         jLabel6.setBackground(new java.awt.Color(0, 0, 0));
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Welcome");
         ProfilePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 35, -1, -1));
         ProfilePanel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 60, 64, 10));
 
         EditButton.setBackground(new java.awt.Color(255, 255, 255));
-        EditButton.setForeground(new java.awt.Color(0, 0, 0));
         EditButton.setText("Edit Info");
         EditButton.setBorder(null);
         EditButton.addActionListener(new java.awt.event.ActionListener() {
@@ -419,7 +388,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         ProfilePanel.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 88, -1, 398));
 
         Title.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        Title.setForeground(new java.awt.Color(0, 0, 0));
         Title.setText("Title");
         ProfilePanel.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 88, 350, 60));
 
@@ -431,7 +399,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchUsers.setBackground(new java.awt.Color(255, 255, 255));
         SearchUsers.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        SearchBar.setForeground(new java.awt.Color(0, 0, 0));
         SearchBar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 SearchBarKeyPressed(evt);
@@ -472,7 +439,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchUsers.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 540, 404));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Search");
         SearchUsers.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 25, -1, -1));
 
@@ -481,7 +447,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchCompanies.setBackground(new java.awt.Color(255, 255, 255));
         SearchCompanies.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        SearchBar2.setForeground(new java.awt.Color(0, 0, 0));
         SearchBar2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 SearchBar2KeyPressed(evt);
@@ -491,7 +456,6 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
 
-        Table2.setForeground(new java.awt.Color(0, 0, 0));
         Table2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -522,7 +486,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchCompanies.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 540, 404));
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Search");
         SearchCompanies.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 25, -1, -1));
 
@@ -531,7 +494,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchJobs.setBackground(new java.awt.Color(255, 255, 255));
         SearchJobs.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        SearchBar1.setForeground(new java.awt.Color(0, 0, 0));
         SearchBar1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 SearchBar1KeyPressed(evt);
@@ -541,7 +503,6 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
 
-        Table1.setForeground(new java.awt.Color(0, 0, 0));
         Table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -572,7 +533,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchJobs.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 540, 400));
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Search");
         SearchJobs.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 25, -1, -1));
 
@@ -780,13 +740,13 @@ public class AppHomeForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AppHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AppHomeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AppHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AppHomeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AppHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AppHomeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AppHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AppHomeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

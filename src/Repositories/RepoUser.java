@@ -5,6 +5,7 @@
  */
 package Repositories;
 
+import DTO.PasswordReset;
 import DTO.User;
 import Forms.FileChooserForm;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import Helpers.MySQLConnectionManager;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,9 +29,54 @@ public class RepoUser {
     private static Connection con = null;
     private static ResultSet rs = null;
     private static PreparedStatement ps = null;
+    private static Statement stmt;
+    
 
     public RepoUser() {
         con = MySQLConnectionManager.getConnection();
+    }
+    
+    public static User Get(String mail){
+    User user=null;
+    try{
+        con = MySQLConnectionManager.getConnection();
+        stmt=con.createStatement();
+        rs=stmt.executeQuery("SELECT * FROM user WHERE email='"+mail+"';");
+        if(rs.next()){
+            user=extractUserFromResultSet(rs);
+        }
+    }catch(SQLException ex){
+        System.out.println(ex);
+        
+    }
+    return user;
+    
+}
+
+    private static User extractUserFromResultSet(ResultSet rs) throws SQLException {
+       User user=new User();
+       user.setUid(rs.getInt("userID"));
+       return user;
+       
+    }
+    public static boolean updatePass(String email, String pass){
+    
+         try {
+             con = MySQLConnectionManager.getConnection();
+            ps=con.prepareStatement("Update user Set password=? where email=?;");
+            ps.setString(1, pass);
+            ps.setString(2, email);
+            int i= ps.executeUpdate();
+            if (i==1){
+                return true;
+        
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+          
+     return false;
+     
     }
 
     public boolean create(User u) {
@@ -42,8 +89,12 @@ public class RepoUser {
             ps.setString(4, u.getPassword());
             ps.setInt(5, u.getGender());
 
+            
             int rowCreate = ps.executeUpdate();
+            PasswordReset pr=new PasswordReset(u.getEmail());
             if (rowCreate == 1) {
+                
+                RepoPasswordReset.insert(pr);
                 return true;
             }
         } catch (SQLException ex) {
@@ -66,7 +117,11 @@ public class RepoUser {
         }
         return false;
     }
-
+  
+ 
+   
+   
+   
     public static boolean insertProfilePicture(User u) {
         int done = 0;
         try {

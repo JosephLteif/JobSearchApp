@@ -145,8 +145,8 @@ public class SignUpForm extends javax.swing.JFrame {
         String fn = this.txtFname.getText();
         String ln = this.txtLname.getText();
         String email = this.txtEmail.getText();
-        String pass = Arrays.toString(this.txtPass.getPassword());
-        String cpass = new String(this.txtCpass.getPassword());
+        String pass = this.txtPass.getText();//Arrays.toString(this.txtPass.getPassword());
+        String cpass = this.txtCpass.getText();//new String(this.txtCpass.getPassword());
         if (ComboGender.getSelectedItem().equals("Male")) {
             gender = 2;
         }
