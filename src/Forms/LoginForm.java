@@ -60,8 +60,6 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel2.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 52));
-
-        usernameField.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(usernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 240, 30));
 
         jLabel2.setText("Email");
@@ -89,8 +87,6 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 200, -1));
-
-        passwordField.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 240, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/JobifyLogo.png"))); // NOI18N
@@ -101,6 +97,11 @@ public class LoginForm extends javax.swing.JFrame {
 
         jLabel5.setText(" Click here!");
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -120,7 +121,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
         String pass = new String(this.passwordField.getPassword());
-        if ((this.usernameField.getText().equals("admin") && pass.equals("admin")) || new RepoUser().login(new User(this.usernameField.getText(), null, null, AES.getEncrypted(pass), 0))) {
+        if ((this.usernameField.getText().equals("admin") && pass.equals("admin")) || new RepoUser().login(new User(this.usernameField.getText(), null, null, AES.encrypt(pass), 0))) {
             new AppHomeForm(this.usernameField.getText()).setVisible(true);
             this.dispose();
         } else {
@@ -132,6 +133,21 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         new SignUpForm().setVisible(true);
     }//GEN-LAST:event_signUpActionPerformed
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+       
+        ForgotPasswordForm frm=new ForgotPasswordForm();    
+            frm.addWindowListener(new java.awt.event.WindowAdapter(){
+            
+           @Override
+             public void windowClosed(java.awt.event.WindowEvent windowEvent){
+               
+            }
+            });
+            
+            frm.setVisible(true);    
+            this.dispose();
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      */

@@ -24,7 +24,7 @@ public class AES {
 
     }
     
-            public static String getEncrypted(String plainText) {
+            public static String encrypt(String plainText) {
 
             if (plainText == null) {
                 return null;

@@ -18,7 +18,7 @@ public class Regex {
     public static boolean isValidPassword(String password) {
 
         // Regex to check valid password. 
-        String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
+        String regex = "^(?=.*?[A-Z])(?=.*?[0-9]).{8,}";
 
         // Compile the ReGex 
         Pattern p = Pattern.compile(regex);
@@ -43,7 +43,7 @@ public class Regex {
     public static boolean isValidUsername(String name) {
 
         // Regex to check valid username. 
-        String regex = "^[A-Za-z]\\w{5,29}$";
+        String regex = "^(?!.*\\.\\.)(?!.*\\.$)[^\\W][\\w.]{0,29}$";
 
         // Compile the ReGex 
         Pattern p = Pattern.compile(regex);
@@ -91,7 +91,7 @@ public class Regex {
     public static boolean isValidName(String name) {
 
         // Regex to check valid name. 
-        String regex = "\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+";
+        String regex = "[a-zA-Z]";
 
         // Compile the ReGex 
         Pattern p = Pattern.compile(regex);

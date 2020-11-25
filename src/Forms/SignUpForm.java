@@ -8,6 +8,10 @@ package Forms;
 import DTO.User;
 import Repositories.RepoUser;
 import java.awt.Component;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
@@ -169,27 +173,35 @@ public class SignUpForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(frame, ems,
                     "Sign up failed", JOptionPane.ERROR_MESSAGE);
         } else {
-            try {
-                User newUser = new User(fn, ln, email, new AES().getEncrypted(pass), gender);
-                if (new RepoUser().create(newUser)) {
-                    Thread T1 = new Thread(() -> {
+
+            User newUser = new User(fn, ln, email, new AES().encrypt(pass), gender);
+            if (new RepoUser().create(newUser)) {
+                Thread T1 = new Thread(() -> {
+                    try {
+                        String body = null;
                         try {
-                            String sub = "Sign up successful!";
-                            String body = "Dear " + newUser.getFname() + " " + newUser.getLname() + ",\n We'd like to welcome you in our app!Hoping that you'll find your dream job through our app!\n "
-                                    + "For any complaints, you can reach us on this email.";
-                            String[] mails = new String[1];
-                            mails[0] = newUser.getEmail();
-                            sendmail.sendFromGmail(mails, sub, body);
-                        } catch (MessagingException ex) {
+                            File file = new File("src/Utilities/Emailhtml.txt");
+                            BufferedReader br = new BufferedReader(new FileReader(file));
+
+                            String st;
+                            while ((st = br.readLine()) != null) {
+                                body += st;
+                            }
+                        } catch (IOException ex) {
                             Logger.getLogger(SignUpForm.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    });
-                    T1.start();
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+                        String sub = "Sign up successful!";
+                        String[] mails = new String[1];
+                        mails[0] = newUser.getEmail();
+                        sendmail.sendFromGmail(mails, sub, body);
+                    } catch (MessagingException ex) {
+                        Logger.getLogger(SignUpForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+                T1.start();
             }
         }
+
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

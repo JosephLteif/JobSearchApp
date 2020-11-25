@@ -5,6 +5,7 @@
  */
 package Repositories;
 
+import DTO.PasswordReset;
 import DTO.User;
 import Forms.FileChooserForm;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import Helpers.MySQLConnectionManager;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,9 +29,79 @@ public class RepoUser {
     private static Connection con = null;
     private static ResultSet rs = null;
     private static PreparedStatement ps = null;
+    private static Statement stmt;
 
     public RepoUser() {
         con = MySQLConnectionManager.getConnection();
+    }
+
+    public static User Get(String mail) {
+        User user = null;
+        try {
+            con = MySQLConnectionManager.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM user WHERE email='" + mail + "';");
+            if (rs.next()) {
+                user = extractUserFromResultSet(rs);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+
+        }
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return user;
+
+    }
+
+    private static User extractUserFromResultSet(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setUid(rs.getInt("userID"));
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return user;
+
+    }
+
+    public static boolean updatePass(String email, String pass) {
+
+        try {
+            con = MySQLConnectionManager.getConnection();
+            ps = con.prepareStatement("Update user Set password=? where email=?;");
+            ps.setString(1, pass);
+            ps.setString(2, email);
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                return true;
+
+            }
+        } catch (SQLException throwables) {
+            System.out.println(throwables.getMessage());
+        }
+
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return false;
+
     }
 
     public boolean create(User u) {
@@ -43,11 +115,24 @@ public class RepoUser {
             ps.setInt(5, u.getGender());
 
             int rowCreate = ps.executeUpdate();
+            PasswordReset pr = new PasswordReset(u.getEmail());
             if (rowCreate == 1) {
+
+                RepoPasswordReset.insert(pr);
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
                 return true;
             }
         } catch (SQLException ex) {
             System.out.println(ex);
+        }
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
         return false;
     }
@@ -58,11 +143,21 @@ public class RepoUser {
             rs = ps.executeQuery();
             while (rs.next()) {
                 if (rs.getString(1).equals(u.getFname()) && rs.getString(2).equals(u.getPassword())) {
+                    try {
+                        con.close();
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+                    }
                     return true;
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(RepoUser.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+        }
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
         return false;
     }
@@ -78,13 +173,23 @@ public class RepoUser {
                 done = ps.executeUpdate();
                 if (done == 1) {
                     System.out.println("Done!!!!");
+                    try {
+                        con.close();
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+                    }
                     return true;
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(RepoUser.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(RepoUser.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+        }
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
         return false;
     }
