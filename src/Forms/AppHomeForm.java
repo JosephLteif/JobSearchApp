@@ -40,6 +40,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         EditButton.setVisible(false);
         SearchBar.setVisible(false);
         jLabel2.setVisible(false);
+        
         jTextField1.setVisible(false);
         jTextField10.setVisible(false);
         jTextField11.setVisible(false);
