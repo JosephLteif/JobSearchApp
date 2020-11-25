@@ -36,7 +36,7 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
-        usernameField = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         signUp = new javax.swing.JButton();
@@ -60,7 +60,7 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel2.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 52));
-        jPanel1.add(usernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 240, 30));
+        jPanel1.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 240, 30));
 
         jLabel2.setText("Email");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
@@ -121,8 +121,8 @@ public class LoginForm extends javax.swing.JFrame {
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
         String pass = new String(this.passwordField.getPassword());
-        if ((this.usernameField.getText().equals("admin") && pass.equals("admin")) || new RepoUser().login(new User(this.usernameField.getText(), null, null, AES.encrypt(pass), 0))) {
-            new AppHomeForm(this.usernameField.getText()).setVisible(true);
+        if ((this.emailField.getText().equals("admin") && pass.equals("admin")) || new RepoUser().login(new User(null, null, this.emailField.getText().toLowerCase(), AES.encrypt(pass), 0))) {
+            new AppHomeForm(this.emailField.getText()).setVisible(true);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Username or password incorrect");
@@ -186,6 +186,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Login;
+    private javax.swing.JTextField emailField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -196,6 +197,5 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JButton signUp;
     private javax.swing.JLabel title;
-    private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,12 +13,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Helpers.MySQLConnectionManager;
+import java.awt.Component;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -104,8 +104,38 @@ public class RepoUser {
 
     }
 
+    private static boolean foundmail(String mail) throws SQLException {
+
+        try {
+            con = MySQLConnectionManager.getConnection();
+            ps = con.prepareStatement("SELECT * FROM user WHERE email=?;");
+            ps.setString(1, mail);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+
+    }
+
     public boolean create(User u) {
         try {
+            if (foundmail(u.getEmail())) {
+                Component frame = null;
+                JOptionPane.showMessageDialog(frame, "An account is already associated with this mail!",
+                        "Account not found", JOptionPane.ERROR_MESSAGE);
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                return false;
+            }
             String SQLQuery = "INSERT INTO user (firstName,lastName,email,password,gender) values (?, ?, ?, ?, ?);";
             ps = con.prepareStatement(SQLQuery);
             ps.setString(1, u.getFname());
@@ -139,10 +169,10 @@ public class RepoUser {
 
     public static boolean login(User u) {
         try {
-            ps = con.prepareStatement("Select firstName, password from user;");
+            ps = con.prepareStatement("Select email, password from user;");
             rs = ps.executeQuery();
             while (rs.next()) {
-                if (rs.getString(1).equals(u.getFname()) && rs.getString(2).equals(u.getPassword())) {
+                if (rs.getString(1).equals(u.getEmail()) && rs.getString(2).equals(u.getPassword())) {
                     try {
                         con.close();
                     } catch (SQLException ex) {
@@ -168,7 +198,7 @@ public class RepoUser {
             InputStream in = new FileInputStream(new FileChooserForm(u.getFname()).chooseImage());
             try {
                 ps = con.prepareStatement("insert into user(ProfilePicture) values(?) where user.firstName = ?;");
-                ps.setBinaryStream(1, in, done);
+                //ps.setString(1, u.getPP());
                 ps.setString(2, u.getFname());
                 done = ps.executeUpdate();
                 if (done == 1) {

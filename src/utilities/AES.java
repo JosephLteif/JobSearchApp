@@ -5,15 +5,12 @@ package utilities;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Base64;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
-import org.apache.xml.security.exceptions.Base64DecodingException;
-import org.apache.xml.security.utils.Base64;
 
 public class AES {
 
@@ -38,7 +35,7 @@ public class AES {
                 Cipher cipher = Cipher.getInstance(ALGORITHM);
                 cipher.init(Cipher.ENCRYPT_MODE, salt);
                 byte[] encodedValue = cipher.doFinal(plainText.getBytes());
-                return Base64.encode(encodedValue);
+                return Base64.getEncoder().encodeToString(encodedValue);
             } catch (InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
                 System.out.println(e.getMessage());
             }
@@ -56,14 +53,12 @@ public class AES {
             try {
                 Cipher cipher = Cipher.getInstance(ALGORITHM);
                 cipher.init(Cipher.DECRYPT_MODE, salt);
-                byte[] decodedValue = Base64.decode(encodedText);
+                byte[] decodedValue = Base64.getDecoder().decode(encodedText);
                 byte[] decValue = cipher.doFinal(decodedValue);
                 return new String(decValue);
             } catch (InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
                 System.out.println(e.getMessage());
-            } catch (Base64DecodingException ex) {
-            Logger.getLogger(AES.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            }
             return null;
         }
 

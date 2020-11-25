@@ -91,7 +91,7 @@ public class Regex {
     public static boolean isValidName(String name) {
 
         // Regex to check valid name. 
-        String regex = "[a-zA-Z]";
+        String regex = "\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+";
 
         // Compile the ReGex 
         Pattern p = Pattern.compile(regex);

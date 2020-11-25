@@ -10,6 +10,7 @@ import Repositories.RepoPasswordReset;
 import Repositories.RepoUser;
 import java.awt.Component;
 import javax.swing.JOptionPane;
+import utilities.AES;
 
 /**
  *
@@ -76,11 +77,7 @@ public class PasswordUpdateForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, -1, -1));
-
-        txtCPass.setText("jPasswordField1");
         jPanel1.add(txtCPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 180, 20));
-
-        txtPass.setText("jPasswordField1");
         jPanel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 180, 20));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -114,7 +111,7 @@ public class PasswordUpdateForm extends javax.swing.JFrame {
         Component frame = null;
 
         if (pass.equals(cpass)) {
-            if (RepoUser.updatePass(mail, pass)) {
+            if (RepoUser.updatePass(mail, AES.encrypt(pass))) {
 
                 ems = ems + "Your password was successfully reset!";
                 JOptionPane.showMessageDialog(frame, ems,

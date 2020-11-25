@@ -74,7 +74,7 @@ public class SignUpForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Sign Up");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
         X.setBackground(new java.awt.Color(51, 153, 255));
         X.setForeground(new java.awt.Color(255, 255, 255));
@@ -84,9 +84,9 @@ public class SignUpForm extends javax.swing.JFrame {
                 XActionPerformed(evt);
             }
         });
-        jPanel2.add(X, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, -1, -1));
+        jPanel2.add(X, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 70));
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, -1));
 
         jLabel3.setText("First name");
@@ -100,17 +100,9 @@ public class SignUpForm extends javax.swing.JFrame {
 
         jLabel6.setText("Password");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
-
-        txtFname.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtFname, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 160, -1));
-
-        txtLname.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtLname, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 160, -1));
-
-        txtEmail.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 160, -1));
-
-        txtPass.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 160, -1));
 
         jLabel7.setText("Gender");
@@ -124,18 +116,16 @@ public class SignUpForm extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, -1, -1));
 
         jLabel8.setText("Confirm Password");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
-
-        txtCpass.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtCpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 160, -1));
 
         ComboGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Female", "Male" }));
         jPanel1.add(ComboGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 490));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 390));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -173,8 +163,8 @@ public class SignUpForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(frame, ems,
                     "Sign up failed", JOptionPane.ERROR_MESSAGE);
         } else {
-
-            User newUser = new User(fn, ln, email, new AES().encrypt(pass), gender);
+            
+            User newUser = new User(fn, ln, email.toLowerCase(), new AES().encrypt(pass), gender);
             if (new RepoUser().create(newUser)) {
                 Thread T1 = new Thread(() -> {
                     try {
@@ -199,10 +189,10 @@ public class SignUpForm extends javax.swing.JFrame {
                     }
                 });
                 T1.start();
+                this.dispose();
             }
         }
 
-        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

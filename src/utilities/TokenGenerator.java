@@ -15,9 +15,9 @@ public class TokenGenerator {
     
     public static String generatetxt(){      
     
-    int leftLimit = 97; // letter 'a'
+    int leftLimit = 34;
     int rightLimit = 122; // letter 'z'
-    int targetStringLength = 10;
+    int targetStringLength = 35;
     Random random = new Random();
  
     String generatedString = random.ints(leftLimit, rightLimit + 1)

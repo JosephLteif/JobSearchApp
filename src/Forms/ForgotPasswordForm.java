@@ -6,9 +6,7 @@
 package Forms;
 
 import DTO.PasswordReset;
-import DTO.User;
 import Repositories.RepoPasswordReset;
-import Repositories.RepoUser;
 import java.awt.Component;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -90,6 +88,7 @@ public class ForgotPasswordForm extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       
         confmail=this.txtmail.getText();
+        confmail = confmail.toLowerCase();
         String ems = "";
         Component frame = null;
        if (!Regex.isValidEmail(confmail)){
@@ -118,7 +117,7 @@ public class ForgotPasswordForm extends javax.swing.JFrame {
                       Thread T1 = new Thread(() -> {
                           try {
                               String sub = "Reset your Jobify Password!";
-                              String body = "Dear user, kindly find your code below.\n " + token+"\nFor any complaints, you can reach us on this email.";
+                              String body = "Dear user, kindly find your code below.<br><br> " + token+"<br><br>For any complaints, you can reach us on this email.";
                               String[] mails = new String[1];
                               mails[0] = confmail;
                               sendmail.sendFromGmail(mails, sub, body);

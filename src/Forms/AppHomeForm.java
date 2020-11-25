@@ -82,6 +82,9 @@ public class AppHomeForm extends javax.swing.JFrame {
         profileOption = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        logoutOption = new javax.swing.JPanel();
+        logoutLogo = new javax.swing.JLabel();
+        Search1 = new javax.swing.JLabel();
         X = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         HomePanel = new javax.swing.JPanel();
@@ -243,6 +246,29 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         menuPanel.add(profileOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 228, 210, 40));
 
+        logoutOption.setBackground(new java.awt.Color(51, 102, 255));
+        logoutOption.setPreferredSize(new java.awt.Dimension(229, 96));
+        logoutOption.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                logoutOptionMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                logoutOptionMouseReleased(evt);
+            }
+        });
+        logoutOption.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        logoutLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/icons8-logout-rounded-down-32.png"))); // NOI18N
+        logoutOption.add(logoutLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+
+        Search1.setBackground(new java.awt.Color(102, 0, 102));
+        Search1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        Search1.setForeground(new java.awt.Color(255, 255, 255));
+        Search1.setText("Logout");
+        logoutOption.add(Search1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+
+        menuPanel.add(logoutOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 210, 50));
+
         jPanel1.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 204, 498));
 
         X.setBackground(new java.awt.Color(255, 255, 255));
@@ -391,7 +417,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         ProfilePanel.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 88, 350, 60));
 
         profilePicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/e01d8c8ac8d02856d9ca18a0_rw_1920_1.jpg"))); // NOI18N
-        ProfilePanel.add(profilePicture, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, -1));
+        ProfilePanel.add(profilePicture, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 90, -1));
 
         SearchPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -545,9 +571,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(ProfilePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(28, 28, 28))
+            .addComponent(ProfilePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addComponent(HomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -722,6 +746,18 @@ public class AppHomeForm extends javax.swing.JFrame {
         new FileChooserForm(this.username).setVisible(true);
     }//GEN-LAST:event_jLabel11MouseClicked
 
+    private void logoutOptionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutOptionMousePressed
+        // TODO add your handling code here:
+        searchOption.setBackground(backColor);
+    }//GEN-LAST:event_logoutOptionMousePressed
+
+    private void logoutOptionMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutOptionMouseReleased
+        // TODO add your handling code here:
+        searchOption.setBackground(oldColor);
+        this.dispose();
+        new LoginForm().setVisible(true);
+    }//GEN-LAST:event_logoutOptionMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -764,6 +800,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     private javax.swing.JPanel HomePanel;
     protected static javax.swing.JPanel ProfilePanel;
     private javax.swing.JLabel Search;
+    private javax.swing.JLabel Search1;
     private javax.swing.JTextField SearchBar;
     private javax.swing.JTextField SearchBar1;
     private javax.swing.JTextField SearchBar2;
@@ -823,6 +860,8 @@ public class AppHomeForm extends javax.swing.JFrame {
     public static javax.swing.JTextField jTextField7;
     public static javax.swing.JTextField jTextField8;
     public static javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel logoutLogo;
+    private javax.swing.JPanel logoutOption;
     private javax.swing.JTextArea mainText;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JPanel profileOption;
