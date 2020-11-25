@@ -20,8 +20,8 @@ public class PasswordUpdateForm extends javax.swing.JFrame {
     /**
      * Creates new form PasswordUpdateForm
      */
-    
-    PasswordReset pr=new PasswordReset();
+    PasswordReset pr = new PasswordReset();
+
     public PasswordUpdateForm(PasswordReset p) {
         initComponents();
         this.pr.setEmail(p.getEmail());
@@ -61,13 +61,13 @@ public class PasswordUpdateForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Forgot your password");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 70));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Update Your password:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 170, 80));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 170, 20));
 
         jButton1.setText("Confirm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -75,73 +75,66 @@ public class PasswordUpdateForm extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, -1, -1));
 
         txtCPass.setText("jPasswordField1");
-        jPanel1.add(txtCPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 130, 20));
+        jPanel1.add(txtCPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 180, 20));
 
         txtPass.setText("jPasswordField1");
-        jPanel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 130, 20));
+        jPanel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 180, 20));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Confirm Password:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 560, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-          
-        String pass=this.txtPass.getText();
-        String cpass=this.txtPass.getText();
-        String mail=this.pr.getEmail();
+
+        String pass = new String(txtPass.getPassword());
+        String cpass = new String(this.txtCPass.getPassword());
+        String mail = this.pr.getEmail();
         String ems = "";
         Component frame = null;
-        
-        if (pass.equals(cpass)){
-        if (RepoUser.updatePass(mail, pass)){
- 
-            
-           ems = ems + "Your password was successfully reset!";
-           JOptionPane.showMessageDialog(frame, ems,
-           "Reset Password", JOptionPane.INFORMATION_MESSAGE);
-           this.dispose();
-        
+
+        if (pass.equals(cpass)) {
+            if (RepoUser.updatePass(mail, pass)) {
+
+                ems = ems + "Your password was successfully reset!";
+                JOptionPane.showMessageDialog(frame, ems,
+                        "Reset Password", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+
+            } else {
+
+                ems = ems + "An error occured! Unable to update the password!";
+                JOptionPane.showMessageDialog(frame, ems,
+                        "Reset Password", JOptionPane.ERROR_MESSAGE);
+                this.dispose();
+                new LoginForm().setVisible(true);
+            }
+        } else {
+            ems = ems + "Passwords don't match";
+            JOptionPane.showMessageDialog(frame, ems,
+                    "Reset Password", JOptionPane.ERROR_MESSAGE);
         }
-        
-        else{
-            
-           ems = ems + "An error occured! Unable to update the password!";
-           JOptionPane.showMessageDialog(frame, ems,
-           "Reset Password", JOptionPane.ERROR_MESSAGE);
-            this.dispose();
-        }
-        }
-        else{
-              ems = ems + "Passwords don't match";
-           JOptionPane.showMessageDialog(frame, ems,
-           "Reset Password", JOptionPane.ERROR_MESSAGE);
-        }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
