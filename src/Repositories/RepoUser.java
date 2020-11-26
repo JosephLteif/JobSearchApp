@@ -195,10 +195,10 @@ public class RepoUser {
     public static boolean insertProfilePicture(User u) {
         int done = 0;
         try {
-            InputStream in = new FileInputStream(new FileChooserForm(u.getFname()).chooseImage());
+            InputStream in = new FileInputStream(new FileChooserForm(u).chooseImage());
             try {
-                ps = con.prepareStatement("insert into user(ProfilePicture) values(?) where user.firstName = ?;");
-                //ps.setString(1, u.getPP());
+                ps = con.prepareStatement("update user set ProfilePicture = ?) where user.firstName = ?;");
+                ps.setString(1, u.getPP());
                 ps.setString(2, u.getFname());
                 done = ps.executeUpdate();
                 if (done == 1) {

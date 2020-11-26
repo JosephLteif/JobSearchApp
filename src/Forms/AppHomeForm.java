@@ -5,8 +5,19 @@
  */
 package Forms;
 
+import DTO.User;
+import Repositories.RepoUser;
 import java.awt.Color;
 import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -16,8 +27,9 @@ import javax.swing.JPanel;
  */
 public class AppHomeForm extends javax.swing.JFrame {
 
-    int xx = 0;
-    int yy = 0;
+    private int xx = 0;
+    private int yy = 0;
+    protected static User u1 = null;
 
     /**
      * Creates new form appHomeFrm
@@ -28,19 +40,44 @@ public class AppHomeForm extends javax.swing.JFrame {
         initComponents();
     }
 
-    public AppHomeForm(String username) {
+    public AppHomeForm(User u) {
+        this.u1 = new RepoUser().Get(u.getEmail());
         this.oldColor = new Color(51, 102, 255);
         this.backColor = new Color(51, 153, 255);
         setUndecorated(true);
         initComponents();
-        this.username = username;
+        this.username = u1.getFname();
         jLabel6.setText(jLabel6.getText() + " " + this.username);
         jLayeredPane1.moveToFront(HomePanel);
         Title.setText(this.username + "'s Page");
+
+        String path = "src/UserData/UserData_" + u.getUid();
+        File f = new File(path);
+        if (!f.isDirectory()) {
+            f.mkdirs();
+        }
+
+//        InputStream is = null;
+//        OutputStream os = null;
+//        try {
+//            is = new FileInputStream(u.getPP());
+//            os = new FileOutputStream(f);
+//            byte[] buffer = new byte[1024];
+//            int length;
+//            while ((length = is.read(buffer)) > 0) {
+//                os.write(buffer, 0, length);
+//                is.close();
+//                os.close();
+//            }
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(AppHomeForm.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(AppHomeForm.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
         EditButton.setVisible(false);
         SearchBar.setVisible(false);
         jLabel2.setVisible(false);
-        
         jTextField1.setVisible(false);
         jTextField10.setVisible(false);
         jTextField11.setVisible(false);
@@ -55,7 +92,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         jTextField9.setVisible(false);
     }
 
-    public static void setProfilePanel(ImageIcon I) {
+    protected static void setProfilePanel(ImageIcon I) {
         profilePicture.setIcon(I);
     }
 
@@ -395,7 +432,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setText("Welcome");
         ProfilePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 35, -1, -1));
-        ProfilePanel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 60, 64, 10));
+        ProfilePanel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 60, 70, 10));
 
         EditButton.setBackground(new java.awt.Color(255, 255, 255));
         EditButton.setText("Edit Info");
@@ -743,7 +780,7 @@ public class AppHomeForm extends javax.swing.JFrame {
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         // TODO add your handling code here:
-        new FileChooserForm(this.username).setVisible(true);
+        new FileChooserForm(this.u1).setVisible(true);
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void logoutOptionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutOptionMousePressed

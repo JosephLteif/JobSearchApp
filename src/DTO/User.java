@@ -26,13 +26,13 @@ public class User {
     int jobseekerdID;
     boolean isRecruiter;
     String university;
-    InputStream PP;
+    String PP;
 
-    public InputStream getPP() {
+    public String getPP() {
         return PP;
     }
 
-    public void setPP(InputStream PP) {
+    public void setPP(String PP) {
         this.PP = PP;
     }
 

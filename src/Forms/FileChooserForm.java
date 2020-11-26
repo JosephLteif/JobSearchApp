@@ -28,14 +28,14 @@ import javax.swing.ImageIcon;
  */
 public class FileChooserForm extends javax.swing.JFrame {
 
-    String username;
+    User u;
 
     /**
      * Creates new form FileChooser
      */
-    public FileChooserForm(String username) {
+    public FileChooserForm(User u) {
         initComponents();
-        this.username = username;
+        this.u = u;
     }
 
     public FileChooserForm() {
@@ -89,52 +89,25 @@ public class FileChooserForm extends javax.swing.JFrame {
             File file = new File(jFileChooser1.getSelectedFile().getAbsolutePath());
             in = new FileInputStream(file);
             try {
-                I = resizeImage(ImageIO.read(in), 144, 144);
-                User u = new User();
-                u.setPP(in);
-                u.setFname(this.username);
+                I = resizeImage(ImageIO.read(in), 100, 100);
                 AppHomeForm.setProfilePanel(new ImageIcon(I));
                 new RepoUser().insertProfilePicture(u);
             } catch (IOException ex) {
-                Logger.getLogger(javax.swing.JFileChooser.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FileChooserForm.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         } finally {
             try {
                 in.close();
             } catch (IOException ex) {
-                Logger.getLogger(FileChooserForm.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
             }
         }
+        this.dispose();
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
     public static BufferedImage resizeImage(final Image image, int width, int height) {
-        int targetw = 0;
-        int targeth = 75;
-
-        if (width > height) {
-            targetw = 112;
-        } else {
-            targetw = 50;
-        }
-
-        do {
-            if (width > targetw) {
-                width /= 2;
-                if (width < targetw) {
-                    width = targetw;
-                }
-            }
-
-            if (height > targeth) {
-                height /= 2;
-                if (height < targeth) {
-                    height = targeth;
-                }
-            }
-        } while (width != targetw || height != targeth);
-
         final BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         final Graphics2D graphics2D = bufferedImage.createGraphics();
         graphics2D.setComposite(AlphaComposite.Src);

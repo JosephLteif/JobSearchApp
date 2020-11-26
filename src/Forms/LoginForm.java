@@ -121,8 +121,9 @@ public class LoginForm extends javax.swing.JFrame {
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
         String pass = new String(this.passwordField.getPassword());
-        if ((this.emailField.getText().equals("admin") && pass.equals("admin")) || new RepoUser().login(new User(null, null, this.emailField.getText().toLowerCase(), AES.encrypt(pass), 0))) {
-            new AppHomeForm(this.emailField.getText()).setVisible(true);
+        User u = new User(null, null, this.emailField.getText().toLowerCase(), AES.encrypt(pass), 0);
+        if ((this.emailField.getText().equals("admin") && pass.equals("admin")) || new RepoUser().login(u) ){
+            new AppHomeForm(u).setVisible(true);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Username or password incorrect");
