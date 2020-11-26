@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -51,29 +52,20 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLayeredPane1.moveToFront(HomePanel);
         Title.setText(this.username + "'s Page");
 
-        String path = "src/UserData/UserData_" + u.getUid();
+        String path = "src/UserData/UserData_" + this.u1.getUid();
         File f = new File(path);
         if (!f.isDirectory()) {
             f.mkdirs();
         }
-
-//        InputStream is = null;
-//        OutputStream os = null;
-//        try {
-//            is = new FileInputStream(u.getPP());
-//            os = new FileOutputStream(f);
-//            byte[] buffer = new byte[1024];
-//            int length;
-//            while ((length = is.read(buffer)) > 0) {
-//                os.write(buffer, 0, length);
-//                is.close();
-//                os.close();
-//            }
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(AppHomeForm.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(AppHomeForm.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        f = new File(path+"/UserData_" + this.u1.getUid()+".png");
+        Image Im = null;
+        try {
+            Im = ImageIO.read(f);
+        } catch (IOException ex) {
+            Logger.getLogger(AppHomeForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Im = FileChooserForm.resizeImage(Im, 100, 100);
+        this.setProfilePanel(new ImageIcon(Im));
 
         EditButton.setVisible(false);
         SearchBar.setVisible(false);

@@ -15,8 +15,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FilePermission;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -83,15 +86,16 @@ public class FileChooserForm extends javax.swing.JFrame {
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         InputStream in = null;
+        File file = null;
         try {
             // TODO add your handling code here:
             Image I;
-            File file = new File(jFileChooser1.getSelectedFile().getAbsolutePath());
+            file = new File(jFileChooser1.getSelectedFile().getAbsolutePath());
             in = new FileInputStream(file);
             try {
                 I = resizeImage(ImageIO.read(in), 100, 100);
                 AppHomeForm.setProfilePanel(new ImageIcon(I));
-                String path = "src/UserData/UserData_"+u.getUid();
+                String path = "src/UserData/UserData_" + u.getUid()+"/UserData_" + u.getUid()+".png";
                 u.setPP(path);
                 new RepoUser().insertProfilePicture(u);
                 in.close();
@@ -101,6 +105,29 @@ public class FileChooserForm extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
+
+        String path = "src/UserData/UserData_" + u.getUid();
+        File f = new File(path+"/UserData_" + u.getUid()+".png");
+        
+        InputStream is = null;
+        OutputStream os = null;
+
+        try {
+            is = new FileInputStream(file);
+            os = new FileOutputStream(f);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+            is.close();
+            os.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
         this.dispose();
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
