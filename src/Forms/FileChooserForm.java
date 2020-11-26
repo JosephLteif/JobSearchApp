@@ -91,18 +91,15 @@ public class FileChooserForm extends javax.swing.JFrame {
             try {
                 I = resizeImage(ImageIO.read(in), 100, 100);
                 AppHomeForm.setProfilePanel(new ImageIcon(I));
+                String path = "src/UserData/UserData_"+u.getUid();
+                u.setPP(path);
                 new RepoUser().insertProfilePicture(u);
+                in.close();
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
-        } finally {
-            try {
-                in.close();
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }
         }
         this.dispose();
     }//GEN-LAST:event_jFileChooser1ActionPerformed

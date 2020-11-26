@@ -65,6 +65,15 @@ public class RepoUser {
     private static User extractUserFromResultSet(ResultSet rs) throws SQLException {
         User user = new User();
         user.setUid(rs.getInt("userID"));
+        user.setFname(rs.getString("firstName"));
+        user.setLname(rs.getString("lastNAme"));
+        user.setDob(rs.getString("dob"));
+        user.setEmail(rs.getString("email"));
+        user.setPhoneNumber(rs.getString("phoneNumber"));
+        user.setMajor(rs.getString("Major"));
+        user.setGender(rs.getInt("gender"));
+        user.setLocation(rs.getString("location"));
+        user.setPP(rs.getString("profilePicture"));
         try {
             con.close();
         } catch (SQLException ex) {
@@ -194,12 +203,10 @@ public class RepoUser {
 
     public static boolean insertProfilePicture(User u) {
         int done = 0;
-        try {
-            InputStream in = new FileInputStream(new FileChooserForm(u).chooseImage());
             try {
-                ps = con.prepareStatement("update user set ProfilePicture = ?) where user.firstName = ?;");
+                ps = con.prepareStatement("update user set ProfilePicture = (?) where email = ?;");
                 ps.setString(1, u.getPP());
-                ps.setString(2, u.getFname());
+                ps.setString(2, u.getEmail());
                 done = ps.executeUpdate();
                 if (done == 1) {
                     System.out.println("Done!!!!");
@@ -213,9 +220,6 @@ public class RepoUser {
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        }
         try {
             con.close();
         } catch (SQLException ex) {
