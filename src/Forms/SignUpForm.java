@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
-import utilities.AES;
 import utilities.Regex;
 import utilities.EmailClass;
 
@@ -164,7 +163,7 @@ public class SignUpForm extends javax.swing.JFrame {
                     "Sign up failed", JOptionPane.ERROR_MESSAGE);
         } else {
             
-            User newUser = new User(fn, ln, email.toLowerCase(), new AES().encrypt(pass), gender);
+            User newUser = new User(fn, ln, email, pass, gender);
             if (new RepoUser().create(newUser)) {
                 Thread T1 = new Thread(() -> {
                     try {
@@ -178,7 +177,7 @@ public class SignUpForm extends javax.swing.JFrame {
                                 body += st;
                             }
                         } catch (IOException ex) {
-                            Logger.getLogger(SignUpForm.class.getName()).log(Level.SEVERE, null, ex);
+                            System.out.println(ex.getMessage());
                         }
                         String sub = "Sign up successful!";
                         String[] mails = new String[1];

@@ -6,11 +6,9 @@
 package Forms;
 
 import DTO.PasswordReset;
-import Repositories.RepoPasswordReset;
 import Repositories.RepoUser;
 import java.awt.Component;
 import javax.swing.JOptionPane;
-import utilities.AES;
 
 /**
  *
@@ -111,7 +109,7 @@ public class PasswordUpdateForm extends javax.swing.JFrame {
         Component frame = null;
 
         if (pass.equals(cpass)) {
-            if (RepoUser.updatePass(mail, AES.encrypt(pass))) {
+            if (RepoUser.updatePass(mail, pass)) {
 
                 ems = ems + "Your password was successfully reset!";
                 JOptionPane.showMessageDialog(frame, ems,

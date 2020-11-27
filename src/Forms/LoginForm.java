@@ -8,7 +8,6 @@ package Forms;
 import DTO.User;
 import Repositories.RepoUser;
 import javax.swing.JOptionPane;
-import utilities.AES;
 
 /**
  *
@@ -121,7 +120,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
         String pass = new String(this.passwordField.getPassword());
-        User u = new User(null, null, this.emailField.getText().toLowerCase(), AES.encrypt(pass), 0);
+        User u = new User(null, null, this.emailField.getText().toLowerCase(), pass, 0);
         if ((this.emailField.getText().equals("admin") && pass.equals("admin")) || new RepoUser().login(u) ){
             new AppHomeForm(u).setVisible(true);
             this.dispose();

@@ -7,16 +7,12 @@ package Repositories;
 
 import DTO.PasswordReset;
 import DTO.User;
-import Forms.FileChooserForm;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Helpers.MySQLConnectionManager;
 import java.awt.Component;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
@@ -87,7 +83,7 @@ public class RepoUser {
 
         try {
             con = MySQLConnectionManager.getConnection();
-            ps = con.prepareStatement("Update user Set password=? where email=?;");
+            ps = con.prepareStatement("Update user Set password=SHA(?) where email=LOWER(?);");
             ps.setString(1, pass);
             ps.setString(2, email);
             int i = ps.executeUpdate();
@@ -117,7 +113,7 @@ public class RepoUser {
 
         try {
             con = MySQLConnectionManager.getConnection();
-            ps = con.prepareStatement("SELECT * FROM user WHERE email=?;");
+            ps = con.prepareStatement("SELECT * FROM user WHERE email=Lower(?);");
             ps.setString(1, mail);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -145,7 +141,7 @@ public class RepoUser {
                 }
                 return false;
             }
-            String SQLQuery = "INSERT INTO user (firstName,lastName,email,password,gender) values (?, ?, ?, ?, ?);";
+            String SQLQuery = "INSERT INTO user (firstName,lastName,email,password,gender) values (?, ?, LOWER(?), SHA(?), ?);";
             ps = con.prepareStatement(SQLQuery);
             ps.setString(1, u.getFname());
             ps.setString(2, u.getLname());
@@ -178,18 +174,13 @@ public class RepoUser {
 
     public static boolean login(User u) {
         try {
-            ps = con.prepareStatement("Select email, password from user;");
+            ps = con.prepareStatement("Select email, password from user where password = SHA(?);");
+            ps.setString(1, u.getPassword());
             rs = ps.executeQuery();
-            while (rs.next()) {
-                if (rs.getString(1).equals(u.getEmail()) && rs.getString(2).equals(u.getPassword())) {
-                    try {
-                        con.close();
-                    } catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
-                    }
+            if (rs.next()) {
+                con.close();
                     return true;
                 }
-            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
