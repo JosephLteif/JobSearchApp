@@ -7,6 +7,7 @@ package Repositories;
 
 import DTO.PasswordReset;
 import DTO.User;
+import Forms.AppHomeForm;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ import Helpers.MySQLConnectionManager;
 import java.awt.Component;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,6 +33,28 @@ public class RepoUser {
         con = MySQLConnectionManager.getConnection();
     }
 
+    public static void GetAll(String name) {
+        try {
+            con = MySQLConnectionManager.getConnection();
+            ps = con.prepareStatement("SELECT * FROM user where firstName like ?;");
+            ps.setString(1,  "%" + name + "%");
+            rs = ps.executeQuery();
+            DefaultTableModel dtm = (DefaultTableModel) AppHomeForm.Table.getModel();
+            dtm.setRowCount(0);
+            while (rs.next()) {
+                Object User[] = {rs.getString("firstName"),
+                    rs.getString("lastName"),
+                    rs.getString("email"),
+                };
+                dtm.addRow(User);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+
+        }
+
+    }
+
     public static User Get(String mail) {
         User user = null;
         try {
@@ -43,11 +67,6 @@ public class RepoUser {
         } catch (SQLException ex) {
             System.out.println(ex);
 
-        }
-        try {
-            con.close();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
         }
         try {
             con.close();
@@ -179,8 +198,8 @@ public class RepoUser {
             rs = ps.executeQuery();
             if (rs.next()) {
                 con.close();
-                    return true;
-                }
+                return true;
+            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -194,23 +213,23 @@ public class RepoUser {
 
     public static boolean insertProfilePicture(User u) {
         int done = 0;
-            try {
-                ps = con.prepareStatement("update user set ProfilePicture = (?) where email = ?;");
-                ps.setString(1, u.getPP());
-                ps.setString(2, u.getEmail());
-                done = ps.executeUpdate();
-                if (done == 1) {
-                    System.out.println("Done!!!!");
-                    try {
-                        con.close();
-                    } catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
-                    }
-                    return true;
+        try {
+            ps = con.prepareStatement("update user set ProfilePicture = (?) where email = ?;");
+            ps.setString(1, u.getPP());
+            ps.setString(2, u.getEmail());
+            done = ps.executeUpdate();
+            if (done == 1) {
+                System.out.println("Done!!!!");
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
                 }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                return true;
             }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
         try {
             con.close();
         } catch (SQLException ex) {

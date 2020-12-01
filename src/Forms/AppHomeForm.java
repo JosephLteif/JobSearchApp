@@ -334,10 +334,15 @@ public class AppHomeForm extends javax.swing.JFrame {
         ProfilePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField1.setEnabled(false);
-        ProfilePanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 180, 233, -1));
+        ProfilePanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 230, -1));
 
         jTextField2.setEnabled(false);
-        ProfilePanel.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 206, 233, -1));
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        ProfilePanel.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 206, 230, -1));
 
         jTextField3.setEnabled(false);
         ProfilePanel.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 232, 233, -1));
@@ -456,20 +461,20 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
 
-        Table.setForeground(new java.awt.Color(255, 255, 255));
+        Table.setForeground(new java.awt.Color(0, 0, 0));
         Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "FirstName", "LastName", "Years of Experience", "Job Title", "Email", "Degree"
+                "FirstName", "LastName", "Email", "Job Title"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false
+                false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -733,8 +738,11 @@ public class AppHomeForm extends javax.swing.JFrame {
     private void SearchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchBarKeyPressed
         // TODO add your handling code here:
         if (!SearchBar.getText().equals("")) {
+            RepoUser.GetAll(SearchBar.getText());
+            System.out.println("Done!");
             /*MySQLConnectionManager.searchjobseeker(SearchBar.getText());*/
         }
+        
     }//GEN-LAST:event_SearchBarKeyPressed
 
     private void SearchBar1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchBar1KeyPressed
@@ -780,6 +788,10 @@ public class AppHomeForm extends javax.swing.JFrame {
         this.dispose();
         new LoginForm().setVisible(true);
     }//GEN-LAST:event_logoutOptionMouseReleased
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments

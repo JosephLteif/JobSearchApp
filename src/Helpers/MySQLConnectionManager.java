@@ -6,7 +6,8 @@ import java.sql.SQLException;
 
 public abstract class MySQLConnectionManager {
 
-   private static final String ConnectionManager = "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7375263?user=sql7375263&password=Tsg9h7CIPh";
+//   private static final String ConnectionManager = "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7375263?user=sql7375263&password=Tsg9h7CIPh";
+    private static final String ConnectionManager = "jdbc:mysql://127.0.0.1:3306/ jobify?user=root";
     private static Connection connection = null;
     public static int numberOfOpenedConnections = 0;
 

@@ -486,7 +486,7 @@
                   </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="258" y="180" width="233" height="-1"/>
+                      <AbsoluteConstraints x="260" y="180" width="230" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -494,12 +494,15 @@
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="258" y="206" width="233" height="-1"/>
+                      <AbsoluteConstraints x="261" y="206" width="230" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -918,16 +921,14 @@
                         <Component class="javax.swing.JTable" name="Table">
                           <Properties>
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                              <Color blue="0" green="0" red="0" type="rgb"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="6" rowCount="0">
+                              <Table columnCount="4" rowCount="0">
                                 <Column editable="false" title="FirstName" type="java.lang.String"/>
                                 <Column editable="false" title="LastName" type="java.lang.String"/>
-                                <Column editable="false" title="Years of Experience" type="java.lang.Integer"/>
-                                <Column editable="false" title="Job Title" type="java.lang.String"/>
                                 <Column editable="true" title="Email" type="java.lang.String"/>
-                                <Column editable="false" title="Degree" type="java.lang.String"/>
+                                <Column editable="false" title="Job Title" type="java.lang.String"/>
                               </Table>
                             </Property>
                             <Property name="autoResizeMode" type="int" value="4"/>
