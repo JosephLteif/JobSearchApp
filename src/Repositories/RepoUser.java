@@ -115,6 +115,29 @@ public class RepoUser {
         return false;
 
     }
+    
+    public static boolean passwordAfterVerify(String email, String pass) throws SQLException{
+    
+         try {
+//             con = MySQLConnectionManager.getConnection();
+            ps=con.prepareStatement("Update user Set password=?,isverified=? where email=?;");
+            ps.setString(1, pass);
+            ps.setInt(2,0);
+            ps.setString(3, email);
+            int i= ps.executeUpdate();
+            if (i==1){
+                
+                con.close();
+                return true;
+        
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+//     con.close();
+     return false;
+     
+    }
 
     private static boolean foundmail(String mail) throws SQLException {
 
@@ -144,26 +167,26 @@ public class RepoUser {
                
                 return false;
             }
-            String SQLQuery = "INSERT INTO user (firstName,lastName,email,password,gender) values (?, ?, LOWER(?), SHA(?), ?);";
+            
+            String SQLQuery = "INSERT INTO user (firstName,lastName,email,password,gender,isverified) values (?, ?, ?,null,?,1);";
             ps = con.prepareStatement(SQLQuery);
             ps.setString(1, u.getFname());
             ps.setString(2, u.getLname());
             ps.setString(3, u.getEmail());
-            ps.setString(4, u.getPassword());
-            ps.setInt(5, u.getGender());
+            //ps.setString(4, u.getPassword());
+            ps.setInt(4, u.getGender());
 
+            
             int rowCreate = ps.executeUpdate();
-            PasswordReset pr = new PasswordReset(u.getEmail());
+            PasswordReset pr=new PasswordReset(u.getEmail());
             if (rowCreate == 1) {
-
-                RepoPasswordReset.insert(pr);
                 
+                RepoPasswordReset.insert(pr);
                 return true;
             }
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-       
         return false;
     }
 

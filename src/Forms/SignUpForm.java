@@ -5,6 +5,7 @@
  */
 package Forms;
 
+import DTO.PasswordReset;
 import DTO.User;
 import Repositories.RepoUser;
 import java.awt.Component;
@@ -18,16 +19,19 @@ import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 import utilities.Regex;
 import utilities.EmailClass;
+import utilities.TokenGenerator;
 
 /**
  *
- * @author joelt
+ * @author Lama
  */
 public class SignUpForm extends javax.swing.JFrame {
 
     int gender = 1;
     EmailClass sendmail = new EmailClass();
 
+    public String confmail;
+    public String token;
     RepoUser repoU=new RepoUser();
     public SignUpForm() {
         initComponents();
@@ -51,15 +55,11 @@ public class SignUpForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         txtFname = new javax.swing.JTextField();
         txtLname = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
-        txtPass = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        txtCpass = new javax.swing.JPasswordField();
         ComboGender = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,7 +74,7 @@ public class SignUpForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Sign Up");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, -1));
 
         X.setBackground(new java.awt.Color(51, 153, 255));
         X.setForeground(new java.awt.Color(255, 255, 255));
@@ -84,29 +84,25 @@ public class SignUpForm extends javax.swing.JFrame {
                 XActionPerformed(evt);
             }
         });
-        jPanel2.add(X, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, -1, -1));
+        jPanel2.add(X, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 70));
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, -1));
 
         jLabel3.setText("First name");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 90, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 90, 30));
 
         jLabel4.setText("Last name");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, -1, -1));
 
         jLabel5.setText("Email");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
-
-        jLabel6.setText("Password");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
-        jPanel1.add(txtFname, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 160, -1));
-        jPanel1.add(txtLname, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 160, -1));
-        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 160, -1));
-        jPanel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 160, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, -1, -1));
+        jPanel1.add(txtFname, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 160, -1));
+        jPanel1.add(txtLname, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 160, -1));
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, 160, -1));
 
         jLabel7.setText("Gender");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(51, 102, 255));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -116,16 +112,12 @@ public class SignUpForm extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, -1, -1));
-
-        jLabel8.setText("Confirm Password");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
-        jPanel1.add(txtCpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 160, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, -1, -1));
 
         ComboGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Female", "Male" }));
-        jPanel1.add(ComboGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, -1, -1));
+        jPanel1.add(ComboGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 390));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 410));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -135,11 +127,10 @@ public class SignUpForm extends javax.swing.JFrame {
     }//GEN-LAST:event_XActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String fn = this.txtFname.getText();
+         String fn = this.txtFname.getText();
         String ln = this.txtLname.getText();
         String email = this.txtEmail.getText();
-        String pass = new String(this.txtPass.getPassword());
-        String cpass = new String(this.txtCpass.getPassword());
+         confmail=this.txtEmail.getText();
         if (ComboGender.getSelectedItem().equals("Male")) {
             gender = 2;
         }
@@ -148,52 +139,64 @@ public class SignUpForm extends javax.swing.JFrame {
 
         Component frame = null;
 
-        if (!Regex.isValidName(fn) || !Regex.isValidName(ln) || !Regex.isValidEmail(email) || !Regex.isValidPassword(pass) || !cpass.equals(pass)) {
+        if (!Regex.isValidName(fn) || !Regex.isValidName(ln) || !Regex.isValidEmail(email)) {//|| !Regex.isValidPassword(pass) || !cpass.equals(pass)) {
             if (!Regex.isValidName(fn)) {
                 ems = ems + "Invalid first name.\n";
             } else if (!Regex.isValidName(ln)) {
                 ems = ems + "Invalid last name";
             } else if (!Regex.isValidEmail(email)) {
                 ems = ems + "Invalid email address";
-            } else if (!Regex.isValidPassword(pass)) {
+            } 
+            /*else if (!Regex.isValidPassword(pass)) {
                 ems = ems + "Invalid password!";
             } else if (!cpass.equals(pass)) {
                 ems = ems + "Passwords don't match!";
-            }
+            }*/
             JOptionPane.showMessageDialog(frame, ems,
-                    "Sign up failed", JOptionPane.ERROR_MESSAGE);
+                "Sign up failed", JOptionPane.ERROR_MESSAGE);
         } else {
             
-            User newUser = new User(fn, ln, email, pass, gender);
-            if (repoU.create(newUser)) {
-                Thread T1 = new Thread(() -> {
-                    try {
-                        String body = null;
+               
+                token=TokenGenerator.generatetxt();
+                PasswordReset pr=new PasswordReset(confmail,token);
+                User newUser = new User(fn, ln, email, gender);
+                if (new RepoUser().create(newUser)) {
+                    Thread T1 = new Thread(() -> {
                         try {
-                            File file = new File("src/Utilities/Emailhtml.txt");
-                            BufferedReader br = new BufferedReader(new FileReader(file));
-
-                            String st;
-                            while ((st = br.readLine()) != null) {
-                                body += st;
-                            }
-                        } catch (IOException ex) {
-                            System.out.println(ex.getMessage());
+                            String sub = "Sign up verfication!";
+                            String body = "Dear " + newUser.getFname() + " " + newUser.getLname() + ",\n We'd like to welcome you in our app!Hoping that you'll find your dream job through our app!\n "
+                            +"But first we need to verify your email. So kindly enter this code: "+token+"\n"
+                            + "For any complaints, you can reach us on this email.";
+                            String[] mails = new String[1];
+                            mails[0] = newUser.getEmail();
+                            sendmail.sendFromGmail(mails, sub, body);
+                            
+                            
+                            
+                        } catch (MessagingException ex) {
+                            Logger.getLogger(SignUpForm.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        String sub = "Sign up successful!";
-                        String[] mails = new String[1];
-                        mails[0] = newUser.getEmail();
-                        sendmail.sendFromGmail(mails, sub, body);
-                    } catch (MessagingException ex) {
-                        Logger.getLogger(SignUpForm.class.getName()).log(Level.SEVERE, null, ex);
+                    });
+                    T1.start();
+                }
+                
+                SignupConfirmMailfrm frm=new SignupConfirmMailfrm(pr);
+                frm.addWindowListener(new java.awt.event.WindowAdapter(){
+                    
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent windowEvent){
+                        
                     }
                 });
-                T1.start();
-                this.dispose();
+                frm.setVisible(true);
+        
+       
+    
+           this.dispose();
                 
                 repoU.Destroy();
             }
-        }
+        
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -216,16 +219,12 @@ public class SignUpForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JPasswordField txtCpass;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFname;
     private javax.swing.JTextField txtLname;
-    private javax.swing.JPasswordField txtPass;
     // End of variables declaration//GEN-END:variables
 }

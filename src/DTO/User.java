@@ -27,6 +27,10 @@ public class User {
     boolean isRecruiter;
     String university;
     String PP;
+    
+    int isverified;
+    
+    
 
     public String getPP() {
         return PP;
@@ -170,4 +174,12 @@ public class User {
         this.university = university;
     }
 
+    
+    public User(String fname, String lname, String email, int gender) {
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.gender=gender;
+        this.isverified=1;
+    }
 }
