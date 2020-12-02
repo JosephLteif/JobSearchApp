@@ -18,6 +18,8 @@ public class LoginForm extends javax.swing.JFrame {
     /**
      * Creates new form loginFrm
      */
+    
+    RepoUser repoU=new RepoUser();
     public LoginForm() {
         initComponents();
         title.requestFocus(true);
@@ -121,7 +123,7 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         String pass = new String(this.passwordField.getPassword());
         User u = new User(null, null, this.emailField.getText().toLowerCase(), pass, 0);
-        if ((this.emailField.getText().equals("admin") && pass.equals("admin")) || new RepoUser().login(u) ){
+        if ((this.emailField.getText().equals("admin") && pass.equals("admin")) || repoU.login(u) ){
             new AppHomeForm(u).setVisible(true);
             this.dispose();
         } else {

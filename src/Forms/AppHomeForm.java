@@ -26,6 +26,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     private int yy = 0;
     protected static User u1 = null;
 
+    RepoUser repoU=new RepoUser();
     /**
      * Creates new form appHomeFrm
      */
@@ -37,7 +38,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     }
 
     public AppHomeForm(User u) {
-        this.u1 = new RepoUser().Get(u.getEmail());
+        this.u1 = repoU.Get(u.getEmail());
         this.oldColor = new Color(51, 102, 255);
         this.backColor = new Color(51, 153, 255);
         setUndecorated(true);
@@ -739,8 +740,11 @@ public class AppHomeForm extends javax.swing.JFrame {
     private void SearchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchBarKeyPressed
         // TODO add your handling code here:
         if (!SearchBar.getText().equals("")) {
-            RepoUser.GetAll(SearchBar.getText());
+            repoU.GetAll(SearchBar.getText());
             System.out.println("Done!");
+            
+            
+            
             /*MySQLConnectionManager.searchjobseeker(SearchBar.getText());*/
         }
         
@@ -794,6 +798,8 @@ public class AppHomeForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    
+    
     /**
      * @param args the command line arguments
      */

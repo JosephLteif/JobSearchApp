@@ -28,6 +28,7 @@ public class SignUpForm extends javax.swing.JFrame {
     int gender = 1;
     EmailClass sendmail = new EmailClass();
 
+    RepoUser repoU=new RepoUser();
     public SignUpForm() {
         initComponents();
     }
@@ -164,7 +165,7 @@ public class SignUpForm extends javax.swing.JFrame {
         } else {
             
             User newUser = new User(fn, ln, email, pass, gender);
-            if (new RepoUser().create(newUser)) {
+            if (repoU.create(newUser)) {
                 Thread T1 = new Thread(() -> {
                     try {
                         String body = null;
@@ -189,6 +190,8 @@ public class SignUpForm extends javax.swing.JFrame {
                 });
                 T1.start();
                 this.dispose();
+                
+                repoU.Destroy();
             }
         }
 
