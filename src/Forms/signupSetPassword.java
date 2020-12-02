@@ -28,10 +28,10 @@ public class signupSetPassword extends javax.swing.JFrame {
     //RepoPasswordReset repoP=new RepoPasswordReset();
     RepoUser repoU=new RepoUser();
     PasswordReset pr=new PasswordReset();
-    public signupSetPassword(PasswordReset pr) {
+    String mail;
+    public signupSetPassword(String mail) {
         initComponents();
-        this.pr.setEmail(pr.getEmail());
-        this.pr.setTok(pr.getTok());
+       this.mail=mail;
     }
 
     private signupSetPassword() {
@@ -106,9 +106,9 @@ public class signupSetPassword extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
  
         
-        String pass=this.txtPass.getText();
-        String cpass=this.txtPass.getText();
-        String mail=this.pr.getEmail();
+        String pass=new String(this.txtPass.getPassword());
+        String cpass=new String(this.txtCPass.getPassword());
+        
         String ems = "";
         Component frame = null;
 
@@ -123,7 +123,7 @@ public class signupSetPassword extends javax.swing.JFrame {
             else{
                 
                 try {
-                    if (RepoUser.passwordAfterVerify(mail, AES.encrypt(pass))){
+                    if (repoU.passwordAfterVerify(mail,pass)){
                         
                         ems = ems + "Your account is successfully created!\nYou can now login using your email and your JOBIFY password!";
                         JOptionPane.showMessageDialog(frame, ems,

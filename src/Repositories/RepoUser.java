@@ -15,8 +15,11 @@ import java.sql.SQLException;
 import Helpers.MySQLConnectionManager;
 import java.awt.Component;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import utilities.AES;
 
 /**
  *
@@ -120,7 +123,7 @@ public class RepoUser {
     
          try {
 //             con = MySQLConnectionManager.getConnection();
-            ps=con.prepareStatement("Update user Set password=?,isverified=? where email=?;");
+            ps=con.prepareStatement("Update user Set password=SHA(?),isverified=? where email=Lower(?);");
             ps.setString(1, pass);
             ps.setInt(2,0);
             ps.setString(3, email);
@@ -168,7 +171,7 @@ public class RepoUser {
                 return false;
             }
             
-            String SQLQuery = "INSERT INTO user (firstName,lastName,email,password,gender,isverified) values (?, ?, ?,null,?,1);";
+            String SQLQuery = "INSERT INTO user (firstName,lastName,email,password,gender,isverified) values (?, ?, Lower(?),null,?,1);";
             ps = con.prepareStatement(SQLQuery);
             ps.setString(1, u.getFname());
             ps.setString(2, u.getLname());
@@ -178,11 +181,11 @@ public class RepoUser {
 
             
             int rowCreate = ps.executeUpdate();
-            PasswordReset pr=new PasswordReset(u.getEmail());
+            //PasswordReset pr=new PasswordReset(u.getEmail());
             if (rowCreate == 1) {
                 
-                RepoPasswordReset.insert(pr);
-                return true;
+               //RepoPasswordReset.insert(pr);
+               return true;
             }
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -192,6 +195,8 @@ public class RepoUser {
 
     public static boolean login(User u) {
         try {
+            
+           
             ps = con.prepareStatement("Select email, password from user where password = SHA(?);");
             ps.setString(1, u.getPassword());
             rs = ps.executeQuery();
@@ -209,6 +214,22 @@ public class RepoUser {
         }
         return false;
     }
+    
+    /*public static boolean login(User u) {
+        try {
+            ps = con.prepareStatement("Select email, password from user;");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getString(1).equals(u.getEmail()) && rs.getString(2).equals(u.getPassword())) {
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RepoUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }*/
+  
 
     public static boolean insertProfilePicture(User u) {
         int done = 0;

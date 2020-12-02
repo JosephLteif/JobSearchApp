@@ -20,45 +20,42 @@ import java.sql.Statement;
  * @author Lama
  */
 public class RepoPasswordReset {
-    
-     private static Connection con ;// null;
+
+    private static Connection con;// null;
     private static ResultSet rs;// = null;
-    private static PreparedStatement ps ;//= null;
-     private static Statement stmt;
+    private static PreparedStatement ps;//= null;
+    private static Statement stmt;
 
     public RepoPasswordReset() {
-        
+
         con = MySQLConnectionManager.getConnection();
     }
-    
-       
-   public static boolean foundmail(String mail) throws SQLException{
-      
-        try{ 
+
+    public static boolean foundmail(String mail) throws SQLException {
+
+        try {
             con = MySQLConnectionManager.getConnection();
-            ps=con.prepareStatement("SELECT * FROM password_reset WHERE email=?;");
+            ps = con.prepareStatement("SELECT * FROM password_reset WHERE email=?;");
             ps.setString(1, mail);
-            rs=ps.executeQuery();
-            if(rs.next()){
+            rs = ps.executeQuery();
+            if (rs.next()) {
                 con.close();
-                 return true;
-                
+                return true;
+
             }
-            
-        }catch(SQLException ex){
+
+        } catch (SQLException ex) {
             System.out.println(ex);
         }
         con.close();
-           return false;
-           
-     
-          }
+        return false;
 
-    
-     public static boolean insert(PasswordReset pr) throws SQLException {
+    }
+
+    public static boolean insert(PasswordReset pr) throws SQLException {
         try {
-            
-             con = MySQLConnectionManager.getConnection();
+
+            con = MySQLConnectionManager.getConnection();
             String SQLQuery = "INSERT INTO password_reset (email,token) values (?,?);";
             ps = con.prepareStatement(SQLQuery);
             ps.setString(1, pr.getEmail());
@@ -75,15 +72,15 @@ public class RepoPasswordReset {
         con.close();
         return false;
     }
-     
-      public static boolean setTokenNull(String mail) {
+
+    public static boolean setTokenNull(String mail) {
         try {
-            
-             con = MySQLConnectionManager.getConnection();
+
+            con = MySQLConnectionManager.getConnection();
             String SQLQuery = "Update password_reset Set token=null where email=?;";
             ps = con.prepareStatement(SQLQuery);
             ps.setString(1, mail);
-          
+
             int rowCreate = ps.executeUpdate();
             if (rowCreate == 1) {
                 return true;
@@ -93,65 +90,50 @@ public class RepoPasswordReset {
         }
         return false;
     }
-     
-     
-                
-                
-                
-   
-     
-     
-    
-     public static String getToken(String email){
-         String tok="";
-    try{
-        
-         con = MySQLConnectionManager.getConnection();
-        String SQLQuery = "Select token from password_reset where email='"+email+"';";
-         stmt=con.createStatement();
-        rs=stmt.executeQuery(SQLQuery);
-        if(rs.next()){
-             tok=rs.getString("token");
+
+    public static String getToken(String email) {
+        String tok = "";
+        try {
+
+            //con = MySQLConnectionManager.getConnection();
+            String SQLQuery = "Select token from password_reset where email='" + email + "';";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQLQuery);
+            if (rs.next()) {
+                tok = rs.getString("token");
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+
         }
-        
-    }catch(SQLException ex){
-        System.out.println(ex);
-        
+        return tok;
     }
-     return tok;
-     }
-     
-     
-     
-       public void Destroy(){
-        if(rs!=null){
-            try{
+
+    public void Destroy() {
+        if (rs != null) {
+            try {
                 rs.close();
-            }catch(SQLException ex){
+            } catch (SQLException ex) {
                 System.out.println(ex);
             }
         }
-        if(ps!=null){
-            try{
+        if (ps != null) {
+            try {
                 ps.close();
-            }catch(SQLException ex){
+            } catch (SQLException ex) {
                 System.out.println(ex);
             }
         }
-        if(stmt!=null){
-            try{
-            stmt.close();
-            
-        }catch(SQLException ex){
+        if (stmt != null) {
+            try {
+                stmt.close();
+
+            } catch (SQLException ex) {
                 System.out.println(ex);
-                }
-        
-        
-    }
+            }
+
+        }
     }
 
 }
-    
-         
-     
-

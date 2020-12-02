@@ -7,12 +7,14 @@ package Forms;
 
 import DTO.PasswordReset;
 import DTO.User;
+import Repositories.RepoPasswordReset;
 import Repositories.RepoUser;
 import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
@@ -33,6 +35,7 @@ public class SignUpForm extends javax.swing.JFrame {
     public String confmail;
     public String token;
     RepoUser repoU=new RepoUser();
+    RepoPasswordReset repoP=new RepoPasswordReset();
     public SignUpForm() {
         initComponents();
     }
@@ -156,31 +159,41 @@ public class SignUpForm extends javax.swing.JFrame {
                 "Sign up failed", JOptionPane.ERROR_MESSAGE);
         } else {
             
-               
+             
                 token=TokenGenerator.generatetxt();
                 PasswordReset pr=new PasswordReset(confmail,token);
+                
+            
+                
+                
                 User newUser = new User(fn, ln, email, gender);
                 if (new RepoUser().create(newUser)) {
-                    Thread T1 = new Thread(() -> {
-                        try {
-                            String sub = "Sign up verfication!";
-                            String body = "Dear " + newUser.getFname() + " " + newUser.getLname() + ",\n We'd like to welcome you in our app!Hoping that you'll find your dream job through our app!\n "
-                            +"But first we need to verify your email. So kindly enter this code: "+token+"\n"
-                            + "For any complaints, you can reach us on this email.";
-                            String[] mails = new String[1];
-                            mails[0] = newUser.getEmail();
-                            sendmail.sendFromGmail(mails, sub, body);
+                 
+                    try {
+                        if(repoP.insert(pr)){
                             
-                            
-                            
-                        } catch (MessagingException ex) {
-                            Logger.getLogger(SignUpForm.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    });
-                    T1.start();
-                }
+                            Thread T1 = new Thread(() -> {
+                                try {
+                                    String sub = "Sign up verfication!";
+                                    String body = "Dear " + newUser.getFname() + " " + newUser.getLname() + ",\n We'd like to welcome you in our app!Hoping that you'll find your dream job through our app!\n "
+                                            +"But first we need to verify your email. So kindly enter this code: "+pr.getTok()+"\n"
+                                            + "For any complaints, you can reach us on this email.";
+                                    String[] mails = new String[1];
+                                    mails[0] = newUser.getEmail();
+                                    sendmail.sendFromGmail(mails, sub, body);
+                                    
+                                    
+                                    
+                                } catch (MessagingException ex) {
+                                    Logger.getLogger(SignUpForm.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            });
+                            T1.start();
+                        }   } catch (SQLException ex) {
+                        Logger.getLogger(SignUpForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 
-                SignupConfirmMailfrm frm=new SignupConfirmMailfrm(pr);
+                SignupConfirmMailfrm frm=new SignupConfirmMailfrm(pr.getEmail());
                 frm.addWindowListener(new java.awt.event.WindowAdapter(){
                     
                     @Override
@@ -196,7 +209,7 @@ public class SignUpForm extends javax.swing.JFrame {
                 
                 repoU.Destroy();
             }
-        
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

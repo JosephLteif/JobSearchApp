@@ -21,11 +21,13 @@ public class SignupConfirmMailfrm extends javax.swing.JFrame {
      * Creates new form SignupConfirmMailfrm
      */
     RepoPasswordReset repoP=new RepoPasswordReset();
-    PasswordReset pr=new PasswordReset();
-    public SignupConfirmMailfrm(PasswordReset pr) {
+   
+    
+    String mail;
+    public SignupConfirmMailfrm(String maill) {
         
-        this.pr.setEmail(pr.getEmail());
-        this.pr.setTok(pr.getTok());
+        this.mail=maill;
+       
         initComponents();
     }
 
@@ -105,10 +107,13 @@ public class SignupConfirmMailfrm extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String ut=this.txtToken.getText();
 
-        if (ut.equals(this.pr.getTok())){
-            repoP.setTokenNull(pr.getEmail());
+        String t=repoP.getToken(mail);
+        
+        System.out.println(t+"\n"+ut);
+        if (ut.equals(t)){
+            repoP.setTokenNull(mail);
             
-            signupSetPassword frm=new signupSetPassword(pr);
+            signupSetPassword frm=new signupSetPassword(mail);
           
 
             frm.addWindowListener(new java.awt.event.WindowAdapter(){
@@ -126,7 +131,7 @@ public class SignupConfirmMailfrm extends javax.swing.JFrame {
 
             String ems = "";
             Component frame = null;
-            ems = ems + "Uncorrect code!"+this.pr.getTok()+" "+ut;
+            ems = ems + "Uncorrect code "+ut+" !";
             JOptionPane.showMessageDialog(frame, ems,
                 "Code verification", JOptionPane.ERROR_MESSAGE);
             /*
