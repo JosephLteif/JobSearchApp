@@ -19,6 +19,8 @@ public class PasswordUpdateForm extends javax.swing.JFrame {
     /**
      * Creates new form PasswordUpdateForm
      */
+    
+    RepoUser repoU=new RepoUser();
     PasswordReset pr = new PasswordReset();
 
     public PasswordUpdateForm(PasswordReset p) {
@@ -109,7 +111,7 @@ public class PasswordUpdateForm extends javax.swing.JFrame {
         Component frame = null;
 
         if (pass.equals(cpass)) {
-            if (RepoUser.updatePass(mail, pass)) {
+            if (repoU.updatePass(mail, pass)) {
 
                 ems = ems + "Your password was successfully reset!";
                 JOptionPane.showMessageDialog(frame, ems,
@@ -129,6 +131,8 @@ public class PasswordUpdateForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(frame, ems,
                     "Reset Password", JOptionPane.ERROR_MESSAGE);
         }
+        
+        repoU.Destroy();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
