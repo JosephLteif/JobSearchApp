@@ -32,6 +32,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     public AppHomeForm() {
         this.oldColor = new Color(51, 102, 255);
         this.backColor = new Color(51, 153, 255);
+        
         initComponents();
     }
 

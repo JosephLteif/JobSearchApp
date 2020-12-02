@@ -7,6 +7,7 @@ package Forms;
 
 import DTO.PasswordReset;
 import Repositories.RepoPasswordReset;
+import Repositories.RepoUser;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import utilities.Regex;
@@ -21,6 +22,8 @@ public class ForgotPass2Form extends javax.swing.JFrame {
      * Creates new form ForgotPass2Form
      */
     
+   
+    RepoPasswordReset repoP=new RepoPasswordReset();
     PasswordReset pr=new PasswordReset();
     public ForgotPass2Form(PasswordReset pr) {
         initComponents();
@@ -109,7 +112,7 @@ public class ForgotPass2Form extends javax.swing.JFrame {
       String ut=this.txtToken.getText();
         
         if (ut.equals(this.pr.getTok())){
-            RepoPasswordReset.setTokenNull(pr.getEmail());
+            repoP.setTokenNull(pr.getEmail());
              PasswordUpdateForm frm=new PasswordUpdateForm(pr);
             
             frm.addWindowListener(new java.awt.event.WindowAdapter(){
@@ -144,7 +147,7 @@ public class ForgotPass2Form extends javax.swing.JFrame {
             frm.setVisible(true);     
             
             */}
-    
+    repoP.Destroy();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

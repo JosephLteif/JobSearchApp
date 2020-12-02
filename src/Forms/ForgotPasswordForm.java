@@ -23,6 +23,7 @@ import utilities.TokenGenerator;
  */
 public class ForgotPasswordForm extends javax.swing.JFrame {
 
+    RepoPasswordReset repoP=new RepoPasswordReset();
     EmailClass sendmail = new EmailClass();
     public  String confmail;
     public  String token;
@@ -98,7 +99,7 @@ public class ForgotPasswordForm extends javax.swing.JFrame {
            
        }
       else try {
-          if (!RepoPasswordReset.foundmail(confmail)){
+          if (!repoP.foundmail(confmail)){
               ems = ems + "No accounts associated with this mail!";
               JOptionPane.showMessageDialog(frame, ems,
                       "Account not found", JOptionPane.ERROR_MESSAGE);
@@ -113,7 +114,7 @@ public class ForgotPasswordForm extends javax.swing.JFrame {
               
               
               try {
-                  if (RepoPasswordReset.insert(pr)){
+                  if (repoP.insert(pr)){
                       Thread T1 = new Thread(() -> {
                           try {
                               String sub = "Reset your Jobify Password!";
@@ -153,7 +154,8 @@ public class ForgotPasswordForm extends javax.swing.JFrame {
            
          
            
-           
+       repoP.Destroy();
+             
         this.dispose();
        
     }//GEN-LAST:event_jButton1ActionPerformed

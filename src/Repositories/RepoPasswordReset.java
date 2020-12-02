@@ -120,6 +120,36 @@ public class RepoPasswordReset {
     }
      return tok;
      }
+     
+     
+     
+       public void Destroy(){
+        if(rs!=null){
+            try{
+                rs.close();
+            }catch(SQLException ex){
+                System.out.println(ex);
+            }
+        }
+        if(ps!=null){
+            try{
+                ps.close();
+            }catch(SQLException ex){
+                System.out.println(ex);
+            }
+        }
+        if(stmt!=null){
+            try{
+            stmt.close();
+            
+        }catch(SQLException ex){
+                System.out.println(ex);
+                }
+        
+        
+    }
+    }
+
 }
     
          
