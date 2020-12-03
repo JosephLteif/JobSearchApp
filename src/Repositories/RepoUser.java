@@ -5,7 +5,6 @@
  */
 package Repositories;
 
-import DTO.PasswordReset;
 import DTO.User;
 import Forms.AppHomeForm;
 import java.sql.Connection;
@@ -19,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import utilities.AES;
 
 /**
  *
@@ -38,17 +36,16 @@ public class RepoUser {
 
     public static void GetAll(String name) {
         try {
-            
+
             ps = con.prepareStatement("SELECT * FROM user where firstName like ?;");
-            ps.setString(1,  "%" + name + "%");
+            ps.setString(1, "%" + name + "%");
             rs = ps.executeQuery();
             DefaultTableModel dtm = (DefaultTableModel) AppHomeForm.Table.getModel();
             dtm.setRowCount(0);
             while (rs.next()) {
                 Object User[] = {rs.getString("firstName"),
                     rs.getString("lastName"),
-                    rs.getString("email"),
-                };
+                    rs.getString("email"),};
                 dtm.addRow(User);
             }
         } catch (SQLException ex) {
@@ -59,27 +56,28 @@ public class RepoUser {
     }
 
     public static User Get(String mail) {
-        User user=null;
+        User user = null;
         try {
-            
+
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT firstName, lastName, DOB, email, phoneNumber, Major, gender, location, profilePicture FROM user WHERE email='" + mail + "';");
+            rs = stmt.executeQuery("SELECT * FROM user WHERE email='" + mail + "';");
             if (rs.next()) {
                 user = extractUserFromResultSet(rs);
-                 return user;
+                return user;
             }
         } catch (SQLException ex) {
             System.out.println(ex);
 
         }
-        
+
         return user;
 
     }
 
     private static User extractUserFromResultSet(ResultSet rs) throws SQLException {
         User user = new User();
-        
+
+        user.setUid(rs.getInt("userID"));
         user.setFname(rs.getString("firstName"));
         user.setLname(rs.getString("lastName"));
         user.setDob(rs.getString("DOB"));
@@ -89,7 +87,7 @@ public class RepoUser {
         user.setGender(rs.getInt("gender"));
         user.setLocation(rs.getString("location"));
         user.setPP(rs.getString("profilePicture"));
-      
+
         return user;
 
     }
@@ -97,7 +95,7 @@ public class RepoUser {
     public static boolean updatePass(String email, String pass) {
 
         try {
-            
+
             ps = con.prepareStatement("Update user Set password=SHA(?) where email=LOWER(?);");
             ps.setString(1, pass);
             ps.setString(2, email);
@@ -115,38 +113,37 @@ public class RepoUser {
             System.out.println(throwables.getMessage());
         }
 
-        
         return false;
 
     }
-    
-    public static boolean passwordAfterVerify(String email, String pass) throws SQLException{
-    
-         try {
+
+    public static boolean passwordAfterVerify(String email, String pass) throws SQLException {
+
+        try {
 //             con = MySQLConnectionManager.getConnection();
-            ps=con.prepareStatement("Update user Set password=SHA(?),isverified=? where email=Lower(?);");
+            ps = con.prepareStatement("Update user Set password=SHA(?),isverified=? where email=Lower(?);");
             ps.setString(1, pass);
-            ps.setInt(2,0);
+            ps.setInt(2, 0);
             ps.setString(3, email);
-            int i= ps.executeUpdate();
-            if (i==1){
-                
+            int i = ps.executeUpdate();
+            if (i == 1) {
+
                 con.close();
                 return true;
-        
+
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 //     con.close();
-     return false;
-     
+        return false;
+
     }
 
     private static boolean foundmail(String mail) throws SQLException {
 
         try {
-            
+
             ps = con.prepareStatement("SELECT * FROM user WHERE email=Lower(?);");
             ps.setString(1, mail);
             rs = ps.executeQuery();
@@ -168,10 +165,10 @@ public class RepoUser {
                 Component frame = null;
                 JOptionPane.showMessageDialog(frame, "An account is already associated with this mail!",
                         "Account not found", JOptionPane.ERROR_MESSAGE);
-               
+
                 return false;
             }
-            
+
             String SQLQuery = "INSERT INTO user (firstName,lastName,email,password,gender,isverified) values (?, ?, Lower(?),null,?,1);";
             ps = con.prepareStatement(SQLQuery);
             ps.setString(1, u.getFname());
@@ -180,13 +177,12 @@ public class RepoUser {
             //ps.setString(4, u.getPassword());
             ps.setInt(4, u.getGender());
 
-            
             int rowCreate = ps.executeUpdate();
             //PasswordReset pr=new PasswordReset(u.getEmail());
             if (rowCreate == 1) {
-                
-               //RepoPasswordReset.insert(pr);
-               return true;
+
+                //RepoPasswordReset.insert(pr);
+                return true;
             }
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -195,28 +191,6 @@ public class RepoUser {
     }
 
     public static boolean login(User u) {
-        try {
-            
-           
-            ps = con.prepareStatement("Select email, password from user where password = SHA(?);");
-            ps.setString(1, u.getPassword());
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                con.close();
-                return true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        try {
-            con.close();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return false;
-    }
-    
-    /*public static boolean login(User u) {
         try {
             ps = con.prepareStatement("Select email, password from user;");
             rs = ps.executeQuery();
@@ -229,8 +203,7 @@ public class RepoUser {
             Logger.getLogger(RepoUser.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-    }*/
-  
+    }
 
     public static boolean insertProfilePicture(User u) {
         int done = 0;
@@ -241,44 +214,40 @@ public class RepoUser {
             done = ps.executeUpdate();
             if (done == 1) {
                 System.out.println("Done!!!!");
-                
+
                 return true;
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        
+
         return false;
     }
-    
-    
-    
-        public void Destroy(){
-        if(rs!=null){
-            try{
+
+    public void Destroy() {
+        if (rs != null) {
+            try {
                 rs.close();
-            }catch(SQLException ex){
+            } catch (SQLException ex) {
                 System.out.println(ex);
             }
         }
-        if(ps!=null){
-            try{
+        if (ps != null) {
+            try {
                 ps.close();
-            }catch(SQLException ex){
+            } catch (SQLException ex) {
                 System.out.println(ex);
             }
         }
-        if(stmt!=null){
-            try{
-            stmt.close();
-            
-        }catch(SQLException ex){
+        if (stmt != null) {
+            try {
+                stmt.close();
+
+            } catch (SQLException ex) {
                 System.out.println(ex);
-                }
-        
-        
-    }
+            }
+
+        }
     }
 
-   
 }

@@ -5,35 +5,34 @@
  */
 package Forms;
 
-import DTO.PasswordReset;
 import Repositories.RepoPasswordReset;
 import java.awt.Component;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Lama
  */
-public class SignupConfirmMailfrm extends javax.swing.JFrame {
+public class SignupConfirmMailForm extends javax.swing.JFrame {
 
     /**
-     * Creates new form SignupConfirmMailfrm
+     * Creates new form SignupConfirmMailForm
      */
-    RepoPasswordReset repoP=new RepoPasswordReset();
-   
-    
+    RepoPasswordReset repoP = null;
+
     String mail;
-    public SignupConfirmMailfrm(String maill) {
-        
-        this.mail=maill;
-       
+
+    public SignupConfirmMailForm(String maill) {
+        repoP = new RepoPasswordReset();
+        this.mail = maill;
+
         initComponents();
     }
 
-    private SignupConfirmMailfrm() {
+    private SignupConfirmMailForm() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,49 +104,28 @@ public class SignupConfirmMailfrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String ut=this.txtToken.getText();
+        String ut = this.txtToken.getText();
 
-        String t=repoP.getToken(mail);
-        
-        System.out.println(t+"\n"+ut);
-        if (ut.equals(t)){
+        String t = repoP.getToken(mail);
+
+        System.out.println(mail + "\n" + t + "\n" + ut);
+        if (ut.toLowerCase().equals(t)) {
             repoP.setTokenNull(mail);
-            
-            signupSetPassword frm=new signupSetPassword(mail);
-          
 
-            frm.addWindowListener(new java.awt.event.WindowAdapter(){
+            signupSetPassword frm = new signupSetPassword(mail);
 
-                @Override
-                public void windowClosed(java.awt.event.WindowEvent windowEvent){
-
-                }
+            frm.addWindowListener(new java.awt.event.WindowAdapter() {
             });
 
             frm.setVisible(true);
-        }
-
-        else{
+        } else {
 
             String ems = "";
             Component frame = null;
-            ems = ems + "Uncorrect code "+ut+" !";
+            ems = ems + "Uncorrect code " + ut + " !";
             JOptionPane.showMessageDialog(frame, ems,
-                "Code verification", JOptionPane.ERROR_MESSAGE);
-            /*
-            PasswordUpdateForm frm=new PasswordUpdateForm(pr);
-
-            frm.addWindowListener(new java.awt.event.WindowAdapter(){
-
-                @Override
-                public void windowClosed(java.awt.event.WindowEvent windowEvent){
-
-                }
-            });
-
-            frm.setVisible(true);
-
-            */}
+                    "Code verification", JOptionPane.ERROR_MESSAGE);
+        }
 
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -169,21 +147,20 @@ public class SignupConfirmMailfrm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SignupConfirmMailfrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SignupConfirmMailForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SignupConfirmMailfrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SignupConfirmMailForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SignupConfirmMailfrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SignupConfirmMailForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SignupConfirmMailfrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SignupConfirmMailForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SignupConfirmMailfrm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new SignupConfirmMailForm().setVisible(true);
         });
     }
 

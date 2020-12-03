@@ -6,7 +6,6 @@
 package Repositories;
 
 import DTO.PasswordReset;
-import DTO.User;
 import Helpers.MySQLConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -56,7 +55,7 @@ public class RepoPasswordReset {
         try {
 
             con = MySQLConnectionManager.getConnection();
-            String SQLQuery = "INSERT INTO password_reset (email,token) values (?,?);";
+            String SQLQuery = "INSERT INTO password_reset (email,token) values (?,Lower(?));";
             ps = con.prepareStatement(SQLQuery);
             ps.setString(1, pr.getEmail());
             ps.setString(2, pr.getTok());
@@ -95,10 +94,12 @@ public class RepoPasswordReset {
         String tok = "";
         try {
 
-            //con = MySQLConnectionManager.getConnection();
-            String SQLQuery = "Select token from password_reset where email='" + email + "';";
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(SQLQuery);
+            con = MySQLConnectionManager.getConnection();
+            String SQLQuery = "Select token from password_reset where email=LOWER(?);";
+            ps = con.prepareStatement(SQLQuery);
+            ps.setString(1, email);
+
+            rs = ps.executeQuery();
             if (rs.next()) {
                 tok = rs.getString("token");
             }
