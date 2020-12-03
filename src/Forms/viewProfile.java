@@ -16,22 +16,18 @@ public class viewProfile extends javax.swing.JFrame {
     /**
      * Creates new form viewProfile
      */
-  
     User u;
+
     public viewProfile(User u) {
-     
         initComponents();
-         this.u=u;
-      this.lblfname.setText(u.getFname());
-      this.lbllname.setText(u.getLname());
-      this.lbldob.setText(u.getDob());
-      this.lblemail.setText(u.getEmail());
-      this.lbllocation.setText(u.getLocation());
-      this.lblmajor.setText(u.getMajor());
-      this.lblphonenumber.setText(u.getPhoneNumber());
-      
-              
-      
+        this.u = u;
+        this.lblfname.setText(u.getFname());
+        this.lbllname.setText(u.getLname());
+        this.lbldob.setText(u.getDob());
+        this.lblemail.setText(u.getEmail());
+        this.lbllocation.setText(u.getLocation());
+        this.lblmajor.setText(u.getMajor());
+        this.lblphonenumber.setText(u.getPhoneNumber());
     }
 
     private viewProfile() {
@@ -49,7 +45,6 @@ public class viewProfile extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        X = new javax.swing.JButton();
         X1 = new javax.swing.JButton();
         lblfname = new javax.swing.JLabel();
         lbllname = new javax.swing.JLabel();
@@ -65,23 +60,13 @@ public class viewProfile extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         lbllocation = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(51, 153, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        X.setBackground(new java.awt.Color(51, 153, 255));
-        X.setForeground(new java.awt.Color(255, 255, 255));
-        X.setText("X");
-        X.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                XActionPerformed(evt);
-            }
-        });
-        jPanel2.add(X, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, -1, -1));
 
         X1.setBackground(new java.awt.Color(51, 153, 255));
         X1.setForeground(new java.awt.Color(255, 255, 255));
@@ -171,10 +156,6 @@ public class viewProfile extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_X1ActionPerformed
 
-    private void XActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_XActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -203,15 +184,12 @@ public class viewProfile extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new viewProfile().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new viewProfile().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton X;
     private javax.swing.JButton X1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;

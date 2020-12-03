@@ -6,15 +6,19 @@
 package Forms;
 
 import DTO.PasswordReset;
-import Repositories.RepoPasswordReset;
 import Repositories.RepoUser;
 import java.awt.Component;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
+import utilities.EmailClass;
 import utilities.Regex;
-import utilities.AES;
 
 /**
  *
@@ -97,7 +101,7 @@ public class signupSetPassword extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
         );
 
         pack();
@@ -128,6 +132,29 @@ public class signupSetPassword extends javax.swing.JFrame {
                         ems = ems + "Your account is successfully created!\nYou can now login using your email and your JOBIFY password!";
                         JOptionPane.showMessageDialog(frame, ems,
                                 "Set Password", JOptionPane.INFORMATION_MESSAGE);
+                        Thread T1 = new Thread(() -> {
+                            String body = null;
+                            try {
+                                File file = new File("src/Utilities/Emailhtml.txt");
+                                BufferedReader br = new BufferedReader(new FileReader(file));
+                                
+                                String st;
+                                while ((st = br.readLine()) != null) {
+                                    body += st;
+                                }
+                            } catch (IOException ex) {
+                                System.out.println(ex.getMessage());
+                            }
+                            String sub = "Sign up successful!";
+                            String[] mails = new String[1];
+                            mails[0] = mail;
+                            try {
+                                new EmailClass().sendFromGmail(mails, sub, body);
+                            } catch (MessagingException ex) {
+                                Logger.getLogger(signupSetPassword.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                });
+                T1.start();
                         this.dispose();
                         
                     }

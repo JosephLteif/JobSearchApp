@@ -112,12 +112,8 @@ public class SignupConfirmMailForm extends javax.swing.JFrame {
         if (ut.toLowerCase().equals(t)) {
             repoP.setTokenNull(mail);
 
-            signupSetPassword frm = new signupSetPassword(mail);
+            new signupSetPassword(mail).setVisible(true);
 
-            frm.addWindowListener(new java.awt.event.WindowAdapter() {
-            });
-
-            frm.setVisible(true);
         } else {
 
             String ems = "";

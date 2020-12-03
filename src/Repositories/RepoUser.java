@@ -101,11 +101,11 @@ public class RepoUser {
             ps.setString(2, email);
             int i = ps.executeUpdate();
             if (i == 1) {
-                try {
-                    con.close();
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
+//                try {
+//                  con.close();
+//                } catch (SQLException ex) {
+//                    System.out.println(ex.getMessage());
+//                }
                 return true;
 
             }
@@ -128,7 +128,7 @@ public class RepoUser {
             int i = ps.executeUpdate();
             if (i == 1) {
 
-                con.close();
+//                con.close();
                 return true;
 
             }
@@ -192,15 +192,15 @@ public class RepoUser {
 
     public static boolean login(User u) {
         try {
-            ps = con.prepareStatement("Select email, password from user;");
+            ps = con.prepareStatement("Select email, password from user where password = SHA(?) and email = ?;");
+            ps.setString(1, u.getPassword());
+            ps.setString(2, u.getEmail());
             rs = ps.executeQuery();
-            while (rs.next()) {
-                if (rs.getString(1).equals(u.getEmail()) && rs.getString(2).equals(u.getPassword())) {
-                    return true;
-                }
+            if (rs.next()) {
+                return true;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(RepoUser.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         return false;
     }
