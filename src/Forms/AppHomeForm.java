@@ -11,10 +11,12 @@ import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -43,7 +45,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         this.backColor = new Color(51, 153, 255);
         setUndecorated(true);
         initComponents();
-        this.username = u1.getFname();
+        this.username =u1.getFname();
         jLabel6.setText(jLabel6.getText() + " " + this.username);
         jLayeredPane1.moveToFront(HomePanel);
         Title.setText(this.username + "'s Page");
@@ -154,6 +156,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         Table = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        View = new javax.swing.JButton();
         SearchCompanies = new javax.swing.JPanel();
         SearchBar2 = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -454,6 +457,11 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchUsers.setBackground(new java.awt.Color(255, 255, 255));
         SearchUsers.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        SearchBar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchBarActionPerformed(evt);
+            }
+        });
         SearchBar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 SearchBarKeyPressed(evt);
@@ -463,7 +471,6 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
 
-        Table.setForeground(new java.awt.Color(0, 0, 0));
         Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -496,6 +503,14 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Search");
         SearchUsers.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 25, -1, -1));
+
+        View.setText("View");
+        View.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ViewActionPerformed(evt);
+            }
+        });
+        SearchUsers.add(View, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, 20));
 
         SearchPanel.addTab("Search for Users", SearchUsers);
 
@@ -737,12 +752,20 @@ public class AppHomeForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_XMousePressed
 
+    
+   
+    
+
+    
     private void SearchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchBarKeyPressed
         // TODO add your handling code here:
         if (!SearchBar.getText().equals("")) {
             repoU.GetAll(SearchBar.getText());
+            
             System.out.println("Done!");
             
+            
+  
             
             
             /*MySQLConnectionManager.searchjobseeker(SearchBar.getText());*/
@@ -797,6 +820,31 @@ public class AppHomeForm extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void SearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SearchBarActionPerformed
+
+    private void ViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewActionPerformed
+        int column=2;
+        int row=this.Table.getSelectedRow();
+        if (row>=0){
+            String mail=Table.getModel().getValueAt(row, column).toString();
+            System.out.println(mail);
+            
+            User uv=repoU.Get(mail);
+            
+             System.out.println(uv.getFname());
+            viewProfile frmUpdateCar=new viewProfile(uv);
+            
+           
+//            
+          
+            
+       
+            frmUpdateCar.setVisible(true);        
+                    }
+    }//GEN-LAST:event_ViewActionPerformed
 
     
     
@@ -855,6 +903,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     public static javax.swing.JTable Table1;
     public static javax.swing.JTable Table2;
     private javax.swing.JLabel Title;
+    private javax.swing.JButton View;
     private javax.swing.JLabel X;
     private javax.swing.JPanel homeOption;
     private javax.swing.JDialog jDialog1;

@@ -59,13 +59,14 @@ public class RepoUser {
     }
 
     public static User Get(String mail) {
-        User user = null;
+        User user=null;
         try {
             
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM user WHERE email='" + mail + "';");
+            rs = stmt.executeQuery("SELECT firstName, lastName, DOB, email, phoneNumber, Major, gender, location, profilePicture FROM user WHERE email='" + mail + "';");
             if (rs.next()) {
                 user = extractUserFromResultSet(rs);
+                 return user;
             }
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -78,10 +79,10 @@ public class RepoUser {
 
     private static User extractUserFromResultSet(ResultSet rs) throws SQLException {
         User user = new User();
-        user.setUid(rs.getInt("userID"));
+        
         user.setFname(rs.getString("firstName"));
-        user.setLname(rs.getString("lastNAme"));
-        user.setDob(rs.getString("dob"));
+        user.setLname(rs.getString("lastName"));
+        user.setDob(rs.getString("DOB"));
         user.setEmail(rs.getString("email"));
         user.setPhoneNumber(rs.getString("phoneNumber"));
         user.setMajor(rs.getString("Major"));
