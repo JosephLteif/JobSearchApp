@@ -6,6 +6,13 @@
 package Forms;
 
 import DTO.User;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -28,6 +35,15 @@ public class viewProfile extends javax.swing.JFrame {
         this.lbllocation.setText(u.getLocation());
         this.lblmajor.setText(u.getMajor());
         this.lblphonenumber.setText(u.getPhoneNumber());
+        System.out.println(u.getUid());
+        Image Im = null;
+        try {
+            Im = ImageIO.read(new File(u.getPP()));
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        Im = FileChooserForm.resizeImage(Im, 100, 100);
+        this.Image.setIcon(new ImageIcon(Im));
     }
 
     private viewProfile() {
@@ -48,6 +64,7 @@ public class viewProfile extends javax.swing.JFrame {
         X1 = new javax.swing.JButton();
         lblfname = new javax.swing.JLabel();
         lbllname = new javax.swing.JLabel();
+        Image = new javax.swing.JLabel();
         lnamelbl = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -66,6 +83,7 @@ public class viewProfile extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel2.setMinimumSize(new java.awt.Dimension(457, 100));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         X1.setBackground(new java.awt.Color(51, 153, 255));
@@ -76,77 +94,72 @@ public class viewProfile extends javax.swing.JFrame {
                 X1ActionPerformed(evt);
             }
         });
-        jPanel2.add(X1, new org.netbeans.lib.awtextra.AbsoluteConstraints(419, 0, -1, 20));
+        jPanel2.add(X1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, -1, 20));
 
         lblfname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblfname.setForeground(new java.awt.Color(255, 255, 255));
         lblfname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblfname.setText("jLabel2");
-        jPanel2.add(lblfname, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 300, 30));
+        jPanel2.add(lblfname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 70, 30));
 
         lbllname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbllname.setForeground(new java.awt.Color(255, 255, 255));
         lbllname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbllname.setText("jLabel3");
-        jPanel2.add(lbllname, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 360, 30));
+        jPanel2.add(lbllname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 70, 30));
+        jPanel2.add(Image, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 100));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 120));
         jPanel1.add(lnamelbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Date of birth");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Email");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
         lbldob.setText("jLabel6");
-        jPanel1.add(lbldob, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        jPanel1.add(lbldob, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         lblemail.setText("jLabel7");
-        jPanel1.add(lblemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+        jPanel1.add(lblemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
         lblphonenumber.setText("jLabel8");
-        jPanel1.add(lblphonenumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+        jPanel1.add(lblphonenumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Major");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("Phone Number");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         lblmajor.setText("jLabel11");
-        jPanel1.add(lblmajor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
+        jPanel1.add(lblmajor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setText("Location");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
 
         lbllocation.setText("jLabel13");
-        jPanel1.add(lbllocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
+        jPanel1.add(lbllocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
+            .addGap(0, 472, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
+            .addGap(0, 443, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE))
         );
 
         pack();
@@ -190,6 +203,7 @@ public class viewProfile extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Image;
     private javax.swing.JButton X1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;

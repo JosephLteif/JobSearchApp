@@ -11,12 +11,10 @@ import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,14 +26,15 @@ public class AppHomeForm extends javax.swing.JFrame {
     private int yy = 0;
     protected static User u1 = null;
 
-    RepoUser repoU=new RepoUser();
+    RepoUser repoU = new RepoUser();
+
     /**
      * Creates new form appHomeFrm
      */
     public AppHomeForm() {
         this.oldColor = new Color(51, 102, 255);
         this.backColor = new Color(51, 153, 255);
-        
+
         initComponents();
     }
 
@@ -45,7 +44,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         this.backColor = new Color(51, 153, 255);
         setUndecorated(true);
         initComponents();
-        this.username =u1.getFname();
+        this.username = u1.getFname();
         jLabel6.setText(jLabel6.getText() + " " + this.username);
         jLayeredPane1.moveToFront(HomePanel);
         Title.setText(this.username + "'s Page");
@@ -55,7 +54,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         if (!f.isDirectory()) {
             f.mkdirs();
         }
-        f = new File(path+"/UserData_" + this.u1.getUid()+".png");
+        f = new File(path + "/UserData_" + this.u1.getUid() + ".png");
         Image Im = null;
         try {
             Im = ImageIO.read(f);
@@ -752,25 +751,14 @@ public class AppHomeForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_XMousePressed
 
-    
-   
-    
 
-    
     private void SearchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchBarKeyPressed
         // TODO add your handling code here:
         if (!SearchBar.getText().equals("")) {
             repoU.GetAll(SearchBar.getText());
-            
-            System.out.println("Done!");
-            
-            
-  
-            
-            
             /*MySQLConnectionManager.searchjobseeker(SearchBar.getText());*/
         }
-        
+
     }//GEN-LAST:event_SearchBarKeyPressed
 
     private void SearchBar1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchBar1KeyPressed
@@ -826,28 +814,15 @@ public class AppHomeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_SearchBarActionPerformed
 
     private void ViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewActionPerformed
-        int column=2;
-        int row=this.Table.getSelectedRow();
-        if (row>=0){
-            String mail=Table.getModel().getValueAt(row, column).toString();
-            System.out.println(mail);
-            
-            User uv=repoU.Get(mail);
-            
-             System.out.println(uv.getFname());
-            viewProfile frmUpdateCar=new viewProfile(uv);
-            
-           
-//            
-          
-            
-       
-            frmUpdateCar.setVisible(true);        
-                    }
+        int column = 2;
+        int row = this.Table.getSelectedRow();
+        if (row >= 0) {
+            String mail = Table.getModel().getValueAt(row, column).toString();
+            User uv = repoU.Get(mail);
+            new viewProfile(uv).setVisible(true);
+        }
     }//GEN-LAST:event_ViewActionPerformed
 
-    
-    
     /**
      * @param args the command line arguments
      */
