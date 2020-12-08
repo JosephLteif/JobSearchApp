@@ -20,12 +20,15 @@ import javax.swing.ImageIcon;
  */
 public class viewProfile extends javax.swing.JFrame {
 
+    private int xx = 0;
+    private int yy = 0;
     /**
      * Creates new form viewProfile
      */
     User u;
 
     public viewProfile(User u) {
+        setUndecorated(true);
         initComponents();
         this.u = u;
         this.lblfname.setText(u.getFname());
@@ -36,14 +39,16 @@ public class viewProfile extends javax.swing.JFrame {
         this.lblmajor.setText(u.getMajor());
         this.lblphonenumber.setText(u.getPhoneNumber());
         System.out.println(u.getUid());
-        Image Im = null;
-        try {
-            Im = ImageIO.read(new File(u.getPP()));
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        if (!(u.getPP() == null)) {
+            Image Im = null;
+            try {
+                Im = ImageIO.read(new File(u.getPP()));
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            Im = FileChooserForm.resizeImage(Im, 100, 100);
+            this.Image.setIcon(new ImageIcon(Im));
         }
-        Im = FileChooserForm.resizeImage(Im, 100, 100);
-        this.Image.setIcon(new ImageIcon(Im));
     }
 
     private viewProfile() {
@@ -82,34 +87,49 @@ public class viewProfile extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(51, 102, 255));
         jPanel2.setMinimumSize(new java.awt.Dimension(457, 100));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel2MousePressed(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        X1.setBackground(new java.awt.Color(51, 153, 255));
+        X1.setBackground(new java.awt.Color(51, 102, 255));
         X1.setForeground(new java.awt.Color(255, 255, 255));
         X1.setText("X");
+        X1.setBorderPainted(false);
         X1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 X1ActionPerformed(evt);
             }
         });
-        jPanel2.add(X1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, -1, 20));
+        jPanel2.add(X1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, -1, 20));
 
         lblfname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblfname.setForeground(new java.awt.Color(255, 255, 255));
         lblfname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblfname.setText("jLabel2");
-        jPanel2.add(lblfname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 70, 30));
+        jPanel2.add(lblfname, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 70, 30));
 
         lbllname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbllname.setForeground(new java.awt.Color(255, 255, 255));
         lbllname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbllname.setText("jLabel3");
-        jPanel2.add(lbllname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 70, 30));
+        jPanel2.add(lbllname, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 70, 30));
+
+        Image.setBackground(new java.awt.Color(102, 255, 255));
+        Image.setForeground(new java.awt.Color(51, 255, 255));
+        Image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/e01d8c8ac8d02856d9ca18a0_rw_1920_1.jpg"))); // NOI18N
         jPanel2.add(Image, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 100));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 120));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 120));
         jPanel1.add(lnamelbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -151,9 +171,11 @@ public class viewProfile extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addGap(0, 350, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,6 +190,19 @@ public class viewProfile extends javax.swing.JFrame {
     private void X1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_X1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_X1ActionPerformed
+
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
+        // TODO add your handling code here:
+        xx = evt.getX();
+        yy = evt.getY();
+    }//GEN-LAST:event_jPanel2MousePressed
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - yy);
+    }//GEN-LAST:event_jPanel2MouseDragged
 
     /**
      * @param args the command line arguments

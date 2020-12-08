@@ -15,12 +15,16 @@ import javax.swing.JOptionPane;
  */
 public class LoginForm extends javax.swing.JFrame {
 
+    private int xx = 0;
+    private int yy = 0;
     /**
      * Creates new form loginFrm
      */
-    
-    RepoUser repoU=new RepoUser();
+
+    RepoUser repoU = new RepoUser();
+
     public LoginForm() {
+        setUndecorated(true);
         initComponents();
         title.requestFocus(true);
     }
@@ -37,6 +41,7 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         emailField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -52,15 +57,38 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel2MousePressed(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         title.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         title.setForeground(new java.awt.Color(255, 255, 255));
         title.setText("Jobify");
-        jPanel2.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
+        jPanel2.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 52));
+        jLabel6.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("X");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel6MouseReleased(evt);
+            }
+        });
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 20, 30));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 70));
+
+        emailField.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 240, 30));
 
         jLabel2.setText("Email");
@@ -69,7 +97,7 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel3.setText("Password");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
-        signUp.setBackground(new java.awt.Color(51, 153, 255));
+        signUp.setBackground(new java.awt.Color(51, 102, 255));
         signUp.setForeground(new java.awt.Color(255, 255, 255));
         signUp.setText("Sign Up");
         signUp.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +107,7 @@ public class LoginForm extends javax.swing.JFrame {
         });
         jPanel1.add(signUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 200, -1));
 
-        Login.setBackground(new java.awt.Color(51, 153, 255));
+        Login.setBackground(new java.awt.Color(51, 102, 255));
         Login.setForeground(new java.awt.Color(255, 255, 255));
         Login.setText("Login");
         Login.addActionListener(new java.awt.event.ActionListener() {
@@ -88,6 +116,8 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 200, -1));
+
+        passwordField.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 240, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/JobifyLogo.png"))); // NOI18N
@@ -123,7 +153,7 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         String pass = new String(this.passwordField.getPassword());
         User u = new User(null, null, this.emailField.getText().toLowerCase(), pass, 0);
-        if (repoU.login(u)){
+        if (repoU.login(u)) {
             new AppHomeForm(u).setVisible(true);
             this.dispose();
         } else {
@@ -137,19 +167,37 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_signUpActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-       
-        ForgotPasswordForm frm=new ForgotPasswordForm();    
-            frm.addWindowListener(new java.awt.event.WindowAdapter(){
-            
-           @Override
-             public void windowClosed(java.awt.event.WindowEvent windowEvent){
-               
+
+        ForgotPasswordForm frm = new ForgotPasswordForm();
+        frm.addWindowListener(new java.awt.event.WindowAdapter() {
+
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+
             }
-            });
-            
-            frm.setVisible(true);    
-            this.dispose();
+        });
+
+        frm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
+        // TODO add your handling code here:
+        xx = evt.getX();
+        yy = evt.getY();
+    }//GEN-LAST:event_jPanel2MousePressed
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - yy);
+    }//GEN-LAST:event_jPanel2MouseDragged
+
+    private void jLabel6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseReleased
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jLabel6MouseReleased
 
     /**
      */
@@ -194,6 +242,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField passwordField;

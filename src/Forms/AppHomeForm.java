@@ -45,6 +45,10 @@ public class AppHomeForm extends javax.swing.JFrame {
         setUndecorated(true);
         initComponents();
         this.username = u1.getFname();
+        firstNameField.setText(u1.getFname());
+        lastNameField.setText(u1.getLname());
+        emailField.setText(u1.getEmail());
+        phoneNumberField.setText(u1.getPhoneNumber());
         jLabel6.setText(jLabel6.getText() + " " + this.username);
         jLayeredPane1.moveToFront(HomePanel);
         Title.setText(this.username + "'s Page");
@@ -67,18 +71,10 @@ public class AppHomeForm extends javax.swing.JFrame {
         EditButton.setVisible(false);
         SearchBar.setVisible(false);
         jLabel2.setVisible(false);
-        jTextField1.setVisible(false);
-        jTextField10.setVisible(false);
-        jTextField11.setVisible(false);
-        jTextField12.setVisible(false);
-        jTextField13.setVisible(false);
-        jTextField14.setVisible(false);
-        jTextField2.setVisible(false);
-        jTextField3.setVisible(false);
-        jTextField6.setVisible(false);
-        jTextField7.setVisible(false);
-        jTextField8.setVisible(false);
-        jTextField9.setVisible(false);
+        firstNameField.setVisible(false);
+        lastNameField.setVisible(false);
+        emailField.setVisible(false);
+        phoneNumberField.setVisible(false);
     }
 
     protected static void setProfilePanel(ImageIcon I) {
@@ -118,28 +114,12 @@ public class AppHomeForm extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         mainText = new javax.swing.JTextArea();
         ProfilePanel = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        firstNameField = new javax.swing.JTextField();
+        lastNameField = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
+        phoneNumberField = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -161,11 +141,13 @@ public class AppHomeForm extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         Table2 = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
+        View1 = new javax.swing.JButton();
         SearchJobs = new javax.swing.JPanel();
         SearchBar1 = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         Table1 = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
+        View2 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -302,9 +284,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         X.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         X.setText("X");
         X.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                XMouseEntered(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 XMousePressed(evt);
             }
@@ -325,94 +304,47 @@ public class AppHomeForm extends javax.swing.JFrame {
         HomePanel.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 198, 10));
 
         mainText.setEditable(false);
+        mainText.setBackground(new java.awt.Color(255, 255, 255));
         mainText.setColumns(20);
         mainText.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         mainText.setRows(5);
-        mainText.setText("\nThis application connects job seekers with \nemployers looking to hire. Companies can post job opportunities, \nand job seekers can apply to these jobs based on their preferences.\nThis platform helps business leaders to hire people based on their\nneeds, as it helps job seekers to catch their dream jobs.");
+        mainText.setText("This application connects job seekers with \nemployers looking to hire. Companies can post job opportunities, \nand job seekers can apply to these jobs based on their preferences.\nThis platform helps business leaders to hire people based on their\nneeds, as it helps job seekers to catch their dream jobs.");
         mainText.setBorder(null);
         mainText.setFocusable(false);
-        HomePanel.add(mainText, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+        HomePanel.add(mainText, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 84, -1, 140));
 
         ProfilePanel.setBackground(new java.awt.Color(255, 255, 255));
         ProfilePanel.setPreferredSize(new java.awt.Dimension(578, 504));
         ProfilePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setEnabled(false);
-        ProfilePanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 230, -1));
+        firstNameField.setEnabled(false);
+        ProfilePanel.add(firstNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 290, -1));
 
-        jTextField2.setEnabled(false);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        lastNameField.setEnabled(false);
+        lastNameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                lastNameFieldActionPerformed(evt);
             }
         });
-        ProfilePanel.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 206, 230, -1));
+        ProfilePanel.add(lastNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 290, -1));
 
-        jTextField3.setEnabled(false);
-        ProfilePanel.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 232, 233, -1));
+        emailField.setEnabled(false);
+        ProfilePanel.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 290, -1));
 
-        jTextField6.setEnabled(false);
-        ProfilePanel.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 258, 233, -1));
-
-        jTextField7.setEnabled(false);
-        ProfilePanel.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 284, 233, -1));
-
-        jTextField8.setEnabled(false);
-        ProfilePanel.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 310, 233, -1));
-
-        jTextField9.setEnabled(false);
-        ProfilePanel.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 336, 233, -1));
-
-        jTextField10.setEnabled(false);
-        ProfilePanel.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 362, 233, -1));
-
-        jTextField11.setEnabled(false);
-        ProfilePanel.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 388, 233, -1));
-
-        jTextField12.setEnabled(false);
-        ProfilePanel.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 414, 233, -1));
-
-        jTextField13.setEnabled(false);
-        ProfilePanel.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 440, 233, -1));
-
-        jTextField14.setEnabled(false);
-        ProfilePanel.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 466, 233, -1));
-
-        jLabel24.setText("Last Job");
-        ProfilePanel.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 468, -1, -1));
-
-        jLabel22.setText("Years of experience");
-        ProfilePanel.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 442, -1, -1));
-
-        jLabel23.setText("GPA");
-        ProfilePanel.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 414, -1, -1));
-
-        jLabel21.setText("Major");
-        ProfilePanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 388, -1, -1));
-
-        jLabel20.setText("Degree");
-        ProfilePanel.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 362, -1, -1));
+        phoneNumberField.setEnabled(false);
+        ProfilePanel.add(phoneNumberField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 290, -1));
 
         jLabel19.setText("PhoneNumber");
-        ProfilePanel.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 336, -1, -1));
+        ProfilePanel.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 276, -1, 20));
 
         jLabel18.setText("Email");
-        ProfilePanel.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 310, -1, -1));
-
-        jLabel17.setText("Country");
-        ProfilePanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 284, -1, -1));
-
-        jLabel16.setText("Region");
-        ProfilePanel.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 260, -1, -1));
-
-        jLabel15.setText("City");
-        ProfilePanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 236, -1, -1));
+        ProfilePanel.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, -1, 30));
 
         jLabel14.setText("LastName");
-        ProfilePanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 210, -1, -1));
+        ProfilePanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 216, -1, 20));
 
         jLabel13.setText("FirstName");
-        ProfilePanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 182, -1, -1));
+        ProfilePanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 186, -1, 20));
 
         jLabel11.setBackground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Upload image");
@@ -437,7 +369,7 @@ public class AppHomeForm extends javax.swing.JFrame {
                 EditButtonActionPerformed(evt);
             }
         });
-        ProfilePanel.add(EditButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 158, -1, -1));
+        ProfilePanel.add(EditButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, -1, -1));
 
         jSeparator3.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
@@ -456,6 +388,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchUsers.setBackground(new java.awt.Color(255, 255, 255));
         SearchUsers.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        SearchBar.setBackground(new java.awt.Color(255, 255, 255));
         SearchBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SearchBarActionPerformed(evt);
@@ -466,10 +399,11 @@ public class AppHomeForm extends javax.swing.JFrame {
                 SearchBarKeyPressed(evt);
             }
         });
-        SearchUsers.add(SearchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 29, 491, -1));
+        SearchUsers.add(SearchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 29, 350, -1));
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
 
+        Table.setBackground(new java.awt.Color(255, 255, 255));
         Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -503,25 +437,27 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLabel2.setText("Search");
         SearchUsers.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 25, -1, -1));
 
-        View.setText("View");
+        View.setBackground(new java.awt.Color(255, 255, 255));
+        View.setText("View Profile");
         View.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ViewActionPerformed(evt);
             }
         });
-        SearchUsers.add(View, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, 20));
+        SearchUsers.add(View, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 120, 30));
 
         SearchPanel.addTab("Search for Users", SearchUsers);
 
         SearchCompanies.setBackground(new java.awt.Color(255, 255, 255));
         SearchCompanies.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        SearchBar2.setBackground(new java.awt.Color(255, 255, 255));
         SearchBar2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 SearchBar2KeyPressed(evt);
             }
         });
-        SearchCompanies.add(SearchBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 29, 491, -1));
+        SearchCompanies.add(SearchBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 29, 360, -1));
 
         jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -558,17 +494,27 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLabel12.setText("Search");
         SearchCompanies.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 25, -1, -1));
 
+        View1.setBackground(new java.awt.Color(255, 255, 255));
+        View1.setText("View Profile");
+        View1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                View1ActionPerformed(evt);
+            }
+        });
+        SearchCompanies.add(View1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 120, 30));
+
         SearchPanel.addTab("Search for companies", SearchCompanies);
 
         SearchJobs.setBackground(new java.awt.Color(255, 255, 255));
         SearchJobs.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        SearchBar1.setBackground(new java.awt.Color(255, 255, 255));
         SearchBar1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 SearchBar1KeyPressed(evt);
             }
         });
-        SearchJobs.add(SearchBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 29, 491, -1));
+        SearchJobs.add(SearchBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 29, 360, -1));
 
         jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -604,6 +550,15 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setText("Search");
         SearchJobs.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 25, -1, -1));
+
+        View2.setBackground(new java.awt.Color(255, 255, 255));
+        View2.setText("View Profile");
+        View2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                View2ActionPerformed(evt);
+            }
+        });
+        SearchJobs.add(View2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 120, 30));
 
         SearchPanel.addTab("SearchJobs", SearchJobs);
 
@@ -657,32 +612,16 @@ public class AppHomeForm extends javax.swing.JFrame {
 
     private void EditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButtonActionPerformed
         // TODO add your handling code here:
-        if (!jTextField1.isEnabled()) {
-            jTextField1.setEnabled(true);
-            jTextField10.setEnabled(true);
-            jTextField11.setEnabled(true);
-            jTextField12.setEnabled(true);
-            jTextField13.setEnabled(true);
-            jTextField14.setEnabled(true);
-            jTextField2.setEnabled(true);
-            jTextField3.setEnabled(true);
-            jTextField6.setEnabled(true);
-            jTextField7.setEnabled(true);
-            jTextField8.setEnabled(true);
-            jTextField9.setEnabled(true);
+        if (!firstNameField.isEnabled()) {
+            firstNameField.setEnabled(true);
+            lastNameField.setEnabled(true);
+            emailField.setEnabled(true);
+            phoneNumberField.setEnabled(true);
         } else {
-            jTextField1.setEnabled(false);
-            jTextField10.setEnabled(false);
-            jTextField11.setEnabled(false);
-            jTextField12.setEnabled(false);
-            jTextField13.setEnabled(false);
-            jTextField14.setEnabled(false);
-            jTextField2.setEnabled(false);
-            jTextField3.setEnabled(false);
-            jTextField6.setEnabled(false);
-            jTextField7.setEnabled(false);
-            jTextField8.setEnabled(false);
-            jTextField9.setEnabled(false);
+            firstNameField.setEnabled(false);
+            lastNameField.setEnabled(false);
+            emailField.setEnabled(false);
+            phoneNumberField.setEnabled(false);
         }
     }//GEN-LAST:event_EditButtonActionPerformed
 
@@ -694,18 +633,10 @@ public class AppHomeForm extends javax.swing.JFrame {
     private void profileOptionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileOptionMousePressed
         // TODO add your handling code here:
 
-        jTextField1.setVisible(true);
-        jTextField10.setVisible(true);
-        jTextField11.setVisible(true);
-        jTextField12.setVisible(true);
-        jTextField13.setVisible(true);
-        jTextField14.setVisible(true);
-        jTextField2.setVisible(true);
-        jTextField3.setVisible(true);
-        jTextField6.setVisible(true);
-        jTextField7.setVisible(true);
-        jTextField8.setVisible(true);
-        jTextField9.setVisible(true);
+        firstNameField.setVisible(true);
+        lastNameField.setVisible(true);
+        emailField.setVisible(true);
+        phoneNumberField.setVisible(true);
 
         EditButton.setVisible(true);
         HomePanel.setVisible(false);
@@ -784,10 +715,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         this.setLocation(x - xx, y - yy);
     }//GEN-LAST:event_menuPanelMouseDragged
 
-    private void XMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_XMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_XMouseEntered
-
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         // TODO add your handling code here:
         new FileChooserForm(this.u1).setVisible(true);
@@ -805,9 +732,9 @@ public class AppHomeForm extends javax.swing.JFrame {
         new LoginForm().setVisible(true);
     }//GEN-LAST:event_logoutOptionMouseReleased
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void lastNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_lastNameFieldActionPerformed
 
     private void SearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBarActionPerformed
         // TODO add your handling code here:
@@ -822,6 +749,14 @@ public class AppHomeForm extends javax.swing.JFrame {
             new viewProfile(uv).setVisible(true);
         }
     }//GEN-LAST:event_ViewActionPerformed
+
+    private void View1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_View1ActionPerformed
+
+    private void View2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_View2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -879,7 +814,11 @@ public class AppHomeForm extends javax.swing.JFrame {
     public static javax.swing.JTable Table2;
     private javax.swing.JLabel Title;
     private javax.swing.JButton View;
+    private javax.swing.JButton View1;
+    private javax.swing.JButton View2;
     private javax.swing.JLabel X;
+    public static javax.swing.JTextField emailField;
+    public static javax.swing.JTextField firstNameField;
     private javax.swing.JPanel homeOption;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
@@ -888,17 +827,9 @@ public class AppHomeForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -914,22 +845,12 @@ public class AppHomeForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    public static javax.swing.JTextField jTextField1;
-    public static javax.swing.JTextField jTextField10;
-    public static javax.swing.JTextField jTextField11;
-    public static javax.swing.JTextField jTextField12;
-    public static javax.swing.JTextField jTextField13;
-    public static javax.swing.JTextField jTextField14;
-    public static javax.swing.JTextField jTextField2;
-    public static javax.swing.JTextField jTextField3;
-    public static javax.swing.JTextField jTextField6;
-    public static javax.swing.JTextField jTextField7;
-    public static javax.swing.JTextField jTextField8;
-    public static javax.swing.JTextField jTextField9;
+    public static javax.swing.JTextField lastNameField;
     private javax.swing.JLabel logoutLogo;
     private javax.swing.JPanel logoutOption;
     private javax.swing.JTextArea mainText;
     private javax.swing.JPanel menuPanel;
+    public static javax.swing.JTextField phoneNumberField;
     private javax.swing.JPanel profileOption;
     private static javax.swing.JLabel profilePicture;
     private javax.swing.JPanel searchOption;

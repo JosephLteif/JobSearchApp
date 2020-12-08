@@ -68,15 +68,15 @@ public class SignUpForm extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(51, 102, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Sign Up");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
-        X.setBackground(new java.awt.Color(51, 153, 255));
+        X.setBackground(new java.awt.Color(51, 102, 255));
         X.setForeground(new java.awt.Color(255, 255, 255));
         X.setText("X");
         X.addActionListener(new java.awt.event.ActionListener() {
@@ -84,25 +84,31 @@ public class SignUpForm extends javax.swing.JFrame {
                 XActionPerformed(evt);
             }
         });
-        jPanel2.add(X, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, -1, -1));
+        jPanel2.add(X, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 70));
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, -1));
 
         jLabel3.setText("First name");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 90, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 60, 30));
 
         jLabel4.setText("Last name");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, 30));
 
         jLabel5.setText("Email");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, -1, -1));
-        jPanel1.add(txtFname, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 160, -1));
-        jPanel1.add(txtLname, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 160, -1));
-        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, 160, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 40, 30));
+
+        txtFname.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(txtFname, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 210, -1));
+
+        txtLname.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(txtLname, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 210, -1));
+
+        txtEmail.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 210, -1));
 
         jLabel7.setText("Gender");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, 30));
 
         jButton1.setBackground(new java.awt.Color(51, 102, 255));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -112,12 +118,13 @@ public class SignUpForm extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, -1, -1));
 
+        ComboGender.setBackground(new java.awt.Color(255, 255, 255));
         ComboGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Female", "Male" }));
-        jPanel1.add(ComboGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, -1, -1));
+        jPanel1.add(ComboGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 410));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 330));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
