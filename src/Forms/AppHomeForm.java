@@ -8,6 +8,7 @@ package Forms;
 import DTO.User;
 import Repositories.RepoUser;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -770,7 +772,26 @@ public class AppHomeForm extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
       User u= new User();
-               
+      u.setFname(this.firstNameField.getText());
+      u.setLname(this.lastNameField.getText());
+      u.setEmail(this.emailField.getText());
+      u.setPhoneNumber(this.phoneNumberField.getText());
+      
+       String ems = "";
+       Component frame = null;
+      if(repoU.Update(u)){
+          ems = ems + "Your profile has been updated!";
+                JOptionPane.showMessageDialog(frame, ems,
+                        "Edit Profile", JOptionPane.INFORMATION_MESSAGE);
+          
+          
+      }
+      
+      else{
+           ems = ems + "An error occured!Your profile wasn't updated!";
+                JOptionPane.showMessageDialog(frame, ems,
+                        "Edit Profile", JOptionPane.ERROR_MESSAGE);
+                }
         
         
         
