@@ -374,7 +374,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         jSeparator3.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        ProfilePanel.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 88, -1, 398));
+        ProfilePanel.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 66, 10, 420));
 
         Title.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         Title.setText("Title");
