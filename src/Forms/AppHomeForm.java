@@ -8,6 +8,7 @@ package Forms;
 import DTO.User;
 import Repositories.RepoUser;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -129,6 +131,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         Title = new javax.swing.JLabel();
         profilePicture = new javax.swing.JLabel();
+        btnUpdate = new javax.swing.JButton();
         SearchPanel = new javax.swing.JTabbedPane();
         SearchUsers = new javax.swing.JPanel();
         SearchBar = new javax.swing.JTextField();
@@ -304,7 +307,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         HomePanel.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 198, 10));
 
         mainText.setEditable(false);
-        mainText.setBackground(new java.awt.Color(255, 255, 255));
         mainText.setColumns(20);
         mainText.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         mainText.setRows(5);
@@ -369,7 +371,7 @@ public class AppHomeForm extends javax.swing.JFrame {
                 EditButtonActionPerformed(evt);
             }
         });
-        ProfilePanel.add(EditButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, -1, -1));
+        ProfilePanel.add(EditButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, -1, -1));
 
         jSeparator3.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
@@ -383,12 +385,19 @@ public class AppHomeForm extends javax.swing.JFrame {
         profilePicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/e01d8c8ac8d02856d9ca18a0_rw_1920_1.jpg"))); // NOI18N
         ProfilePanel.add(profilePicture, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 90, -1));
 
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+        ProfilePanel.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, -1, -1));
+
         SearchPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         SearchUsers.setBackground(new java.awt.Color(255, 255, 255));
         SearchUsers.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        SearchBar.setBackground(new java.awt.Color(255, 255, 255));
         SearchBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SearchBarActionPerformed(evt);
@@ -403,7 +412,6 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
 
-        Table.setBackground(new java.awt.Color(255, 255, 255));
         Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -451,7 +459,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchCompanies.setBackground(new java.awt.Color(255, 255, 255));
         SearchCompanies.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        SearchBar2.setBackground(new java.awt.Color(255, 255, 255));
         SearchBar2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 SearchBar2KeyPressed(evt);
@@ -508,7 +515,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchJobs.setBackground(new java.awt.Color(255, 255, 255));
         SearchJobs.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        SearchBar1.setBackground(new java.awt.Color(255, 255, 255));
         SearchBar1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 SearchBar1KeyPressed(evt);
@@ -615,14 +621,19 @@ public class AppHomeForm extends javax.swing.JFrame {
         if (!firstNameField.isEnabled()) {
             firstNameField.setEnabled(true);
             lastNameField.setEnabled(true);
-            emailField.setEnabled(true);
+            //emailField.setEnabled(true);
             phoneNumberField.setEnabled(true);
         } else {
             firstNameField.setEnabled(false);
             lastNameField.setEnabled(false);
-            emailField.setEnabled(false);
+            //emailField.setEnabled(false);
             phoneNumberField.setEnabled(false);
         }
+        
+        
+        
+        
+        
     }//GEN-LAST:event_EditButtonActionPerformed
 
     private void profileOptionMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileOptionMouseReleased
@@ -758,6 +769,35 @@ public class AppHomeForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_View2ActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+
+      User u= new User();
+      u.setFname(this.firstNameField.getText());
+      u.setLname(this.lastNameField.getText());
+      u.setEmail(this.emailField.getText());
+      u.setPhoneNumber(this.phoneNumberField.getText());
+      
+       String ems = "";
+       Component frame = null;
+      if(repoU.Update(u)){
+          ems = ems + "Your profile has been updated!";
+                JOptionPane.showMessageDialog(frame, ems,
+                        "Edit Profile", JOptionPane.INFORMATION_MESSAGE);
+          
+          
+      }
+      
+      else{
+           ems = ems + "An error occured!Your profile wasn't updated!";
+                JOptionPane.showMessageDialog(frame, ems,
+                        "Edit Profile", JOptionPane.ERROR_MESSAGE);
+                }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -817,6 +857,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     private javax.swing.JButton View1;
     private javax.swing.JButton View2;
     private javax.swing.JLabel X;
+    private javax.swing.JButton btnUpdate;
     public static javax.swing.JTextField emailField;
     public static javax.swing.JTextField firstNameField;
     private javax.swing.JPanel homeOption;

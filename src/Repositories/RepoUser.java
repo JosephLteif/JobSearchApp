@@ -221,6 +221,31 @@ public class RepoUser {
 
         return false;
     }
+    
+    
+    
+     public boolean Update(User user){
+         try {
+            ps=con.prepareStatement("Update user Set firstName=?, lastName=?, phoneNumber=? Where email=?;");
+         
+            ps.setString(1, user.getFname());
+            ps.setString(2, user.getLname());
+            ps.setString(3, user.getPhoneNumber());
+            ps.setString(4, user.getEmail());
+            int i= ps.executeUpdate();
+            if (i==1){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+          
+     return false;
+    }
+    
+    
+    
+    
 
     public void Destroy() {
         if (rs != null) {
