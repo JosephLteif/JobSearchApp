@@ -69,7 +69,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         }
         Im = FileChooserForm.resizeImage(Im, 100, 100);
         this.setProfilePanel(new ImageIcon(Im));
-
+        btnUpdate.setVisible(false);
         EditButton.setVisible(false);
         SearchBar.setVisible(false);
         jLabel2.setVisible(false);
@@ -385,13 +385,15 @@ public class AppHomeForm extends javax.swing.JFrame {
         profilePicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/e01d8c8ac8d02856d9ca18a0_rw_1920_1.jpg"))); // NOI18N
         ProfilePanel.add(profilePicture, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 90, -1));
 
+        btnUpdate.setBackground(new java.awt.Color(51, 102, 255));
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
             }
         });
-        ProfilePanel.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, -1, -1));
+        ProfilePanel.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 450, -1, -1));
 
         SearchPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -629,11 +631,8 @@ public class AppHomeForm extends javax.swing.JFrame {
             //emailField.setEnabled(false);
             phoneNumberField.setEnabled(false);
         }
-        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_EditButtonActionPerformed
 
     private void profileOptionMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileOptionMouseReleased
@@ -648,7 +647,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         lastNameField.setVisible(true);
         emailField.setVisible(true);
         phoneNumberField.setVisible(true);
-
+        btnUpdate.setVisible(true);
         EditButton.setVisible(true);
         HomePanel.setVisible(false);
         SearchPanel.setVisible(false);
@@ -681,6 +680,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         SearchBar.setVisible(true);
         jLabel2.setVisible(true);
+        btnUpdate.setVisible(false);
         searchOption.setBackground(backColor);
         EditButton.setVisible(false);
         HomePanel.setVisible(false);
@@ -771,31 +771,27 @@ public class AppHomeForm extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
-      User u= new User();
-      u.setFname(this.firstNameField.getText());
-      u.setLname(this.lastNameField.getText());
-      u.setEmail(this.emailField.getText());
-      u.setPhoneNumber(this.phoneNumberField.getText());
-      
-       String ems = "";
-       Component frame = null;
-      if(repoU.Update(u)){
-          ems = ems + "Your profile has been updated!";
-                JOptionPane.showMessageDialog(frame, ems,
-                        "Edit Profile", JOptionPane.INFORMATION_MESSAGE);
-          
-          
-      }
-      
-      else{
-           ems = ems + "An error occured!Your profile wasn't updated!";
-                JOptionPane.showMessageDialog(frame, ems,
-                        "Edit Profile", JOptionPane.ERROR_MESSAGE);
-                }
-        
-        
-        
-        
+        User u = new User();
+        Title.setText(this.firstNameField.getText() + "'s Page");
+        u.setFname(this.firstNameField.getText());
+        u.setLname(this.lastNameField.getText());
+        u.setEmail(this.emailField.getText());
+        u.setPhoneNumber(this.phoneNumberField.getText());
+
+        String ems = "";
+        Component frame = null;
+        if (repoU.Update(u)) {
+            ems = ems + "Your profile has been updated!";
+            JOptionPane.showMessageDialog(frame, ems,
+                    "Edit Profile", JOptionPane.INFORMATION_MESSAGE);
+
+        } else {
+            ems = ems + "An error occured!Your profile wasn't updated!";
+            JOptionPane.showMessageDialog(frame, ems,
+                    "Edit Profile", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
