@@ -138,12 +138,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         Table = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         View = new javax.swing.JButton();
-        SearchCompanies = new javax.swing.JPanel();
-        SearchBar2 = new javax.swing.JTextField();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        Table2 = new javax.swing.JTable();
-        jLabel12 = new javax.swing.JLabel();
-        View1 = new javax.swing.JButton();
         SearchJobs = new javax.swing.JPanel();
         SearchBar1 = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -459,71 +453,16 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         SearchPanel.addTab("Search for Users", SearchUsers);
 
-        SearchCompanies.setBackground(new java.awt.Color(255, 255, 255));
-        SearchCompanies.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        SearchBar2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                SearchBar2KeyPressed(evt);
-            }
-        });
-        SearchCompanies.add(SearchBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 29, 360, -1));
-
-        jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
-
-        Table2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Name", "Description", "Website", "PhoneNumber1", "PhoneNumber2", "Country"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        Table2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        Table2.setGridColor(new java.awt.Color(255, 255, 255));
-        jScrollPane4.setViewportView(Table2);
-
-        SearchCompanies.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 540, 404));
-
-        jLabel12.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel12.setText("Search");
-        SearchCompanies.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 25, -1, -1));
-
-        View1.setBackground(new java.awt.Color(255, 255, 255));
-        View1.setText("View Profile");
-        View1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                View1ActionPerformed(evt);
-            }
-        });
-        SearchCompanies.add(View1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 120, 30));
-
-        SearchPanel.addTab("Search for companies", SearchCompanies);
-
         SearchJobs.setBackground(new java.awt.Color(255, 255, 255));
         SearchJobs.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        SearchBar1.setBackground(new java.awt.Color(255, 255, 255));
         SearchBar1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 SearchBar1KeyPressed(evt);
             }
         });
-        SearchJobs.add(SearchBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 29, 360, -1));
+        SearchJobs.add(SearchBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 360, 30));
 
         jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -558,16 +497,17 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setText("Search");
-        SearchJobs.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 25, -1, -1));
+        SearchJobs.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        View2.setBackground(new java.awt.Color(255, 255, 255));
-        View2.setText("View Profile");
+        View2.setBackground(new java.awt.Color(51, 102, 255));
+        View2.setForeground(new java.awt.Color(255, 255, 255));
+        View2.setText("View Details");
         View2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 View2ActionPerformed(evt);
             }
         });
-        SearchJobs.add(View2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 120, 30));
+        SearchJobs.add(View2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 18, 120, -1));
 
         SearchPanel.addTab("SearchJobs", SearchJobs);
 
@@ -708,11 +648,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         /* MySQLConnectionManager.SearchJobOffer(SearchBar1.getText());*/
     }//GEN-LAST:event_SearchBar1KeyPressed
 
-    private void SearchBar2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchBar2KeyPressed
-        // TODO add your handling code here:
-        /* MySQLConnectionManager.searchCompany(SearchBar2.getText());*/
-    }//GEN-LAST:event_SearchBar2KeyPressed
-
     private void menuPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPanelMousePressed
         // TODO add your handling code here:
         xx = evt.getX();
@@ -774,10 +709,6 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_ViewActionPerformed
-
-    private void View1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_View1ActionPerformed
 
     private void View2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View2ActionPerformed
         // TODO add your handling code here:
@@ -856,18 +787,14 @@ public class AppHomeForm extends javax.swing.JFrame {
     private javax.swing.JLabel Search1;
     private javax.swing.JTextField SearchBar;
     private javax.swing.JTextField SearchBar1;
-    private javax.swing.JTextField SearchBar2;
-    private javax.swing.JPanel SearchCompanies;
     private javax.swing.JPanel SearchJobs;
     private javax.swing.JTabbedPane SearchPanel;
     private javax.swing.JPanel SearchUsers;
     private javax.swing.JLabel Searchlogo;
     public static javax.swing.JTable Table;
     public static javax.swing.JTable Table1;
-    public static javax.swing.JTable Table2;
     private javax.swing.JLabel Title;
     private javax.swing.JButton View;
-    private javax.swing.JButton View1;
     private javax.swing.JButton View2;
     private javax.swing.JLabel X;
     private javax.swing.JButton btnUpdate;
@@ -878,7 +805,6 @@ public class AppHomeForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel18;
@@ -894,7 +820,6 @@ public class AppHomeForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;

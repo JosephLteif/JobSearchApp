@@ -26,16 +26,20 @@ import utilities.Regex;
  */
 public class signupSetPassword extends javax.swing.JFrame {
 
+    private int xx = 0;
+    private int yy = 0;
     /**
      * Creates new form signupSetPassword
      */
     //RepoPasswordReset repoP=new RepoPasswordReset();
-    RepoUser repoU=new RepoUser();
-    PasswordReset pr=new PasswordReset();
+    RepoUser repoU = new RepoUser();
+    PasswordReset pr = new PasswordReset();
     String mail;
+
     public signupSetPassword(String mail) {
+        setUndecorated(true);
         initComponents();
-       this.mail=mail;
+        this.mail = mail;
     }
 
     private signupSetPassword() {
@@ -66,6 +70,16 @@ public class signupSetPassword extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel2MousePressed(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
@@ -118,27 +132,25 @@ public class signupSetPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
- 
-        
-        String pass=new String(this.txtPass.getPassword());
-        String cpass=new String(this.txtCPass.getPassword());
-        
+
+        String pass = new String(this.txtPass.getPassword());
+        String cpass = new String(this.txtCPass.getPassword());
+
         String ems = "";
         Component frame = null;
 
-        if (pass.equals(cpass)){
+        if (pass.equals(cpass)) {
 
-            if (!Regex.isValidPassword(pass)){
+            if (!Regex.isValidPassword(pass)) {
 
                 ems = ems + "Password is weak kindly replace it with a stronger one.";
                 JOptionPane.showMessageDialog(frame, ems,
-                    "Set Password", JOptionPane.ERROR_MESSAGE);
-            }
-            else{
-                
+                        "Set Password", JOptionPane.ERROR_MESSAGE);
+            } else {
+
                 try {
-                    if (repoU.passwordAfterVerify(mail,pass)){
-                        
+                    if (repoU.passwordAfterVerify(mail, pass)) {
+
                         ems = ems + "Your account is successfully created!\nYou can now login using your email and your JOBIFY password!";
                         JOptionPane.showMessageDialog(frame, ems,
                                 "Set Password", JOptionPane.INFORMATION_MESSAGE);
@@ -147,7 +159,7 @@ public class signupSetPassword extends javax.swing.JFrame {
                             try {
                                 File file = new File("src/Utilities/Emailhtml.txt");
                                 BufferedReader br = new BufferedReader(new FileReader(file));
-                                
+
                                 String st;
                                 while ((st = br.readLine()) != null) {
                                     body += st;
@@ -163,14 +175,12 @@ public class signupSetPassword extends javax.swing.JFrame {
                             } catch (MessagingException ex) {
                                 Logger.getLogger(signupSetPassword.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                });
-                T1.start();
+                        });
+                        T1.start();
                         this.dispose();
-                        
-                    }
-                    
-                    else{
-                        
+
+                    } else {
+
                         ems = ems + "An error occured! Unable to set the password!";
                         JOptionPane.showMessageDialog(frame, ems,
                                 "Set Password", JOptionPane.ERROR_MESSAGE);
@@ -179,17 +189,27 @@ public class signupSetPassword extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(signupSetPassword.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                }
             }
-            else{
-                ems = ems + "Passwords don't match";
-                JOptionPane.showMessageDialog(frame, ems,
+        } else {
+            ems = ems + "Passwords don't match";
+            JOptionPane.showMessageDialog(frame, ems,
                     "Set Password", JOptionPane.ERROR_MESSAGE);
-            }
-        
-        this.dispose();
-        
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
+        // TODO add your handling code here:
+        xx = evt.getX();
+        yy = evt.getY();
+    }//GEN-LAST:event_jPanel2MousePressed
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - yy);
+    }//GEN-LAST:event_jPanel2MouseDragged
 
     /**
      * @param args the command line arguments
@@ -219,10 +239,8 @@ public class signupSetPassword extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new signupSetPassword().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new signupSetPassword().setVisible(true);
         });
     }
 

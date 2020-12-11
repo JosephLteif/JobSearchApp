@@ -7,10 +7,8 @@ package Forms;
 
 import DTO.PasswordReset;
 import Repositories.RepoPasswordReset;
-import Repositories.RepoUser;
 import java.awt.Component;
 import javax.swing.JOptionPane;
-import utilities.Regex;
 
 /**
  *
@@ -21,15 +19,17 @@ public class ForgotPass2Form extends javax.swing.JFrame {
     /**
      * Creates new form ForgotPass2Form
      */
-    
-   
-    RepoPasswordReset repoP=new RepoPasswordReset();
-    PasswordReset pr=new PasswordReset();
+    RepoPasswordReset repoP = new RepoPasswordReset();
+    PasswordReset pr = new PasswordReset();
+    private int xx = 0;
+    private int yy = 0;
+
     public ForgotPass2Form(PasswordReset pr) {
+        setUndecorated(true);
         initComponents();
         this.pr.setEmail(pr.getEmail());
         this.pr.setTok(pr.getTok());
-        
+
     }
 
     private ForgotPass2Form() {
@@ -59,6 +59,16 @@ public class ForgotPass2Form extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel2MousePressed(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
@@ -108,53 +118,41 @@ public class ForgotPass2Form extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-       
-      String ut=this.txtToken.getText();
-        
-        if (ut.equals(this.pr.getTok())){
+        String ut = this.txtToken.getText();
+
+        if (ut.equals(this.pr.getTok())) {
             repoP.setTokenNull(pr.getEmail());
-             PasswordUpdateForm frm=new PasswordUpdateForm(pr);
-            
-            frm.addWindowListener(new java.awt.event.WindowAdapter(){
-            
-           @Override
-             public void windowClosed(java.awt.event.WindowEvent windowEvent){
-               
-            }
-            });
-            
-            frm.setVisible(true);        
+            PasswordUpdateForm frm = new PasswordUpdateForm(pr);
+            frm.setVisible(true);
+            repoP.Destroy();
+            this.dispose();
+        } else {
+
+            String ems = "";
+            Component frame = null;
+            ems = ems + "Uncorrect code!" + this.pr.getTok() + " " + ut;
+            JOptionPane.showMessageDialog(frame, ems,
+                    "Code Confirmation", JOptionPane.ERROR_MESSAGE);
         }
-        
-        else{
-         
-        String ems = "";
-        Component frame = null;
-         ems = ems + "Uncorrect code!"+this.pr.getTok()+" "+ut;
-         JOptionPane.showMessageDialog(frame, ems,
-         "Code Confirmation", JOptionPane.ERROR_MESSAGE);
-      /*  
-        PasswordUpdateForm frm=new PasswordUpdateForm(pr);
-            
-            frm.addWindowListener(new java.awt.event.WindowAdapter(){
-            
-           @Override
-             public void windowClosed(java.awt.event.WindowEvent windowEvent){
-               
-            }
-            });
-            
-            frm.setVisible(true);     
-            
-            */}
-    repoP.Destroy();
-        this.dispose();
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
+        // TODO add your handling code here:
+        xx = evt.getX();
+        yy = evt.getY();
+    }//GEN-LAST:event_jPanel2MousePressed
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - yy);
+    }//GEN-LAST:event_jPanel2MouseDragged
 
     /**
      * @param args the command line arguments
      */
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -180,10 +178,8 @@ public class ForgotPass2Form extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ForgotPass2Form().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ForgotPass2Form().setVisible(true);
         });
     }
 

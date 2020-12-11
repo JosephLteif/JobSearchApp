@@ -19,10 +19,12 @@ public class SignupConfirmMailForm extends javax.swing.JFrame {
      * Creates new form SignupConfirmMailForm
      */
     RepoPasswordReset repoP = null;
-
+    private int xx = 0;
+    private int yy = 0;
     String mail;
 
     public SignupConfirmMailForm(String maill) {
+        setUndecorated(true);
         repoP = new RepoPasswordReset();
         this.mail = maill;
 
@@ -56,6 +58,16 @@ public class SignupConfirmMailForm extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel2MousePressed(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
@@ -117,7 +129,7 @@ public class SignupConfirmMailForm extends javax.swing.JFrame {
             repoP.setTokenNull(mail);
 
             new signupSetPassword(mail).setVisible(true);
-
+            this.dispose();
         } else {
 
             String ems = "";
@@ -126,9 +138,20 @@ public class SignupConfirmMailForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(frame, ems,
                     "Code verification", JOptionPane.ERROR_MESSAGE);
         }
-
-        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
+        // TODO add your handling code here:
+        xx = evt.getX();
+        yy = evt.getY();
+    }//GEN-LAST:event_jPanel2MousePressed
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - yy);
+    }//GEN-LAST:event_jPanel2MouseDragged
 
     /**
      * @param args the command line arguments
