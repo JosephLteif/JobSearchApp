@@ -67,7 +67,7 @@ public class EmailClass {
                 message.addRecipient(Message.RecipientType.TO, toAddres);
             }
 
-            if (path != null) {
+            if (!path.equals("")) {
                 BodyPart messageBodyPart = new MimeBodyPart();
                 messageBodyPart.setContent(body, "text/html");
 

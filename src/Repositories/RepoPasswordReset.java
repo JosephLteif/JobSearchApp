@@ -32,12 +32,10 @@ public class RepoPasswordReset {
     public static boolean foundmail(String mail) throws SQLException {
 
         try {
-            con = MySQLConnectionManager.getConnection();
-            ps = con.prepareStatement("SELECT * FROM password_reset WHERE email=?;");
+            ps = con.prepareStatement("SELECT * FROM password_reset WHERE email=LOWER(?);");
             ps.setString(1, mail);
             rs = ps.executeQuery();
             if (rs.next()) {
-//                con.close();
                 return true;
 
             }
@@ -45,7 +43,6 @@ public class RepoPasswordReset {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-//        con.close();
         return false;
 
     }

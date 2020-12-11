@@ -786,6 +786,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
         User u = new User();
+        jLabel6.setText("Welcome " + this.firstNameField.getText());
         Title.setText(this.firstNameField.getText() + "'s Page");
         u.setFname(this.firstNameField.getText());
         u.setLname(this.lastNameField.getText());
