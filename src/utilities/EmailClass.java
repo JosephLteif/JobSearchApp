@@ -5,14 +5,22 @@
  */
 package utilities;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 /**
  *
@@ -24,13 +32,20 @@ public class EmailClass {
 
     }
 
-    public static String from = "thejobsearchapp@gmail.com";
-    protected static String pass = "jobsearch123";
-
     //Used to send emails to a specified email address
-    public void sendFromGmail(String[] to, String subject, String body) throws MessagingException {
+    public void sendFromGmail(String[] to, String subject, String body, String path, String from, String pass) throws MessagingException {
         Properties props = System.getProperties();
-        String host = "smtp.gmail.com";
+
+        if (from == null) {
+            from = "thejobsearchapp@gmail.com";
+        }
+        if (pass == null) {
+            pass = "jobsearch123";
+        }
+        String host = "smtp.live.com";
+        if(from.equals("thejobsearchapp@gmail.com")){
+            host = "smtp.gmail.com";
+        }
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.user", from);
@@ -52,8 +67,28 @@ public class EmailClass {
                 message.addRecipient(Message.RecipientType.TO, toAddres);
             }
 
+            if (path != null) {
+                BodyPart messageBodyPart = new MimeBodyPart();
+                messageBodyPart.setContent(body, "text/html");
+
+                Multipart multipart = new MimeMultipart();
+
+                MimeBodyPart attachmentPart = new MimeBodyPart();
+                try {
+                    attachmentPart.attachFile(new File(path));
+                    multipart.addBodyPart(messageBodyPart);
+                    multipart.addBodyPart(attachmentPart);
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                            message.setContent(multipart, "text/html");
+            } else {
+                message.setContent(body, "text/html");
+            }
+
             message.setSubject(subject);
-            message.setContent(body, "text/html");
+
+
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());

@@ -400,6 +400,8 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchUsers.setBackground(new java.awt.Color(255, 255, 255));
         SearchUsers.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        SearchBar.setBackground(new java.awt.Color(255, 255, 255));
+        SearchBar.setForeground(new java.awt.Color(0, 0, 0));
         SearchBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SearchBarActionPerformed(evt);
@@ -410,7 +412,7 @@ public class AppHomeForm extends javax.swing.JFrame {
                 SearchBarKeyPressed(evt);
             }
         });
-        SearchUsers.add(SearchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 29, 350, -1));
+        SearchUsers.add(SearchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 350, 30));
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -445,16 +447,17 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Search");
-        SearchUsers.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 25, -1, -1));
+        SearchUsers.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, -1, 40));
 
-        View.setBackground(new java.awt.Color(255, 255, 255));
+        View.setBackground(new java.awt.Color(51, 102, 255));
+        View.setForeground(new java.awt.Color(255, 255, 255));
         View.setText("View Profile");
         View.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ViewActionPerformed(evt);
             }
         });
-        SearchUsers.add(View, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 120, 30));
+        SearchUsers.add(View, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 120, 30));
 
         SearchPanel.addTab("Search for Users", SearchUsers);
 
@@ -728,7 +731,7 @@ public class AppHomeForm extends javax.swing.JFrame {
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         // TODO add your handling code here:
-        new FileChooserForm(this.u1).setVisible(true);
+        new FileChooserForm(this.u1, 1).setVisible(true);
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void logoutOptionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutOptionMousePressed
@@ -756,8 +759,22 @@ public class AppHomeForm extends javax.swing.JFrame {
         int row = this.Table.getSelectedRow();
         if (row >= 0) {
             String mail = Table.getModel().getValueAt(row, column).toString();
-            User uv = repoU.Get(mail);
-            new viewProfile(uv).setVisible(true);
+            if (mail.equals(u1.getEmail())) {
+                firstNameField.setVisible(true);
+                lastNameField.setVisible(true);
+                emailField.setVisible(true);
+                phoneNumberField.setVisible(true);
+                btnUpdate.setVisible(true);
+                EditButton.setVisible(true);
+                HomePanel.setVisible(false);
+                SearchPanel.setVisible(false);
+                jLayeredPane1.moveToFront(ProfilePanel);
+                profileOption.setBackground(backColor);
+            } else {
+                User uv = repoU.Get(mail);
+                new viewProfile(uv,this.u1).setVisible(true);
+            }
+
         }
     }//GEN-LAST:event_ViewActionPerformed
 

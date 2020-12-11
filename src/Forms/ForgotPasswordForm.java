@@ -139,7 +139,7 @@ public class ForgotPasswordForm extends javax.swing.JFrame {
                                     String body = "Dear user, kindly find your code below.<br><br> " + token + "<br><br>For any complaints, you can reach us on this email.";
                                     String[] mails = new String[1];
                                     mails[0] = confmail;
-                                    sendmail.sendFromGmail(mails, sub, body);
+                                    sendmail.sendFromGmail(mails, sub, body, null, null, null);
                                 } catch (MessagingException ex) {
                                     Logger.getLogger(SignUpForm.class.getName()).log(Level.SEVERE, null, ex);
                                 }

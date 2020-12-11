@@ -16,14 +16,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FilePermission;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -31,13 +29,23 @@ import javax.swing.ImageIcon;
  */
 public class FileChooserForm extends javax.swing.JFrame {
 
-    User u;
+    private User u;
+    private int choice;
 
     /**
      * Creates new form FileChooser
+     *
+     * @param u
+     * @param choice
      */
-    public FileChooserForm(User u) {
+    public FileChooserForm(User u, int choice) {
         initComponents();
+        if (choice == 1) {
+            jFileChooser1.setFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg"));
+        } else {
+            jFileChooser1.setFileFilter(new FileNameExtensionFilter("File", "pdf"));
+        }
+        this.choice = choice;
         this.u = u;
     }
 
@@ -56,10 +64,10 @@ public class FileChooserForm extends javax.swing.JFrame {
 
         jFileChooser1 = new javax.swing.JFileChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jFileChooser1.setCurrentDirectory(new java.io.File("C:\\Users\\joelt\\Desktop\\Joseph\\Images"));
-        jFileChooser1.setDialogTitle("Choose a Profile Picture");
+        jFileChooser1.setDialogTitle("Choose File");
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser1ActionPerformed(evt);
@@ -85,47 +93,51 @@ public class FileChooserForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
-        InputStream in = null;
-        File file = null;
-        try {
-            // TODO add your handling code here:
-            Image I;
-            file = new File(jFileChooser1.getSelectedFile().getAbsolutePath());
-            in = new FileInputStream(file);
+        if (choice == 1) {
+            InputStream in = null;
+            File file = null;
             try {
-                I = resizeImage(ImageIO.read(in), 100, 100);
-                AppHomeForm.setProfilePanel(new ImageIcon(I));
-                String path = "src/UserData/UserData_" + u.getUid()+"/UserData_" + u.getUid()+".png";
-                u.setPP(path);
-                new RepoUser().insertProfilePicture(u);
-                in.close();
+                // TODO add your handling code here:
+                Image I;
+                file = new File(jFileChooser1.getSelectedFile().getAbsolutePath());
+                in = new FileInputStream(file);
+                try {
+                    I = resizeImage(ImageIO.read(in), 100, 100);
+                    AppHomeForm.setProfilePanel(new ImageIcon(I));
+                    String path = "src/UserData/UserData_" + u.getUid() + "/UserData_" + u.getUid() + ".png";
+                    u.setPP(path);
+                    new RepoUser().insertProfilePicture(u);
+                    in.close();
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            } catch (FileNotFoundException ex) {
+                System.out.println(ex.getMessage());
+            }
+
+            String path = "src/UserData/UserData_" + u.getUid();
+            File f = new File(path + "/UserData_" + u.getUid() + ".png");
+
+            InputStream is = null;
+            OutputStream os = null;
+
+            try {
+                is = new FileInputStream(file);
+                os = new FileOutputStream(f);
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = is.read(buffer)) > 0) {
+                    os.write(buffer, 0, length);
+                }
+                is.close();
+                os.close();
+            } catch (FileNotFoundException ex) {
+                System.out.println(ex.getMessage());
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        String path = "src/UserData/UserData_" + u.getUid();
-        File f = new File(path+"/UserData_" + u.getUid()+".png");
-        
-        InputStream is = null;
-        OutputStream os = null;
-
-        try {
-            is = new FileInputStream(file);
-            os = new FileOutputStream(f);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = is.read(buffer)) > 0) {
-                os.write(buffer, 0, length);
-            }
-            is.close();
-            os.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        } else {
+            SendEmailToUser.setAttatchment(jFileChooser1.getSelectedFile().getAbsolutePath());
         }
 
         this.dispose();
@@ -177,10 +189,8 @@ public class FileChooserForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FileChooserForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new FileChooserForm().setVisible(true);
         });
     }
 

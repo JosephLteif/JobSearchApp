@@ -153,7 +153,7 @@ public class signupSetPassword extends javax.swing.JFrame {
                             String[] mails = new String[1];
                             mails[0] = mail;
                             try {
-                                new EmailClass().sendFromGmail(mails, sub, body);
+                                new EmailClass().sendFromGmail(mails, sub, body, null, null, null);
                             } catch (MessagingException ex) {
                                 Logger.getLogger(signupSetPassword.class.getName()).log(Level.SEVERE, null, ex);
                             }

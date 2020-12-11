@@ -9,8 +9,6 @@ import DTO.User;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -26,11 +24,13 @@ public class viewProfile extends javax.swing.JFrame {
      * Creates new form viewProfile
      */
     User u;
+    User u1;
 
-    public viewProfile(User u) {
+    public viewProfile(User u, User u1) {
         setUndecorated(true);
         initComponents();
         this.u = u;
+        this.u1 = u1;
         this.lblfname.setText(u.getFname());
         this.lbllname.setText(u.getLname());
         this.lbldob.setText(u.getDob());
@@ -38,7 +38,6 @@ public class viewProfile extends javax.swing.JFrame {
         this.lbllocation.setText(u.getLocation());
         this.lblmajor.setText(u.getMajor());
         this.lblphonenumber.setText(u.getPhoneNumber());
-        System.out.println(u.getUid());
         if (!(u.getPP() == null)) {
             Image Im = null;
             try {
@@ -81,8 +80,10 @@ public class viewProfile extends javax.swing.JFrame {
         lblmajor = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         lbllocation = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -167,11 +168,21 @@ public class viewProfile extends javax.swing.JFrame {
         lbllocation.setText("jLabel13");
         jPanel1.add(lbllocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
 
+        jButton1.setBackground(new java.awt.Color(51, 102, 255));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Send Email");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
+            .addGap(0, 353, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,6 +214,11 @@ public class viewProfile extends javax.swing.JFrame {
         int y = evt.getYOnScreen();
         this.setLocation(x - xx, y - yy);
     }//GEN-LAST:event_jPanel2MouseDragged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new SendEmailToUser(u,u1).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,6 +256,7 @@ public class viewProfile extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Image;
     private javax.swing.JButton X1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel4;
