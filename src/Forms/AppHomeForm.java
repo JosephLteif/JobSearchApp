@@ -5,52 +5,76 @@
  */
 package Forms;
 
+import DTO.University;
 import DTO.User;
+import Repositories.RepoUni;
 import Repositories.RepoUser;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import utilities.Regex;
 
 /**
  *
- * @author joelt
+ * @author Lama
  */
 public class AppHomeForm extends javax.swing.JFrame {
 
+    private int uid;
     private int xx = 0;
     private int yy = 0;
     protected static User u1 = null;
 
+    
+     ArrayList <University> unis=new ArrayList();
+    RepoUni repoUni=new RepoUni();
     RepoUser repoU = new RepoUser();
 
     /**
      * Creates new form appHomeFrm
      */
-    public AppHomeForm() {
+    public AppHomeForm() throws SQLException {
         this.oldColor = new Color(51, 102, 255);
         this.backColor = new Color(51, 153, 255);
 
         initComponents();
+        
     }
 
-    public AppHomeForm(User u) {
+    public AppHomeForm(User u) throws SQLException {
         this.u1 = repoU.Get(u.getEmail());
         this.oldColor = new Color(51, 102, 255);
         this.backColor = new Color(51, 153, 255);
         setUndecorated(true);
         initComponents();
+        
+           unis=repoUni.getAllUnis();
+            int i=u1.getUniId();
+            for (University un: unis){
+                     unisComboBox.addItem(un.getUname());
+                }
+            
+            
+        
         this.username = u1.getFname();
+        
         firstNameField.setText(u1.getFname());
         lastNameField.setText(u1.getLname());
         emailField.setText(u1.getEmail());
+        dobField.setText(u1.getDob());
+        majorField.setText(u1.getMajor());
         phoneNumberField.setText(u1.getPhoneNumber());
+        locationField.setText(u1.getLocation());
+       
         jLabel6.setText(jLabel6.getText() + " " + this.username);
         jLayeredPane1.moveToFront(HomePanel);
         Title.setText(this.username + "'s Page");
@@ -76,7 +100,14 @@ public class AppHomeForm extends javax.swing.JFrame {
         firstNameField.setVisible(false);
         lastNameField.setVisible(false);
         emailField.setVisible(false);
-        phoneNumberField.setVisible(false);
+        locationField.setVisible(false);
+        dobField.setVisible(false);
+        majorField.setVisible(false);
+       phoneNumberField.setVisible(false);
+      
+       unisComboBox.setVisible(false);
+       unisComboBox.setEnabled(false);
+       
     }
 
     protected static void setProfilePanel(ImageIcon I) {
@@ -119,7 +150,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         firstNameField = new javax.swing.JTextField();
         lastNameField = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
-        phoneNumberField = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -132,6 +162,15 @@ public class AppHomeForm extends javax.swing.JFrame {
         Title = new javax.swing.JLabel();
         profilePicture = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        unisComboBox = new javax.swing.JComboBox<>();
+        phoneNumberField = new javax.swing.JTextField();
+        dobField = new javax.swing.JTextField();
+        majorField = new javax.swing.JTextField();
+        locationField = new javax.swing.JTextField();
         SearchPanel = new javax.swing.JTabbedPane();
         SearchUsers = new javax.swing.JPanel();
         SearchBar = new javax.swing.JTextField();
@@ -333,9 +372,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         emailField.setEnabled(false);
         ProfilePanel.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 290, -1));
 
-        phoneNumberField.setEnabled(false);
-        ProfilePanel.add(phoneNumberField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 290, -1));
-
         jLabel19.setText("PhoneNumber");
         ProfilePanel.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 276, -1, 20));
 
@@ -394,6 +430,37 @@ public class AppHomeForm extends javax.swing.JFrame {
             }
         });
         ProfilePanel.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 450, -1, -1));
+
+        jLabel3.setText("Date of Birth");
+        ProfilePanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, -1, -1));
+
+        jLabel15.setText("Major");
+        ProfilePanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, -1));
+
+        jLabel16.setText("Location");
+        ProfilePanel.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, -1));
+
+        jLabel17.setText("University");
+        ProfilePanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, -1, -1));
+
+        unisComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unisComboBoxActionPerformed(evt);
+            }
+        });
+        ProfilePanel.add(unisComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 290, 20));
+
+        phoneNumberField.setEnabled(false);
+        ProfilePanel.add(phoneNumberField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 290, -1));
+
+        dobField.setEnabled(false);
+        ProfilePanel.add(dobField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, 290, -1));
+
+        majorField.setEnabled(false);
+        ProfilePanel.add(majorField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 290, -1));
+
+        locationField.setEnabled(false);
+        ProfilePanel.add(locationField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 290, -1));
 
         SearchPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -590,7 +657,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ProfilePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+            .addComponent(ProfilePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(HomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -621,16 +688,30 @@ public class AppHomeForm extends javax.swing.JFrame {
     private void EditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButtonActionPerformed
         // TODO add your handling code here:
         if (!firstNameField.isEnabled()) {
-            firstNameField.setEnabled(true);
-            lastNameField.setEnabled(true);
-            //emailField.setEnabled(true);
-            phoneNumberField.setEnabled(true);
+          
+                firstNameField.setEnabled(true);
+                lastNameField.setEnabled(true);
+                //emailField.setEnabled(true);
+                phoneNumberField.setEnabled(true);
+               locationField.setEnabled(true);
+                dobField.setEnabled(true);
+                majorField.setEnabled(true);
+                
+                unisComboBox.setEnabled(true);
+                
+            
         } else {
-            firstNameField.setEnabled(false);
-            lastNameField.setEnabled(false);
-            //emailField.setEnabled(false);
-            phoneNumberField.setEnabled(false);
+             lastNameField.setEnabled(false);
+                //emailField.setEnabled(false);
+                phoneNumberField.setEnabled(false);
+                
+                dobField.setEnabled(false);
+                majorField.setEnabled(false);
+                
+                unisComboBox.setEnabled(false);
         }
+        
+        
 
 
     }//GEN-LAST:event_EditButtonActionPerformed
@@ -642,11 +723,16 @@ public class AppHomeForm extends javax.swing.JFrame {
 
     private void profileOptionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileOptionMousePressed
         // TODO add your handling code here:
-
+        
+         unisComboBox.setSelectedIndex(u1.getUniId()-1);
         firstNameField.setVisible(true);
         lastNameField.setVisible(true);
         emailField.setVisible(true);
+        locationField.setVisible(true);
+        dobField.setVisible(true);
+        majorField.setVisible(true);
         phoneNumberField.setVisible(true);
+        unisComboBox.setVisible(true);
         btnUpdate.setVisible(true);
         EditButton.setVisible(true);
         HomePanel.setVisible(false);
@@ -665,6 +751,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         EditButton.setVisible(false);
         HomePanel.setVisible(true);
         SearchPanel.setVisible(false);
+       
         jLayeredPane1.moveToFront(HomePanel);
         homeOption.setBackground(backColor);
         jLabel6.setText("");
@@ -681,6 +768,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchBar.setVisible(true);
         jLabel2.setVisible(true);
         btnUpdate.setVisible(false);
+       
         searchOption.setBackground(backColor);
         EditButton.setVisible(false);
         HomePanel.setVisible(false);
@@ -770,29 +858,96 @@ public class AppHomeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_View2ActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-
-        User u = new User();
-        Title.setText(this.firstNameField.getText() + "'s Page");
-        u.setFname(this.firstNameField.getText());
-        u.setLname(this.lastNameField.getText());
-        u.setEmail(this.emailField.getText());
-        u.setPhoneNumber(this.phoneNumberField.getText());
-
+ 
+        String fn=this.firstNameField.getText();
+        String ln=this.lastNameField.getText();
+        String em=this.emailField.getText();
+        String pn=this.phoneNumberField.getText();
+        String dob=this.dobField.getText();
+        String mjr=this.majorField.getText();
+        String location=this.locationField.getText();
         String ems = "";
         Component frame = null;
+        if (!Regex.isValidName(fn)||!Regex.isValidName(ln)||!Regex.isValidEmail(em)||!Regex.isValidDate(dob))
+        {
+            if (!Regex.isValidName(fn)){
+                 ems = ems + "Your first name is required in a valid form!";
+            JOptionPane.showMessageDialog(frame, ems,
+                    "Edit Profile", JOptionPane.ERROR_MESSAGE);
+                
+            }
+            
+             if (!Regex.isValidName(ln)){
+                 ems = ems + "Your last name is required in a valid form!";
+            JOptionPane.showMessageDialog(frame, ems,
+                    "Edit Profile", JOptionPane.ERROR_MESSAGE);
+                
+            }
+             
+              if (!Regex.isValidEmail(em)){
+                 ems = ems + "Your email is required in a valid form!";
+            JOptionPane.showMessageDialog(frame, ems,
+                    "Edit Profile", JOptionPane.ERROR_MESSAGE);
+                
+            }
+             
+             if (!Regex.isValidDate(dob)){
+                 
+                 /*if (Regex.age==0){
+                     ems = ems + "You are under legal age!";
+            JOptionPane.showMessageDialog(frame, ems,
+                    "Edit Profile", JOptionPane.ERROR_MESSAGE);
+                 }
+                 else{*/
+                 ems = ems + "Invalid date format!\nValid Format: DD/MM/YYYY";
+            JOptionPane.showMessageDialog(frame, ems,
+                    "Edit Profile", JOptionPane.ERROR_MESSAGE);
+                
+            }
+        } 
+        else{
+        User u = new User();
+        Title.setText(this.firstNameField.getText() + "'s Page");
+        u.setFname(fn);
+        u.setLname(ln);
+        u.setEmail(em);
+        u.setPhoneNumber(pn);
+        u.setDob(dob);
+        u.setMajor(mjr);
+        u.setLocation(location);
+        u.setUid(uid);
+       
         if (repoU.Update(u)) {
             ems = ems + "Your profile has been updated!";
             JOptionPane.showMessageDialog(frame, ems,
                     "Edit Profile", JOptionPane.INFORMATION_MESSAGE);
 
         } else {
-            ems = ems + "An error occured!Your profile wasn't updated!";
+           ems = ems + "An error occured! Unable to update your profile!";
             JOptionPane.showMessageDialog(frame, ems,
                     "Edit Profile", JOptionPane.ERROR_MESSAGE);
         }
-
-
+             }
+    
+        
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void unisComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unisComboBoxActionPerformed
+       
+    
+        String uni=(String) unisComboBox.getSelectedItem();
+        
+        for (University u: unis){
+            
+            if (uni.equals(u.getUname())){
+                this.uid=u.getId();
+                return;
+            }
+         
+        }
+        
+        
+    }//GEN-LAST:event_unisComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -823,7 +978,11 @@ public class AppHomeForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new AppHomeForm().setVisible(true);
+            try {
+                new AppHomeForm().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AppHomeForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 
@@ -854,6 +1013,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     private javax.swing.JButton View2;
     private javax.swing.JLabel X;
     private javax.swing.JButton btnUpdate;
+    public static javax.swing.JTextField dobField;
     public static javax.swing.JTextField emailField;
     public static javax.swing.JTextField firstNameField;
     private javax.swing.JPanel homeOption;
@@ -864,9 +1024,13 @@ public class AppHomeForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -883,13 +1047,16 @@ public class AppHomeForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     public static javax.swing.JTextField lastNameField;
+    public static javax.swing.JTextField locationField;
     private javax.swing.JLabel logoutLogo;
     private javax.swing.JPanel logoutOption;
     private javax.swing.JTextArea mainText;
+    public static javax.swing.JTextField majorField;
     private javax.swing.JPanel menuPanel;
     public static javax.swing.JTextField phoneNumberField;
     private javax.swing.JPanel profileOption;
     private static javax.swing.JLabel profilePicture;
     private javax.swing.JPanel searchOption;
+    private javax.swing.JComboBox<String> unisComboBox;
     // End of variables declaration//GEN-END:variables
 }

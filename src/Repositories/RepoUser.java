@@ -85,7 +85,8 @@ public class RepoUser {
         user.setGender(rs.getInt("gender"));
         user.setLocation(rs.getString("location"));
         user.setPP(rs.getString("profilePicture"));
-
+        user.setUniId(rs.getInt("university_ID_UNIVERSITY"));
+        
         return user;
 
     }
@@ -174,6 +175,7 @@ public class RepoUser {
             ps.setString(3, u.getEmail());
             //ps.setString(4, u.getPassword());
             ps.setInt(4, u.getGender());
+          
 
             int rowCreate = ps.executeUpdate();
             //PasswordReset pr=new PasswordReset(u.getEmail());
@@ -226,12 +228,16 @@ public class RepoUser {
     
      public boolean Update(User user){
          try {
-            ps=con.prepareStatement("Update user Set firstName=?, lastName=?, phoneNumber=? Where email=?;");
+            ps=con.prepareStatement("Update user Set firstName=?, lastName=?, DOB=?, phoneNumber=?, Major=?, location=?, university_ID_UNIVERSITY=? Where email=?;");
          
             ps.setString(1, user.getFname());
             ps.setString(2, user.getLname());
-            ps.setString(3, user.getPhoneNumber());
-            ps.setString(4, user.getEmail());
+            ps.setString(3, user.getDob());
+            ps.setString(4, user.getPhoneNumber());
+            ps.setString(5, user.getMajor());
+            ps.setString(6,user.getLocation());
+            ps.setInt(7, user.getUid());
+            ps.setString(8, user.getEmail());
             int i= ps.executeUpdate();
             if (i==1){
                 return true;
