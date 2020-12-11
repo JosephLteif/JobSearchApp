@@ -5,8 +5,10 @@
  */
 package Repositories;
 
+import DTO.PasswordReset;
 import DTO.User;
 import Forms.AppHomeForm;
+import Forms.SignupConfirmMailForm;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,8 +16,11 @@ import java.sql.SQLException;
 import Helpers.MySQLConnectionManager;
 import java.awt.Component;
 import java.sql.Statement;
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import utilities.EmailClass;
+import utilities.TokenGenerator;
 
 /**
  *
@@ -100,11 +105,6 @@ public class RepoUser {
             ps.setString(2, email);
             int i = ps.executeUpdate();
             if (i == 1) {
-//                try {
-//                  con.close();
-//                } catch (SQLException ex) {
-//                    System.out.println(ex.getMessage());
-//                }
                 return true;
 
             }
@@ -119,7 +119,6 @@ public class RepoUser {
     public static boolean passwordAfterVerify(String email, String pass) throws SQLException {
 
         try {
-//             con = MySQLConnectionManager.getConnection();
             ps = con.prepareStatement("Update user Set password=SHA(?),isverified=? where email=Lower(?);");
             ps.setString(1, pass);
             ps.setInt(2, 0);
@@ -127,14 +126,12 @@ public class RepoUser {
             int i = ps.executeUpdate();
             if (i == 1) {
 
-//                con.close();
                 return true;
 
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.out.println(throwables.getMessage());
         }
-//     con.close();
         return false;
 
     }
@@ -173,15 +170,11 @@ public class RepoUser {
             ps.setString(1, u.getFname());
             ps.setString(2, u.getLname());
             ps.setString(3, u.getEmail());
-            //ps.setString(4, u.getPassword());
             ps.setInt(4, u.getGender());
-          
 
             int rowCreate = ps.executeUpdate();
-            //PasswordReset pr=new PasswordReset(u.getEmail());
             if (rowCreate == 1) {
 
-                //RepoPasswordReset.insert(pr);
                 return true;
             }
         } catch (SQLException ex) {
@@ -192,13 +185,43 @@ public class RepoUser {
 
     public static boolean login(User u) {
         try {
-            ps = con.prepareStatement("Select email, password from user where password = SHA(?) and email = ?;");
+            ps = con.prepareStatement("Select email, password, isverified from user where password = SHA(?) and email = LOWER(?);");
             ps.setString(1, u.getPassword());
             ps.setString(2, u.getEmail());
             rs = ps.executeQuery();
             if (rs.next()) {
-                return true;
+                if (rs.getInt(3) == 0) {
+                    return true;
+                } else {
+                    Component frame = null;
+                    JOptionPane.showMessageDialog(frame, "Account Not Verified!\nVerification Email sent!",
+                            "Sign up failed", JOptionPane.ERROR_MESSAGE);
+
+                    String token = TokenGenerator.generatetxt();
+                    PasswordReset pr = new PasswordReset(u.getEmail(), token);
+                    User u2 = RepoUser.Get(u.getEmail());
+                    if (new RepoPasswordReset().insert(pr)) {
+                    Thread T1 = new Thread(() -> {
+                        try {
+                            String sub = "Sign up verfication!";
+                            String body = "Dear " + u2.getFname() + " " + u2.getLname() + ",<br> We'd like to welcome you in our app!Hoping that you'll find your dream job through our app!<br> "
+                                    + "But first we need to verify your email. So kindly enter this code: <br>" + pr.getTok() + "<br>"
+                                    + "For any complaints, you can reach us on this email.";
+                            String[] mails = new String[1];
+                            mails[0] = u2.getEmail();
+                            new EmailClass().sendFromGmail(mails, sub, body, null, null, null);
+                            
+                        } catch (MessagingException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    });
+                    T1.start();
+                    }
+                    new SignupConfirmMailForm(pr.getEmail()).setVisible(true);
+                    return false;
+                }
             }
+            JOptionPane.showMessageDialog(null, "Username or password incorrect");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -208,7 +231,7 @@ public class RepoUser {
     public static boolean insertProfilePicture(User u) {
         int done = 0;
         try {
-            ps = con.prepareStatement("update user set ProfilePicture = (?) where email = ?;");
+            ps = con.prepareStatement("update user set ProfilePicture = (?) where email = LOWER(?);");
             ps.setString(1, u.getPP());
             ps.setString(2, u.getEmail());
             done = ps.executeUpdate();
@@ -223,6 +246,7 @@ public class RepoUser {
 
         return false;
     }
+
     
     
     
@@ -230,8 +254,10 @@ public class RepoUser {
          try {
             ps=con.prepareStatement("Update user Set firstName=?, lastName=?, DOB=?, phoneNumber=?, Major=?, location=?, university_ID_UNIVERSITY=? Where email=?;");
          
+
             ps.setString(1, user.getFname());
             ps.setString(2, user.getLname());
+
             ps.setString(3, user.getDob());
             ps.setString(4, user.getPhoneNumber());
             ps.setString(5, user.getMajor());
@@ -240,18 +266,15 @@ public class RepoUser {
             ps.setString(8, user.getEmail());
             int i= ps.executeUpdate();
             if (i==1){
+
                 return true;
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.out.println(throwables.getMessage());
         }
-          
-     return false;
+
+        return false;
     }
-    
-    
-    
-    
 
     public void Destroy() {
         if (rs != null) {

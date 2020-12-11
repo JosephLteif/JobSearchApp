@@ -157,6 +157,7 @@ public class LoginForm extends javax.swing.JFrame {
         String pass = new String(this.passwordField.getPassword());
         User u = new User(null, null, this.emailField.getText().toLowerCase(), pass, 0);
         if (repoU.login(u)) {
+
             try {
                 new AppHomeForm(u).setVisible(true);
                 this.dispose();
@@ -164,7 +165,14 @@ public class LoginForm extends javax.swing.JFrame {
                 Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Username or password incorrect");
+            try {
+                JOptionPane.showMessageDialog(null, "Username or password incorrect");
+                
+                new AppHomeForm(u).setVisible(true);
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_LoginActionPerformed
 

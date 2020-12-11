@@ -46,7 +46,6 @@ public class SignUpForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jProgressBar1 = new javax.swing.JProgressBar();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -62,7 +61,7 @@ public class SignUpForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         ComboGender = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -142,7 +141,7 @@ public class SignUpForm extends javax.swing.JFrame {
 
         Component frame = null;
 
-        if (!Regex.isValidName(fn) || !Regex.isValidName(ln) || !Regex.isValidEmail(email)) {//|| !Regex.isValidPassword(pass) || !cpass.equals(pass)) {
+        if (!Regex.isValidName(fn) || !Regex.isValidName(ln) || !Regex.isValidEmail(email)) {
             if (!Regex.isValidName(fn)) {
                 ems = ems + "Invalid first name.\n";
             } else if (!Regex.isValidName(ln)) {
@@ -150,14 +149,9 @@ public class SignUpForm extends javax.swing.JFrame {
             } else if (!Regex.isValidEmail(email)) {
                 ems = ems + "Invalid email address";
             }
-              
-                
-            
-            /*else if (!Regex.isValidPassword(pass)) {
-                ems = ems + "Invalid password!";
-            } else if (!cpass.equals(pass)) {
-                ems = ems + "Passwords don't match!";
-            }*/
+
+
+
             JOptionPane.showMessageDialog(frame, ems,
                     "Sign up failed", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -179,10 +173,10 @@ public class SignUpForm extends javax.swing.JFrame {
                                         + "For any complaints, you can reach us on this email.";
                                 String[] mails = new String[1];
                                 mails[0] = newUser.getEmail();
-                                sendmail.sendFromGmail(mails, sub, body);
+                                sendmail.sendFromGmail(mails, sub, body, null, null, null);
 
                             } catch (MessagingException ex) {
-                                Logger.getLogger(SignUpForm.class.getName()).log(Level.SEVERE, null, ex);
+                                System.out.println(ex.getMessage());
                             }
                         });
                         T1.start();
@@ -201,10 +195,10 @@ public class SignUpForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
     /**
      */
     public static void signUp() {
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new SignUpForm().setVisible(true);
@@ -223,7 +217,6 @@ public class SignUpForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFname;
     private javax.swing.JTextField txtLname;

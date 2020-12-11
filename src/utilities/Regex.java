@@ -22,7 +22,7 @@ import javax.mail.internet.ParseException;
 public class Regex {
     // Function to validate the password. 
     
-    public static int age=18;
+ 
     public static boolean isValidDate(String date){
          
         
