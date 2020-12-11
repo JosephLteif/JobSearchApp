@@ -25,7 +25,7 @@ public class User {
     String location;
     int jobseekerdID;
     boolean isRecruiter;
-    String university;
+    int uniId;
     String PP;
     
     int isverified;
@@ -166,12 +166,12 @@ public class User {
         this.isRecruiter = isRecruiter;
     }
 
-    public String getUniversity() {
-        return university;
+    public int getUniId() {
+        return uniId;
     }
 
-    public void setUniversity(String university) {
-        this.university = university;
+    public void setUniId(int university) {
+        this.uniId = university;
     }
 
     
@@ -181,5 +181,15 @@ public class User {
         this.email = email;
         this.gender=gender;
         this.isverified=1;
+    }
+    
+    
+     public User(String fname, String lname, String email, int gender, String dob) {
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.gender=gender;
+        this.isverified=1;
+        this.dob=dob;
     }
 }

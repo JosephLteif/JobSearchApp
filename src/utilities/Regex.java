@@ -5,8 +5,15 @@
  */
 package utilities;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.mail.internet.ParseException;
 
 /**
  *
@@ -14,7 +21,43 @@ import java.util.regex.Pattern;
  */
 public class Regex {
     // Function to validate the password. 
+    
+ 
+    public static boolean isValidDate(String date){
+         
+        
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+         format.setLenient(false);
+        try{
+        format.parse(date);
+        } catch (java.text.ParseException e) {
+        
+            return false;
+        }
 
+      /*  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        //convert String to LocalDate
+        LocalDate localDate = LocalDate.parse(date, formatter);
+       
+       
+       
+       LocalDate now = LocalDate.now();
+        Period dif = Period.between(localDate, now);
+                
+     if(dif.getYears()>18||dif.getYears()==18){
+         return true;
+         
+     }
+     else{
+         age=0;
+         return false;
+     }*/
+      
+      return true;
+    }
+  
+    
+    
     public static boolean isValidPassword(String password) {
 
         // Regex to check valid password. 

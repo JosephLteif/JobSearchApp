@@ -7,6 +7,9 @@ package Forms;
 
 import DTO.User;
 import Repositories.RepoUser;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -154,8 +157,22 @@ public class LoginForm extends javax.swing.JFrame {
         String pass = new String(this.passwordField.getPassword());
         User u = new User(null, null, this.emailField.getText().toLowerCase(), pass, 0);
         if (repoU.login(u)) {
-            new AppHomeForm(u).setVisible(true);
-            this.dispose();
+
+            try {
+                new AppHomeForm(u).setVisible(true);
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                JOptionPane.showMessageDialog(null, "Username or password incorrect");
+                
+                new AppHomeForm(u).setVisible(true);
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_LoginActionPerformed
 
