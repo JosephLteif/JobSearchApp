@@ -145,7 +145,7 @@ public class SignUpForm extends javax.swing.JFrame {
 
         Component frame = null;
 
-        if (!Regex.isValidName(fn) || !Regex.isValidName(ln) || !Regex.isValidEmail(email)) {//|| !Regex.isValidPassword(pass) || !cpass.equals(pass)) {
+        if (!Regex.isValidName(fn) || !Regex.isValidName(ln) || !Regex.isValidEmail(email)) {
             if (!Regex.isValidName(fn)) {
                 ems = ems + "Invalid first name.\n";
             } else if (!Regex.isValidName(ln)) {
@@ -153,11 +153,7 @@ public class SignUpForm extends javax.swing.JFrame {
             } else if (!Regex.isValidEmail(email)) {
                 ems = ems + "Invalid email address";
             }
-            /*else if (!Regex.isValidPassword(pass)) {
-                ems = ems + "Invalid password!";
-            } else if (!cpass.equals(pass)) {
-                ems = ems + "Passwords don't match!";
-            }*/
+
             JOptionPane.showMessageDialog(frame, ems,
                     "Sign up failed", JOptionPane.ERROR_MESSAGE);
         } else {

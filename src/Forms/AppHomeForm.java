@@ -126,7 +126,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         EditButton = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         Title = new javax.swing.JLabel();
@@ -361,7 +360,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setText("Welcome");
         ProfilePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 35, -1, -1));
-        ProfilePanel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 60, 70, 10));
 
         EditButton.setBackground(new java.awt.Color(255, 255, 255));
         EditButton.setText("Edit Info");
@@ -631,7 +629,6 @@ public class AppHomeForm extends javax.swing.JFrame {
         } else {
             firstNameField.setEnabled(false);
             lastNameField.setEnabled(false);
-            //emailField.setEnabled(false);
             phoneNumberField.setEnabled(false);
         }
 
@@ -801,7 +798,9 @@ public class AppHomeForm extends javax.swing.JFrame {
             ems = ems + "Your profile has been updated!";
             JOptionPane.showMessageDialog(frame, ems,
                     "Edit Profile", JOptionPane.INFORMATION_MESSAGE);
-
+            firstNameField.setEnabled(false);
+            lastNameField.setEnabled(false);
+            phoneNumberField.setEnabled(false);
         } else {
             ems = ems + "An error occured!Your profile wasn't updated!";
             JOptionPane.showMessageDialog(frame, ems,
@@ -896,7 +895,6 @@ public class AppHomeForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     public static javax.swing.JTextField lastNameField;

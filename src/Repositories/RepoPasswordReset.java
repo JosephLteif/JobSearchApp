@@ -37,7 +37,7 @@ public class RepoPasswordReset {
             ps.setString(1, mail);
             rs = ps.executeQuery();
             if (rs.next()) {
-                con.close();
+//                con.close();
                 return true;
 
             }
@@ -45,24 +45,36 @@ public class RepoPasswordReset {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-        con.close();
+//        con.close();
         return false;
 
     }
 
     public static boolean insert(PasswordReset pr) throws SQLException {
         try {
-
             con = MySQLConnectionManager.getConnection();
-            String SQLQuery = "INSERT INTO password_reset (email,token) values (?,Lower(?));";
-            ps = con.prepareStatement(SQLQuery);
-            ps.setString(1, pr.getEmail());
-            ps.setString(2, pr.getTok());
+            if (!foundmail(pr.getEmail())) {
+                String SQLQuery = "INSERT INTO password_reset (email,token) values (?,LOWER(?));";
+                ps = con.prepareStatement(SQLQuery);
+                ps.setString(1, pr.getEmail());
+                ps.setString(2, pr.getTok());
 
-            int rowCreate = ps.executeUpdate();
-            if (rowCreate == 1) {
-                con.close();
-                return true;
+                int rowCreate = ps.executeUpdate();
+                if (rowCreate == 1) {
+                    con.close();
+                    return true;
+                }
+            } else {
+                String SQLQuery = "update password_reset set token = Lower(?) where email = LOWER(?);";
+                ps = con.prepareStatement(SQLQuery);
+                ps.setString(2, pr.getEmail());
+                ps.setString(1, pr.getTok());
+
+                int rowCreate = ps.executeUpdate();
+                if (rowCreate == 1) {
+                    con.close();
+                    return true;
+                }
             }
         } catch (SQLException ex) {
             System.out.println(ex);

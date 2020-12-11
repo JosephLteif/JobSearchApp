@@ -156,8 +156,6 @@ public class LoginForm extends javax.swing.JFrame {
         if (repoU.login(u)) {
             new AppHomeForm(u).setVisible(true);
             this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Username or password incorrect");
         }
     }//GEN-LAST:event_LoginActionPerformed
 
