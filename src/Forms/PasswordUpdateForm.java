@@ -139,6 +139,7 @@ public class PasswordUpdateForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(frame, ems,
                         "Reset Password", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
+                new LoginForm().setVisible(true);
 
             } else {
 
@@ -146,7 +147,6 @@ public class PasswordUpdateForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(frame, ems,
                         "Reset Password", JOptionPane.ERROR_MESSAGE);
                 this.dispose();
-                new LoginForm().setVisible(true);
             }
         } else {
             ems = ems + "Passwords don't match";

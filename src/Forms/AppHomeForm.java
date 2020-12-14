@@ -34,20 +34,20 @@ public class AppHomeForm extends javax.swing.JFrame {
     private int yy = 0;
     protected static User u1 = null;
 
-    
-     ArrayList <University> unis=new ArrayList();
-    RepoUni repoUni=new RepoUni();
+    ArrayList<University> unis = new ArrayList();
+    RepoUni repoUni = new RepoUni();
     RepoUser repoU = new RepoUser();
 
     /**
      * Creates new form appHomeFrm
+     * @throws java.sql.SQLException
      */
     public AppHomeForm() throws SQLException {
         this.oldColor = new Color(51, 102, 255);
         this.backColor = new Color(51, 153, 255);
 
         initComponents();
-        
+
     }
 
     public AppHomeForm(User u) throws SQLException {
@@ -56,17 +56,15 @@ public class AppHomeForm extends javax.swing.JFrame {
         this.backColor = new Color(51, 153, 255);
         setUndecorated(true);
         initComponents();
-        
-           unis=repoUni.getAllUnis();
-            int i=u1.getUniId();
-            for (University un: unis){
-                     unisComboBox.addItem(un.getUname());
-                }
-            
-            
-        
+
+        unis = repoUni.getAllUnis();
+        int i = u1.getUniId();
+        for (University un : unis) {
+            unisComboBox.addItem(un.getUname());
+        }
+
         this.username = u1.getFname();
-        
+
         firstNameField.setText(u1.getFname());
         lastNameField.setText(u1.getLname());
         emailField.setText(u1.getEmail());
@@ -74,7 +72,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         majorField.setText(u1.getMajor());
         phoneNumberField.setText(u1.getPhoneNumber());
         locationField.setText(u1.getLocation());
-       
+
         jLabel6.setText(jLabel6.getText() + " " + this.username);
         jLayeredPane1.moveToFront(HomePanel);
         Title.setText(this.username + "'s Page");
@@ -103,14 +101,12 @@ public class AppHomeForm extends javax.swing.JFrame {
         locationField.setVisible(false);
         dobField.setVisible(false);
         majorField.setVisible(false);
-       phoneNumberField.setVisible(false);
-      
-       unisComboBox.setVisible(false);
-       unisComboBox.setEnabled(false);
-       
-       
-    }
+        phoneNumberField.setVisible(false);
 
+        unisComboBox.setVisible(false);
+        unisComboBox.setEnabled(false);
+
+    }
 
     protected static void setProfilePanel(ImageIcon I) {
         profilePicture.setIcon(I);
@@ -631,33 +627,28 @@ public class AppHomeForm extends javax.swing.JFrame {
     private void EditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButtonActionPerformed
         // TODO add your handling code here:
         if (!firstNameField.isEnabled()) {
-          
-                firstNameField.setEnabled(true);
-                lastNameField.setEnabled(true);
-                //emailField.setEnabled(true);
-                phoneNumberField.setEnabled(true);
-               locationField.setEnabled(true);
-                dobField.setEnabled(true);
-                majorField.setEnabled(true);
-                
-                unisComboBox.setEnabled(true);
-                
-            
+
+            firstNameField.setEnabled(true);
+            lastNameField.setEnabled(true);
+            //emailField.setEnabled(true);
+            phoneNumberField.setEnabled(true);
+            locationField.setEnabled(true);
+            dobField.setEnabled(true);
+            majorField.setEnabled(true);
+
+            unisComboBox.setEnabled(true);
+
         } else {
-            
-            
-              firstNameField.setEnabled(false);
-                lastNameField.setEnabled(false);
-                phoneNumberField.setEnabled(false);
-               locationField.setEnabled(false);
-                dobField.setEnabled(false);
-                majorField.setEnabled(false);
-                unisComboBox.setEnabled(false);
-            
-            
+
+            firstNameField.setEnabled(false);
+            lastNameField.setEnabled(false);
+            phoneNumberField.setEnabled(false);
+            locationField.setEnabled(false);
+            dobField.setEnabled(false);
+            majorField.setEnabled(false);
+            unisComboBox.setEnabled(false);
+
         }
-        
-        
 
 
     }//GEN-LAST:event_EditButtonActionPerformed
@@ -669,8 +660,7 @@ public class AppHomeForm extends javax.swing.JFrame {
 
     private void profileOptionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileOptionMousePressed
         // TODO add your handling code here:
-        
-         unisComboBox.setSelectedIndex(u1.getUniId()-1);
+        unisComboBox.setSelectedIndex(u1.getUniId() - 1);
         firstNameField.setVisible(true);
         lastNameField.setVisible(true);
         emailField.setVisible(true);
@@ -697,7 +687,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         EditButton.setVisible(false);
         HomePanel.setVisible(true);
         SearchPanel.setVisible(false);
-       
+
         jLayeredPane1.moveToFront(HomePanel);
         homeOption.setBackground(backColor);
         jLabel6.setText("");
@@ -714,7 +704,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         SearchBar.setVisible(true);
         jLabel2.setVisible(true);
         btnUpdate.setVisible(false);
-       
+
         searchOption.setBackground(backColor);
         EditButton.setVisible(false);
         HomePanel.setVisible(false);
@@ -798,7 +788,7 @@ public class AppHomeForm extends javax.swing.JFrame {
                 profileOption.setBackground(backColor);
             } else {
                 User uv = repoU.Get(mail);
-                new viewProfile(uv,this.u1).setVisible(true);
+                new viewProfile(uv, this.u1).setVisible(true);
             }
 
         }
@@ -810,99 +800,92 @@ public class AppHomeForm extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
- 
-        String fn=this.firstNameField.getText();
-        String ln=this.lastNameField.getText();
-        String em=this.emailField.getText();
-        String pn=this.phoneNumberField.getText();
-        String dob=this.dobField.getText();
-        String mjr=this.majorField.getText();
-        String location=this.locationField.getText();
+        String fn = this.firstNameField.getText();
+        String ln = this.lastNameField.getText();
+        String em = this.emailField.getText();
+        String pn = this.phoneNumberField.getText();
+        String dob = this.dobField.getText();
+        String mjr = this.majorField.getText();
+        String location = this.locationField.getText();
 
         String ems = "";
         Component frame = null;
-        if (!Regex.isValidName(fn)||!Regex.isValidName(ln)||!Regex.isValidEmail(em)||!Regex.isValidDate(dob))
-        {
-            if (!Regex.isValidName(fn)){
-                 ems = ems + "Your first name is required in a valid form!";
-           
+        if (!Regex.isValidName(fn) || !Regex.isValidName(ln) || !Regex.isValidEmail(em) || !Regex.isValidDate(dob)) {
+            if (!Regex.isValidName(fn)) {
+                ems = ems + "Your first name is required in a valid form!";
+
             }
-            
-             if (!Regex.isValidName(ln)){
-                 ems = ems + "Your last name is required in a valid form!";
-            
-                
+
+            if (!Regex.isValidName(ln)) {
+                ems = ems + "Your last name is required in a valid form!";
+
             }
-             
-              if (!Regex.isValidEmail(em)){
-                 ems = ems + "Your email is required in a valid form!";
-          
-                
+
+            if (!Regex.isValidEmail(em)) {
+                ems = ems + "Your email is required in a valid form!";
+
             }
-             
-             if (!Regex.isValidDate(dob)){
-                 
-                 /*if (Regex.age==0){
+
+            if (!Regex.isValidDate(dob)) {
+
+                /*if (Regex.age==0){
                      ems = ems + "You are under legal age!";
             JOptionPane.showMessageDialog(frame, ems,
                     "Edit Profile", JOptionPane.ERROR_MESSAGE);
                  }
                  else{*/
-                 ems = ems + "Invalid date format!\nValid Format: DD/MM/YYYY";
-            
-                
+                ems = ems + "Invalid date format!\nValid Format: DD/MM/YYYY";
+
             }
-             JOptionPane.showMessageDialog(frame, ems,
-                    "Edit Profile", JOptionPane.ERROR_MESSAGE);
-        } 
-        else{
-        User u = new User();
-        Title.setText(this.firstNameField.getText() + "'s Page");
-        u.setFname(fn);
-        u.setLname(ln);
-        u.setEmail(em);
-        u.setPhoneNumber(pn);
-        u.setDob(dob);
-        u.setMajor(mjr);
-        u.setLocation(location);
-        u.setUid(uid);
-       
-        if (repoU.Update(u)) {
-            ems = ems + "Your profile has been updated!";
             JOptionPane.showMessageDialog(frame, ems,
-                    "Edit Profile", JOptionPane.INFORMATION_MESSAGE);
-             firstNameField.setEnabled(false);
+                    "Edit Profile", JOptionPane.ERROR_MESSAGE);
+        } else {
+            User u = new User();
+            Title.setText(this.firstNameField.getText() + "'s Page");
+            u.setFname(fn);
+            u.setLname(ln);
+            u.setEmail(em);
+            u.setPhoneNumber(pn);
+            u.setDob(dob);
+            u.setMajor(mjr);
+            u.setLocation(location);
+            u.setUid(uid);
+
+            if (repoU.Update(u)) {
+                ems = ems + "Your profile has been updated!";
+                JOptionPane.showMessageDialog(frame, ems,
+                        "Edit Profile", JOptionPane.INFORMATION_MESSAGE);
+                firstNameField.setEnabled(false);
                 lastNameField.setEnabled(false);
                 phoneNumberField.setEnabled(false);
-               locationField.setEnabled(false);
+                locationField.setEnabled(false);
                 dobField.setEnabled(false);
                 majorField.setEnabled(false);
                 unisComboBox.setEnabled(false);
-        } else {
-           ems = ems + "An error occured! Unable to update your profile!";
-            JOptionPane.showMessageDialog(frame, ems,
-                    "Edit Profile", JOptionPane.ERROR_MESSAGE);
+            } else {
+                ems = ems + "An error occured! Unable to update your profile!";
+                JOptionPane.showMessageDialog(frame, ems,
+                        "Edit Profile", JOptionPane.ERROR_MESSAGE);
+            }
         }
-             }
-    
-        
+
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void unisComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unisComboBoxActionPerformed
-       
-    
-        String uni=(String) unisComboBox.getSelectedItem();
-        
-        for (University u: unis){
-            
-            if (uni.equals(u.getUname())){
-                this.uid=u.getId();
+
+        String uni = (String) unisComboBox.getSelectedItem();
+
+        for (University u : unis) {
+
+            if (uni.equals(u.getUname())) {
+                this.uid = u.getId();
                 return;
             }
-         
+
         }
-        
-        
+
+
     }//GEN-LAST:event_unisComboBoxActionPerformed
 
     /**

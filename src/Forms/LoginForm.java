@@ -164,15 +164,6 @@ public class LoginForm extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            try {
-                JOptionPane.showMessageDialog(null, "Username or password incorrect");
-                
-                new AppHomeForm(u).setVisible(true);
-                this.dispose();
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }//GEN-LAST:event_LoginActionPerformed
 
