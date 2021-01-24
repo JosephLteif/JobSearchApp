@@ -44,7 +44,7 @@ public class EmailClass {
         }
         String host = "smtp.live.com";
         if(from.equals("thejobsearchapp@gmail.com")){
-            host = "smtp.gmail.com";
+            host = "smtp.live.com";
         }
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);

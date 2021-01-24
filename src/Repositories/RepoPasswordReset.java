@@ -44,7 +44,6 @@ public class RepoPasswordReset {
             System.out.println(ex);
         }
         return false;
-
     }
 
     public static boolean insert(PasswordReset pr) throws SQLException {
